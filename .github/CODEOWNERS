@@ -1,0 +1,6 @@
+# Replace these comments with real GitHub users or teams before enabling required
+# CODEOWNERS review. Safety-critical paths must have human owners.
+# /content/protocols/ @rapidaid-medical-reviewers
+# /content/emergency-directory/ @rapidaid-directory-reviewers
+# /apps/mobile/ @rapidaid-mobile-safety-reviewers
+# /infra/ @rapidaid-infrastructure-reviewers
