@@ -5,6 +5,7 @@ import { promisify } from "node:util";
 
 const execFileAsync = promisify(execFile);
 const MAX_FILE_BYTES = 100_000;
+const MAX_GIT_OUTPUT_BYTES = 8 * 1024 * 1024;
 const DENIED_SEGMENTS = new Set([
   ".git",
   ".pnpm-store",
@@ -93,7 +94,7 @@ export async function gitStatus(projectRoot: string): Promise<string> {
   const { stdout } = await execFileAsync(
     "git",
     ["-c", `safe.directory=${resolve(projectRoot)}`, "status", "--short"],
-    { cwd: projectRoot, windowsHide: true }
+    { cwd: projectRoot, windowsHide: true, maxBuffer: MAX_GIT_OUTPUT_BYTES }
   );
   return stdout || "Working tree clean.";
 }
@@ -102,7 +103,7 @@ export async function gitDiff(projectRoot: string): Promise<string> {
   const { stdout } = await execFileAsync(
     "git",
     ["-c", `safe.directory=${resolve(projectRoot)}`, "diff", "--", "."],
-    { cwd: projectRoot, windowsHide: true, maxBuffer: 200_000 }
+    { cwd: projectRoot, windowsHide: true, maxBuffer: MAX_GIT_OUTPUT_BYTES }
   );
   return stdout || "No unstaged diff.";
 }
@@ -159,7 +160,7 @@ export async function writeProjectFile(
   const { stdout } = await execFileAsync(
     "git",
     ["-c", `safe.directory=${resolve(projectRoot)}`, "diff", "--", requestedPath],
-    { cwd: projectRoot, windowsHide: true, maxBuffer: 200_000 }
+    { cwd: projectRoot, windowsHide: true, maxBuffer: MAX_GIT_OUTPUT_BYTES }
   );
   return stdout || "No diff produced.";
 }

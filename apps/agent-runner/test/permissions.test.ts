@@ -1,11 +1,14 @@
 import { describe, expect, it } from "vitest";
+import { execFile } from "node:child_process";
 import { mkdtemp, rm, symlink, unlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
+import { promisify } from "node:util";
 import { createDeveloperAgent } from "../src/developer-agent.js";
 import * as projectTools from "../src/tools/project-tools.js";
 
 const projectRoot = resolve(import.meta.dirname, "../../..");
+const execFileAsync = promisify(execFile);
 
 describe("Developer Agent permission boundary", () => {
   it("allows reading a small, allowlisted project file", async () => {
@@ -19,6 +22,34 @@ describe("Developer Agent permission boundary", () => {
   it("allows Git inspection without modifying global Git configuration", async () => {
     await expect(projectTools.gitStatus(projectRoot)).resolves.toBeTypeOf("string");
     await expect(projectTools.gitDiff(projectRoot)).resolves.toBeTypeOf("string");
+  });
+
+  it("inspects lockfile-sized diffs above the former output limit", async () => {
+    const repository = await mkdtemp(join(tmpdir(), "rapidaid-large-diff-"));
+    const lockfile = resolve(repository, "pnpm-lock.yaml");
+    const makeLockfile = (version: string) => Array.from(
+      { length: 12_000 },
+      (_, index) => `  synthetic-package-${index}: ${version}`
+    ).join("\n");
+
+    try {
+      await execFileAsync("git", ["init"], { cwd: repository, windowsHide: true });
+      await writeFile(lockfile, makeLockfile("0.0.0"), "utf8");
+      await execFileAsync("git", ["add", "pnpm-lock.yaml"], { cwd: repository, windowsHide: true });
+      await execFileAsync(
+        "git",
+        ["-c", "user.name=RapidAid Test", "-c", "user.email=test@invalid.example", "commit", "-m", "fixture"],
+        { cwd: repository, windowsHide: true }
+      );
+      await writeFile(lockfile, makeLockfile("9.9.9"), "utf8");
+
+      const diff = await projectTools.gitDiff(repository);
+
+      expect(Buffer.byteLength(diff, "utf8")).toBeGreaterThan(200_000);
+      expect(diff).toContain("pnpm-lock.yaml");
+    } finally {
+      await rm(repository, { recursive: true, force: true });
+    }
   });
 
   it.each([
