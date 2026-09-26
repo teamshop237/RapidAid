@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@react-native/metro-config": "0.86.3",
+    "@rapidaid/content-workflow": "workspace:*",
     "@testing-library/react-native": "14.0.1",
     "@types/jest": "29.5.14",
     "@types/react": "~19.2.2",
@@ -35,7 +36,7 @@
     "start": "expo start --dev-client",
     "android": "expo run:android",
     "prebuild": "pnpm run validate:directory",
-    "build": "expo export --platform android --output-dir dist",
+    "build": "expo export --platform android --output-dir dist && node scripts/validate-release-preview-boundary.mjs",
     "precheck": "pnpm run validate:directory",
     "check": "tsc --noEmit",
     "lint": "eslint .",

@@ -5,6 +5,7 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
+    "./odersa": "./src/odersa.ts",
     "./testing": "./src/testing.ts"
   },
   "scripts": {

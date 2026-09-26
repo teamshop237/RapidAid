@@ -1,4 +1,4 @@
-import { Stack, useLocalSearchParams } from "expo-router";
+import { Stack, router, useLocalSearchParams } from "expo-router";
 
 import { useAppSettings } from "@/providers/AppProviders";
 import { useProtocolContent } from "@/providers/ProtocolContentProvider";
@@ -17,7 +17,7 @@ export default function GuideRoute() {
   return (
     <>
       <Stack.Screen options={{ title }} />
-      <GuideDetailScreen guideId={id} />
+      <GuideDetailScreen guideId={id} onEmergency={() => router.push("/emergency-services")} />
     </>
   );
 }

@@ -1,7 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 
 import { AppScreen } from "@/components/AppScreen";
+import { DevelopmentPreviewNotice } from "@/components/DevelopmentPreviewNotice";
 import { FixtureNotice } from "@/components/FixtureNotice";
+import { PrimaryButton } from "@/components/PrimaryButton";
 import { ProtocolStatusView } from "@/components/ProtocolStatusView";
 import { useAppSettings } from "@/providers/AppProviders";
 import { useProtocolContent } from "@/providers/ProtocolContentProvider";
@@ -10,9 +12,10 @@ import { radius, spacing, typography } from "@/theme/tokens";
 
 type GuideDetailScreenProps = {
   guideId: string;
+  onEmergency?: () => void;
 };
 
-export function GuideDetailScreen({ guideId }: GuideDetailScreenProps) {
+export function GuideDetailScreen({ guideId, onEmergency }: GuideDetailScreenProps) {
   const { colors, language, t } = useAppSettings();
   const protocolContent = useProtocolContent();
   const guide = protocolContent.status === "ready"
@@ -20,6 +23,11 @@ export function GuideDetailScreen({ guideId }: GuideDetailScreenProps) {
     : undefined;
   const title = guide ? localizePresentationText(guide.title, language) : t("guidesTitle");
   const unavailableStatus = protocolContent.status === "ready" ? "not-found" : protocolContent.status;
+  const isDevelopmentPreview = protocolContent.status === "ready"
+    && protocolContent.mode === "development-preview";
+  const visibleSources = guide?.sources.filter((source) => (
+    source.organization !== "ODERSA" || source.language === language
+  )) ?? [];
 
   return (
     <AppScreen includeTopInset={false} testID="guide-detail-screen">
@@ -27,12 +35,27 @@ export function GuideDetailScreen({ guideId }: GuideDetailScreenProps) {
       {!guide ? <ProtocolStatusView status={unavailableStatus} /> : (
         <>
       <Text style={[styles.summary, { color: colors.textMuted }]}>{localizePresentationText(guide.summary, language)}</Text>
+      {isDevelopmentPreview ? <View style={styles.notice}><DevelopmentPreviewNotice /></View> : null}
       {guide.id.includes(".synthetic.") ? <View style={styles.notice}><FixtureNotice /></View> : null}
 
       <View style={[styles.statusCard, { borderBottomColor: colors.border }]}>
         <Text style={[styles.statusLabel, { color: colors.textMuted }]}>{t("guideStatus")}</Text>
-        <Text style={[styles.statusValue, { color: colors.success }]}>{t("guideStatusValue")}</Text>
+        <Text style={[styles.statusValue, { color: isDevelopmentPreview ? colors.primary : colors.success }]}>
+          {t(isDevelopmentPreview ? "guidePreviewStatusValue" : "guideStatusValue")}
+        </Text>
       </View>
+
+      {guide.emergencyServiceId === "service.cm.samu.119" && onEmergency ? (
+        <View style={styles.emergencyAction}>
+          <PrimaryButton
+            accessibilityHint={t("openSamuConfirmationHint")}
+            icon="call-outline"
+            label={t("openSamuConfirmation")}
+            onPress={onEmergency}
+            variant="emergency"
+          />
+        </View>
+      ) : null}
 
       <View style={[styles.steps, { backgroundColor: colors.surface, borderColor: colors.border }]}>
         {guide.sections.map((section) => (
@@ -60,6 +83,35 @@ export function GuideDetailScreen({ guideId }: GuideDetailScreenProps) {
           </View>
         ))}
       </View>
+
+      {visibleSources.length > 0 ? (
+        <View style={[styles.sources, { borderTopColor: colors.border }]}>
+          <Text accessibilityRole="header" style={[styles.sourcesTitle, { color: colors.text }]}>{t("sourcesTitle")}</Text>
+          {visibleSources.map((source) => (
+            <View key={source.id} style={styles.source}>
+              <Text style={[styles.sourceTitle, { color: colors.text }]}>{source.title}</Text>
+              <Text style={[styles.sourceMeta, { color: colors.textMuted }]}>{source.organization}</Text>
+              <Text style={[styles.sourceUrl, { color: colors.primary }]}>{source.locator}</Text>
+              {source.verifiedAt ? (
+                <Text style={[styles.sourceMeta, { color: colors.textMuted }]}>
+                  {t("sourceVerified")}: {source.verifiedAt.slice(0, 10)}
+                </Text>
+              ) : null}
+              {source.attribution ? <Text style={[styles.sourceMeta, { color: colors.textMuted }]}>{source.attribution}</Text> : null}
+              {source.adaptation ? (
+                <Text style={[styles.sourceMeta, { color: colors.textMuted }]}>
+                  {localizePresentationText(source.adaptation, language)}
+                </Text>
+              ) : null}
+              {source.endorsementDisclaimer ? (
+                <Text style={[styles.sourceMeta, { color: colors.textMuted }]}>
+                  {localizePresentationText(source.endorsementDisclaimer, language)}
+                </Text>
+              ) : null}
+            </View>
+          ))}
+        </View>
+      ) : null}
 
       <Text style={[styles.versionNote, { color: colors.textMuted, borderColor: colors.border }]}>
         {t("contentVersion")}: {guide.contentVersion}
@@ -91,6 +143,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     gap: 2,
   },
+  emergencyAction: { marginTop: 12 },
   statusLabel: {
     fontSize: typography.caption,
     fontWeight: "800",
@@ -147,4 +200,15 @@ const styles = StyleSheet.create({
     fontSize: typography.caption,
     lineHeight: 18,
   },
+  sources: {
+    marginTop: spacing.lg,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    paddingTop: spacing.md,
+    gap: spacing.md,
+  },
+  sourcesTitle: { fontSize: typography.heading, fontWeight: "800" },
+  source: { gap: 3 },
+  sourceTitle: { fontSize: typography.label, lineHeight: 20, fontWeight: "700" },
+  sourceMeta: { fontSize: typography.caption, lineHeight: 18 },
+  sourceUrl: { fontSize: typography.caption, lineHeight: 18 },
 });

@@ -40,6 +40,7 @@ export type OdersaImportedDraft = Readonly<{
   adaptationStatus: "adapted-for-rapidaid-cameroon-review";
   attribution: typeof ODERSA_ATTRIBUTION;
   contentVersion: typeof ODERSA_MVP_CONTENT_VERSION;
+  emergencyServiceId?: "service.cm.samu.119";
   content: EditableProtocolContent;
 }>;
 
@@ -67,6 +68,12 @@ const emergencyReferenceRules = new Set([
   "l-avc-en-60-secondes:3",
   "l-avc-en-60-secondes:7",
   "la-brulure-de-cuisine:5",
+]);
+
+const samuAdaptedRecords = new Set([
+  "l-arret-cardiaque",
+  "l-avc-en-60-secondes",
+  "la-brulure-de-cuisine",
 ]);
 
 function adaptEmergencyContact(recordId: string, rule: OdersaRule, locale: Locale): OdersaRule {
@@ -171,6 +178,7 @@ function importPair(pair: SourcePair): OdersaImportedDraft {
     adaptationStatus: "adapted-for-rapidaid-cameroon-review",
     attribution: ODERSA_ATTRIBUTION,
     contentVersion: ODERSA_MVP_CONTENT_VERSION,
+    ...(samuAdaptedRecords.has(pair.fr.id) ? { emergencyServiceId: "service.cm.samu.119" as const } : {}),
     content,
   };
 }

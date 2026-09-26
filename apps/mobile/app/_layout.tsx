@@ -2,6 +2,7 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 
 import { AppProviders, useAppSettings } from "@/providers/AppProviders";
+import { odersaDevelopmentProtocolPreview } from "@/protocols/developmentProtocolPreview";
 import { expoAppSettingsStore } from "@/settings/settingsStore";
 
 function RootNavigator() {
@@ -34,7 +35,10 @@ function RootNavigator() {
 
 export default function RootLayout() {
   return (
-    <AppProviders settingsStore={expoAppSettingsStore}>
+    <AppProviders
+      developmentProtocolPreview={__DEV__ ? odersaDevelopmentProtocolPreview : undefined}
+      settingsStore={expoAppSettingsStore}
+    >
       <RootNavigator />
     </AppProviders>
   );

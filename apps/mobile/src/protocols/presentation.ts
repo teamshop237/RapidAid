@@ -4,11 +4,25 @@ import type { Language } from "@/localization/translations";
 
 export type LocalizedPresentationText = Record<Language, string>;
 
+export type PresentationSource = {
+  id: string;
+  title: string;
+  organization: string;
+  locator: string;
+  language: Language;
+  verifiedAt?: string;
+  attribution?: string;
+  adaptation?: LocalizedPresentationText;
+  endorsementDisclaimer?: LocalizedPresentationText;
+};
+
 export type PresentationGuide = {
   id: string;
   contentVersion: string;
   title: LocalizedPresentationText;
   summary: LocalizedPresentationText;
+  emergencyServiceId?: "service.cm.samu.119";
+  sources: readonly PresentationSource[];
   sections: readonly {
     id: string;
     heading: LocalizedPresentationText;
@@ -26,6 +40,17 @@ export function toPresentationGuide(protocol: Protocol): PresentationGuide {
     contentVersion: protocol.contentVersion,
     title: protocol.title,
     summary: protocol.summary,
+    sources: protocol.provenance.sources.map((source) => ({
+      id: source.sourceId,
+      title: source.title,
+      organization: source.organization,
+      locator: source.locator,
+      language: source.language,
+      verifiedAt: source.verifiedAt,
+      attribution: source.license?.attribution,
+      adaptation: source.adaptation?.description,
+      endorsementDisclaimer: source.adaptation?.endorsementDisclaimer,
+    })),
     sections: protocol.sections.map((section) => ({
       id: section.sectionId,
       heading: section.heading,

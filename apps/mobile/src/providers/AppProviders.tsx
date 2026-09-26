@@ -3,7 +3,10 @@ import { SafeAreaProvider, initialWindowMetrics } from "react-native-safe-area-c
 import type { OfflineProtocolRepository } from "@rapidaid/protocol-engine";
 
 import { Language, TranslationKey, translate } from "@/localization/translations";
-import { ProtocolContentProvider } from "@/providers/ProtocolContentProvider";
+import {
+  ProtocolContentProvider,
+  type DevelopmentProtocolPreview,
+} from "@/providers/ProtocolContentProvider";
 import { AppSettingsStore, InMemoryAppSettingsStore } from "@/settings/settingsStore";
 import { AppColors, darkColors, lightColors } from "@/theme/tokens";
 
@@ -23,10 +26,11 @@ const AppSettingsContext = createContext<AppSettings | null>(null);
 
 type AppProvidersProps = PropsWithChildren<{
   protocolRepository?: OfflineProtocolRepository;
+  developmentProtocolPreview?: DevelopmentProtocolPreview;
   settingsStore?: AppSettingsStore;
 }>;
 
-export function AppProviders({ children, protocolRepository, settingsStore }: AppProvidersProps) {
+export function AppProviders({ children, protocolRepository, developmentProtocolPreview, settingsStore }: AppProvidersProps) {
   const [localSettingsStore] = useState(() => new InMemoryAppSettingsStore());
   const activeSettingsStore = settingsStore ?? localSettingsStore;
   const [language, setLanguage] = useState<Language>("en");
@@ -70,7 +74,10 @@ export function AppProviders({ children, protocolRepository, settingsStore }: Ap
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <AppSettingsContext.Provider value={value}>
-        <ProtocolContentProvider repository={protocolRepository}>
+        <ProtocolContentProvider
+          developmentPreview={developmentProtocolPreview}
+          repository={protocolRepository}
+        >
           {children}
         </ProtocolContentProvider>
       </AppSettingsContext.Provider>

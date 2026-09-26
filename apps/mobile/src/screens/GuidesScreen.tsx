@@ -1,6 +1,7 @@
 import { StyleSheet, View } from "react-native";
 
 import { AppScreen } from "@/components/AppScreen";
+import { DevelopmentPreviewNotice } from "@/components/DevelopmentPreviewNotice";
 import { EmptyState } from "@/components/EmptyState";
 import { FixtureNotice } from "@/components/FixtureNotice";
 import { NavigationCard } from "@/components/NavigationCard";
@@ -18,6 +19,8 @@ type GuidesScreenProps = {
 export function GuidesScreen({ onOpenGuide }: GuidesScreenProps) {
   const { colors, language, t } = useAppSettings();
   const protocolContent = useProtocolContent();
+  const isDevelopmentPreview = protocolContent.status === "ready"
+    && protocolContent.mode === "development-preview";
 
   return (
     <AppScreen testID="guides-screen">
@@ -27,12 +30,15 @@ export function GuidesScreen({ onOpenGuide }: GuidesScreenProps) {
           <EmptyState body={t("protocolMissing")} title={t("protocolUnavailableTitle")} />
         ) : (
           <>
+            {isDevelopmentPreview ? <View style={styles.notice}><DevelopmentPreviewNotice /></View> : null}
             {protocolContent.guides.some((guide) => guide.id.includes(".synthetic.")) ? <View style={styles.notice}><FixtureNotice /></View> : null}
             <View style={[styles.list, { backgroundColor: colors.surface, borderColor: colors.border }]}>
               {protocolContent.guides.map((guide) => (
                 <NavigationCard
                   accessibilityHint={t("openGuide")}
-                  badge={guide.id.includes(".synthetic.") ? t("guideDevelopmentFixture") : undefined}
+                  badge={isDevelopmentPreview
+                    ? t("developmentPreview")
+                    : guide.id.includes(".synthetic.") ? t("guideDevelopmentFixture") : undefined}
                   body={localizePresentationText(guide.summary, language)}
                   icon="document-text-outline"
                   key={guide.id}
