@@ -2,6 +2,7 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 
 import { AppProviders, useAppSettings } from "@/providers/AppProviders";
+import { expoAppSettingsStore } from "@/settings/settingsStore";
 
 function RootNavigator() {
   const { colors, isDarkMode, t } = useAppSettings();
@@ -33,7 +34,7 @@ function RootNavigator() {
 
 export default function RootLayout() {
   return (
-    <AppProviders>
+    <AppProviders settingsStore={expoAppSettingsStore}>
       <RootNavigator />
     </AppProviders>
   );

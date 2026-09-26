@@ -1,7 +1,8 @@
 import { StyleSheet, View } from "react-native";
 
 import { AppScreen } from "@/components/AppScreen";
-import { DemoNotice } from "@/components/DemoNotice";
+import { EmptyState } from "@/components/EmptyState";
+import { FixtureNotice } from "@/components/FixtureNotice";
 import { NavigationCard } from "@/components/NavigationCard";
 import { ProtocolStatusView } from "@/components/ProtocolStatusView";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -21,23 +22,27 @@ export function GuidesScreen({ onOpenGuide }: GuidesScreenProps) {
   return (
     <AppScreen testID="guides-screen">
       <SectionHeading body={t("guidesIntro")} title={t("guidesTitle")} />
-      <View style={styles.notice}>
-        <DemoNotice message={t("guidesNotice")} />
-      </View>
       {protocolContent.status === "ready" ? (
-        <View style={[styles.list, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-          {protocolContent.guides.map((guide) => (
-            <NavigationCard
-              accessibilityHint={t("openGuide")}
-              badge={t("verifiedSynthetic")}
-              body={localizePresentationText(guide.summary, language)}
-              icon="document-text-outline"
-              key={guide.id}
-              onPress={() => onOpenGuide(guide.id)}
-              title={localizePresentationText(guide.title, language)}
-            />
-          ))}
-        </View>
+        protocolContent.guides.length === 0 ? (
+          <EmptyState body={t("protocolMissing")} title={t("protocolUnavailableTitle")} />
+        ) : (
+          <>
+            {protocolContent.guides.some((guide) => guide.id.includes(".synthetic.")) ? <View style={styles.notice}><FixtureNotice /></View> : null}
+            <View style={[styles.list, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+              {protocolContent.guides.map((guide) => (
+                <NavigationCard
+                  accessibilityHint={t("openGuide")}
+                  badge={guide.id.includes(".synthetic.") ? t("guideDevelopmentFixture") : undefined}
+                  body={localizePresentationText(guide.summary, language)}
+                  icon="document-text-outline"
+                  key={guide.id}
+                  onPress={() => onOpenGuide(guide.id)}
+                  title={localizePresentationText(guide.title, language)}
+                />
+              ))}
+            </View>
+          </>
+        )
       ) : <ProtocolStatusView status={protocolContent.status} />}
     </AppScreen>
   );
@@ -45,10 +50,10 @@ export function GuidesScreen({ onOpenGuide }: GuidesScreenProps) {
 
 const styles = StyleSheet.create({
   notice: {
-    marginTop: 12,
+    marginTop: spacing.md,
   },
   list: {
-    marginTop: 12,
+    marginTop: spacing.md,
     borderWidth: 1,
     borderRadius: 10,
     paddingHorizontal: spacing.sm,

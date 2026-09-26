@@ -33,7 +33,7 @@ describe("route adapters", () => {
   it("enters the tab shell from onboarding", async () => {
     const screen = await renderRoute(<OnboardingRoute />);
 
-    await fireEvent.press(screen.getByRole("button", { name: "Continue" }));
+    await fireEvent.press(await screen.findByRole("button", { name: "Continue" }));
 
     expect(mockReplace).toHaveBeenCalledWith("/(tabs)");
   });
@@ -49,8 +49,8 @@ describe("route adapters", () => {
   it("opens guides and nearby from home", async () => {
     const screen = await renderRoute(<HomeRoute />);
 
-    await fireEvent.press(screen.getByRole("button", { name: "First aid guides" }));
-    await fireEvent.press(screen.getByRole("button", { name: "Nearby care" }));
+    await fireEvent.press(screen.getByRole("button", { name: "First-aid guides" }));
+    await fireEvent.press(screen.getByRole("button", { name: "Nearby emergency care" }));
 
     expect(mockPush).toHaveBeenNthCalledWith(1, "/guides");
     expect(mockPush).toHaveBeenNthCalledWith(2, "/nearby");

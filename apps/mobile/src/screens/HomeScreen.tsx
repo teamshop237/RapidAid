@@ -32,11 +32,11 @@ export function HomeScreen({ onEmergency, onGuides, onNearby }: HomeScreenProps)
     <AppScreen testID="home-screen">
       <View style={styles.header}>
         <BrandMark compact />
-        <Text style={[styles.demoText, { color: colors.textMuted }]}>{t("demoOnly")}</Text>
       </View>
 
       <View style={styles.intro}>
         <Text accessibilityRole="header" style={[styles.title, { color: colors.text }]}>{t("homeGreeting")}</Text>
+        <Text style={[styles.introBody, { color: colors.textMuted }]}>{t("homeIntro")}</Text>
       </View>
 
       <View
@@ -60,7 +60,7 @@ export function HomeScreen({ onEmergency, onGuides, onNearby }: HomeScreenProps)
       </View>
 
       <View style={styles.section}>
-        <SectionHeading title={t("explore")} />
+        <SectionHeading title={t("quickAccess")} />
         <View style={[styles.actionList, { backgroundColor: colors.surface, borderColor: colors.border }]}>
           <NavigationCard
             body={t("guidesCardBody")}
@@ -92,19 +92,19 @@ const styles = StyleSheet.create({
     gap: spacing.md,
     marginBottom: 20,
   },
-  demoText: {
-    fontSize: 9,
-    fontWeight: "700",
-    letterSpacing: 0.7,
-  },
   intro: {
-    marginBottom: 12,
+    gap: spacing.xs,
+    marginBottom: spacing.md,
   },
   title: {
-    fontSize: 20,
-    lineHeight: 26,
-    fontWeight: "700",
+    fontSize: 22,
+    lineHeight: 28,
+    fontWeight: "800",
     letterSpacing: -0.3,
+  },
+  introBody: {
+    fontSize: typography.label,
+    lineHeight: 21,
   },
   emergencyCard: {
     borderWidth: 1,

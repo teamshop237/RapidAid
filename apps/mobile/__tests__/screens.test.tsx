@@ -1,10 +1,12 @@
 import { fireEvent, render } from "@testing-library/react-native";
 
 import { AppProviders } from "@/providers/AppProviders";
+import { productionDirectory } from "@/directory/productionDirectory";
 import { EmergencyServicesScreen } from "@/screens/EmergencyServicesScreen";
 import { GuideDetailScreen } from "@/screens/GuideDetailScreen";
 import { HomeScreen } from "@/screens/HomeScreen";
 import { OnboardingScreen } from "@/screens/OnboardingScreen";
+import { NearbyScreen } from "@/screens/NearbyScreen";
 import { createSyntheticTestProtocolRepository } from "../test-support/testProtocolRepository";
 
 function renderWithProviders(element: React.ReactElement) {
@@ -15,7 +17,7 @@ function renderWithProviders(element: React.ReactElement) {
   );
 }
 
-describe("prototype screens", () => {
+describe("RapidAid MVP screens", () => {
   it("keeps the emergency action prominent and delegates navigation", async () => {
     const onEmergency = jest.fn();
     const screen = await renderWithProviders(
@@ -25,7 +27,7 @@ describe("prototype screens", () => {
     await fireEvent.press(screen.getByRole("button", { name: "Emergency" }));
 
     expect(onEmergency).toHaveBeenCalledTimes(1);
-    expect(screen.getByText("No call will be placed")).toBeTruthy();
+    expect(screen.getByText("You confirm every call in your phone dialer")).toBeTruthy();
   });
 
   it("changes the onboarding language without network or account setup", async () => {
@@ -34,7 +36,7 @@ describe("prototype screens", () => {
     await fireEvent.press(screen.getByRole("radio", { name: "Français" }));
 
     expect(screen.getByRole("button", { name: "Continuer" })).toBeTruthy();
-    expect(screen.getByText(/aucun conseil médical/i)).toBeTruthy();
+    expect(screen.getByText(/aucun compte requis/i)).toBeTruthy();
   });
 
   it("renders only validated synthetic repository content in guide detail", async () => {
@@ -42,19 +44,33 @@ describe("prototype screens", () => {
       <GuideDetailScreen guideId="protocol.synthetic.mobile.alpha" />,
     );
 
-    expect(await screen.findByText("Synthetic demonstration content — not medical guidance.")).toBeTruthy();
+    expect(await screen.findByText("Verified offline pipeline demonstration only")).toBeTruthy();
     expect(screen.getByText("SYNTHETIC CONTENT SLOT ALPHA — DO NOT TAKE ACTION.")).toBeTruthy();
-    expect(screen.getByText("Repository-validated synthetic content")).toBeTruthy();
+    expect(screen.getByText("Validated for offline use")).toBeTruthy();
+    expect(screen.getByText(/synthetic development data/i)).toBeTruthy();
   });
 
   it("renders non-dialable emergency controls", async () => {
     const screen = await renderWithProviders(<EmergencyServicesScreen />);
-    const callControls = screen.getAllByRole("button", { name: "Calling disabled in prototype" });
+    const callControls = screen.getAllByRole("button", { name: "Calling unavailable" });
 
-    expect(callControls).toHaveLength(3);
+    expect(callControls).toHaveLength(2);
     for (const control of callControls) {
       expect(control.props.accessibilityState).toEqual({ disabled: true });
     }
-    expect(screen.getAllByText("DEMO — NOT A NUMBER")).toHaveLength(3);
+    expect(screen.getAllByText("Number awaiting verification")).toHaveLength(2);
+  });
+
+  it("fails gracefully when verified directory data has not been supplied", async () => {
+    const screen = await renderWithProviders(
+      <>
+        <EmergencyServicesScreen snapshot={productionDirectory} />
+        <NearbyScreen snapshot={productionDirectory} />
+      </>,
+    );
+
+    expect(screen.getByTestId("emergency-directory-empty")).toBeTruthy();
+    expect(screen.getByTestId("nearby-directory-empty")).toBeTruthy();
+    expect(screen.queryByRole("button", { name: "Open phone dialer" })).toBeNull();
   });
 });

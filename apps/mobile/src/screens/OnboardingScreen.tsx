@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { AppScreen } from "@/components/AppScreen";
 import { BrandMark } from "@/components/BrandMark";
-import { DemoNotice } from "@/components/DemoNotice";
+import { InfoRow } from "@/components/InfoRow";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { useAppSettings } from "@/providers/AppProviders";
@@ -17,18 +17,16 @@ export function OnboardingScreen({ onContinue }: OnboardingScreenProps) {
 
   return (
     <AppScreen contentContainerStyle={styles.screen} testID="onboarding-screen">
-      <View style={styles.topRow}>
-        <BrandMark />
-        <Text style={[styles.prototypeText, { color: colors.textMuted }]}>{t("prototype")}</Text>
-      </View>
+      <BrandMark />
 
       <View style={styles.heroCopy}>
         <Text accessibilityRole="header" style={[styles.title, { color: colors.text }]}>{t("onboardingTagline")}</Text>
-        <Text style={[styles.body, { color: colors.textMuted }]}>{t("languageHint")}</Text>
+        <Text style={[styles.body, { color: colors.textMuted }]}>{t("onboardingBody")}</Text>
       </View>
 
-      <View style={styles.notice}>
-        <DemoNotice message={t("onboardingNotice")} />
+      <View style={[styles.benefits, { borderColor: colors.border }]}>
+        <InfoRow body={t("onboardingOfflineBody")} icon="cloud-offline-outline" title={t("onboardingOfflineTitle")} />
+        <InfoRow body={t("onboardingAccountBody")} icon="person-outline" title={t("onboardingAccountTitle")} />
       </View>
 
       <View style={styles.languageBlock}>
@@ -36,7 +34,7 @@ export function OnboardingScreen({ onContinue }: OnboardingScreenProps) {
         <LanguageSelector />
       </View>
 
-      <PrimaryButton accessibilityHint={t("homeIntro")} label={t("continue")} onPress={onContinue} />
+      <PrimaryButton accessibilityHint={t("homeIntro")} label={t("continue")} onPress={onContinue} testID="onboarding-continue" />
     </AppScreen>
   );
 }
@@ -45,19 +43,8 @@ const styles = StyleSheet.create({
   screen: {
     gap: 20,
   },
-  topRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: spacing.md,
-  },
-  prototypeText: {
-    fontSize: 9,
-    fontWeight: "700",
-    letterSpacing: 0.7,
-  },
   heroCopy: {
-    gap: spacing.xs,
+    gap: spacing.sm,
     marginTop: spacing.lg,
   },
   title: {
@@ -70,11 +57,13 @@ const styles = StyleSheet.create({
     fontSize: typography.label,
     lineHeight: 20,
   },
-  notice: {
+  benefits: {
+    borderTopWidth: StyleSheet.hairlineWidth,
     marginTop: spacing.xs,
   },
   languageBlock: {
     gap: spacing.sm,
+    marginTop: spacing.sm,
   },
   languageTitle: {
     fontSize: typography.label,

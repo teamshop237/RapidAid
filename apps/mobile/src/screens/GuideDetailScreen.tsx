@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 
 import { AppScreen } from "@/components/AppScreen";
-import { DemoNotice } from "@/components/DemoNotice";
+import { FixtureNotice } from "@/components/FixtureNotice";
 import { ProtocolStatusView } from "@/components/ProtocolStatusView";
 import { useAppSettings } from "@/providers/AppProviders";
 import { useProtocolContent } from "@/providers/ProtocolContentProvider";
@@ -26,13 +26,12 @@ export function GuideDetailScreen({ guideId }: GuideDetailScreenProps) {
       <Text accessibilityRole="header" style={[styles.title, { color: colors.text }]}>{title}</Text>
       {!guide ? <ProtocolStatusView status={unavailableStatus} /> : (
         <>
-      <View style={styles.notice}>
-        <DemoNotice message={t("guidePlaceholder")} />
-      </View>
+      <Text style={[styles.summary, { color: colors.textMuted }]}>{localizePresentationText(guide.summary, language)}</Text>
+      {guide.id.includes(".synthetic.") ? <View style={styles.notice}><FixtureNotice /></View> : null}
 
       <View style={[styles.statusCard, { borderBottomColor: colors.border }]}>
         <Text style={[styles.statusLabel, { color: colors.textMuted }]}>{t("guideStatus")}</Text>
-        <Text style={[styles.statusValue, { color: colors.emergencyForeground }]}>{t("guideStatusValue")}</Text>
+        <Text style={[styles.statusValue, { color: colors.success }]}>{t("guideStatusValue")}</Text>
       </View>
 
       <View style={[styles.steps, { backgroundColor: colors.surface, borderColor: colors.border }]}>
@@ -62,8 +61,8 @@ export function GuideDetailScreen({ guideId }: GuideDetailScreenProps) {
         ))}
       </View>
 
-      <Text style={[styles.architectureNote, { color: colors.textMuted, borderColor: colors.border }]}>
-        {t("guideStructure")} {t("contentVersion")}: {guide.contentVersion}.
+      <Text style={[styles.versionNote, { color: colors.textMuted, borderColor: colors.border }]}>
+        {t("contentVersion")}: {guide.contentVersion}
       </Text>
         </>
       )}
@@ -80,6 +79,11 @@ const styles = StyleSheet.create({
   },
   notice: {
     marginTop: 12,
+  },
+  summary: {
+    marginTop: spacing.sm,
+    fontSize: typography.label,
+    lineHeight: 22,
   },
   statusCard: {
     marginTop: 12,
@@ -136,7 +140,7 @@ const styles = StyleSheet.create({
     fontSize: typography.label,
     lineHeight: 20,
   },
-  architectureNote: {
+  versionNote: {
     marginTop: 16,
     borderTopWidth: 1,
     paddingTop: spacing.md,

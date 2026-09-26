@@ -2,176 +2,99 @@ import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, View } from "react-native";
 
 import { AppScreen } from "@/components/AppScreen";
-import { DemoNotice } from "@/components/DemoNotice";
+import { EmptyState } from "@/components/EmptyState";
+import { FixtureNotice } from "@/components/FixtureNotice";
 import { SectionHeading } from "@/components/SectionHeading";
-import { demoCareLocations, localizeDemoText } from "@/content/demoContent";
+import { getBundledDirectorySnapshot } from "@/directory/catalog";
+import type { CareFacilityCategory, DirectorySnapshot, DirectoryVerificationStatus } from "@/directory/types";
+import type { TranslationKey } from "@/localization/translations";
 import { useAppSettings } from "@/providers/AppProviders";
 import { radius, spacing, typography } from "@/theme/tokens";
 
-const mockPinPositions = [
-  { left: 54, top: 35 },
-  { right: 68, top: 90 },
-  { bottom: 35, left: "44%" as const },
-];
+const facilityLabels: Record<CareFacilityCategory, TranslationKey> = {
+  hospital: "facilityCategoryHospital",
+  clinic: "facilityCategoryClinic",
+};
 
-export function NearbyScreen() {
+const verificationLabels: Record<DirectoryVerificationStatus, TranslationKey> = {
+  verified: "verificationVerified",
+  "verification-due": "verificationDue",
+  unverified: "verificationUnverified",
+  "synthetic-only": "verificationSynthetic",
+};
+
+type NearbyScreenProps = {
+  snapshot?: DirectorySnapshot;
+};
+
+export function NearbyScreen({ snapshot = getBundledDirectorySnapshot() }: NearbyScreenProps) {
   const { colors, language, t } = useAppSettings();
 
   return (
     <AppScreen testID="nearby-screen">
       <SectionHeading body={t("nearbyIntro")} title={t("nearbyTitle")} />
-      <View style={styles.notice}>
-        <DemoNotice message={t("locationBody")} />
-      </View>
 
-      <View
-        accessibilityLabel={`${t("mockMap")}. ${t("locationOff")}`}
-        accessibilityRole="image"
-        style={[styles.map, { backgroundColor: colors.scrim, borderColor: colors.border }]}
-      >
-        <View accessible={false} style={[styles.roadHorizontal, { backgroundColor: colors.background }]} />
-        <View accessible={false} style={[styles.roadVertical, { backgroundColor: colors.background }]} />
-        {mockPinPositions.map((position, index) => (
-          <View accessible={false} key={index} style={[styles.pin, position, { backgroundColor: colors.primaryButton }]}>
-            <Ionicons color="#FFFFFF" name="location" size={19} />
-          </View>
-        ))}
-        <View style={[styles.mapLabel, { backgroundColor: colors.surface }]}>
-          <Text style={[styles.mapLabelText, { color: colors.text }]}>{t("mockMap")}</Text>
-        </View>
-      </View>
-
-      <View style={styles.locationStatus}>
-        <Ionicons accessible={false} color={colors.textMuted} name="location-outline" size={22} />
+      <View style={[styles.locationStatus, { backgroundColor: colors.primarySoft }]}>
+        <Ionicons accessible={false} color={colors.primary} name="location-outline" size={22} />
         <View style={styles.locationCopy}>
-          <Text style={[styles.locationTitle, { color: colors.text }]}>{t("locationOff")}</Text>
-          <Text style={[styles.locationBody, { color: colors.textMuted }]}>{t("locationBody")}</Text>
+          <Text style={[styles.locationTitle, { color: colors.text }]}>{t("nearbyLocationTitle")}</Text>
+          <Text style={[styles.locationBody, { color: colors.textMuted }]}>{t("nearbyLocationBody")}</Text>
         </View>
       </View>
 
-      <View style={styles.list}>
-        {demoCareLocations.map((facility) => (
-          <View key={facility.id} style={[styles.card, { borderBottomColor: colors.border }]}>
-            <View accessible={false} style={styles.icon}>
-              <Ionicons color={colors.primary} name={facility.icon} size={25} />
+      {snapshot.isSynthetic ? <View style={styles.fixture}><FixtureNotice /></View> : null}
+
+      {snapshot.careFacilities.length === 0 ? (
+        <EmptyState
+          body={t("nearbyEmptyBody")}
+          icon="medical-outline"
+          testID="nearby-directory-empty"
+          title={t("nearbyEmptyTitle")}
+        />
+      ) : (
+        <View style={styles.list}>
+          {snapshot.careFacilities.map((facility) => (
+            <View key={facility.id} style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+              <View style={styles.cardHeader}>
+                <View accessible={false} style={[styles.icon, { backgroundColor: colors.primarySoft }]}>
+                  <Ionicons color={colors.primary} name={facility.category === "hospital" ? "business-outline" : "medkit-outline"} size={24} />
+                </View>
+                <View style={styles.cardCopy}>
+                  <Text style={[styles.name, { color: colors.text }]}>{facility.facilityName[language]}</Text>
+                  <Text style={[styles.category, { color: colors.primary }]}>{t(facilityLabels[facility.category])}</Text>
+                </View>
+              </View>
+              <View style={[styles.details, { borderTopColor: colors.border }]}>
+                <Text style={[styles.detail, { color: colors.textMuted }]}><Text style={styles.detailLabel}>{t("coverage")}: </Text>{facility.geographicCoverage[language]}</Text>
+                <Text style={[styles.detail, { color: colors.textMuted }]}>{facility.address?.[language] ?? t("addressUnavailable")}</Text>
+                <Text style={[styles.detail, { color: colors.textMuted }]}><Text style={styles.detailLabel}>{t("verification")}: </Text>{t(verificationLabels[facility.verification.status])}</Text>
+                <Text style={[styles.detail, { color: colors.textMuted }]}><Text style={styles.detailLabel}>{t("verificationSource")}: </Text>{facility.verification.source.label[language]}</Text>
+                <Text style={[styles.detail, { color: colors.textMuted }]}><Text style={styles.detailLabel}>{t("verifiedOn")}: </Text>{facility.verification.verifiedAt?.slice(0, 10) ?? t("notVerified")}</Text>
+              </View>
+              <Text style={[styles.unavailable, { color: colors.textMuted }]}>{t("facilityDetailsUnavailable")}</Text>
             </View>
-            <View style={styles.cardCopy}>
-              <Text style={[styles.name, { color: colors.text }]}>{localizeDemoText(facility.name, language)}</Text>
-              <Text style={[styles.area, { color: colors.textMuted }]}>{localizeDemoText(facility.area, language)}</Text>
-              <Text style={[styles.distance, { color: colors.primary }]}>{localizeDemoText(facility.distance, language)}</Text>
-            </View>
-            <Text style={[styles.demoTag, { color: colors.primary }]}>{t("demoOnly")}</Text>
-          </View>
-        ))}
-      </View>
+          ))}
+        </View>
+      )}
     </AppScreen>
   );
 }
 
 const styles = StyleSheet.create({
-  notice: {
-    marginTop: 12,
-  },
-  map: {
-    height: 150,
-    overflow: "hidden",
-    borderWidth: 1,
-    borderRadius: radius.md,
-    marginTop: 12,
-  },
-  roadHorizontal: {
-    position: "absolute",
-    left: -20,
-    right: -20,
-    top: 68,
-    height: 18,
-    transform: [{ rotate: "-8deg" }],
-  },
-  roadVertical: {
-    position: "absolute",
-    top: -20,
-    bottom: -20,
-    left: "48%",
-    width: 18,
-    transform: [{ rotate: "14deg" }],
-  },
-  pin: {
-    position: "absolute",
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 2,
-    borderColor: "#FFFFFF",
-  },
-  mapLabel: {
-    position: "absolute",
-    left: spacing.md,
-    bottom: spacing.md,
-    borderRadius: radius.sm,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-  },
-  mapLabelText: {
-    fontSize: typography.caption,
-    fontWeight: "700",
-    letterSpacing: 0.6,
-  },
-  locationStatus: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: spacing.sm,
-    marginTop: 12,
-  },
-  locationCopy: {
-    flex: 1,
-    gap: spacing.xs,
-  },
-  locationTitle: {
-    fontSize: typography.label,
-    fontWeight: "800",
-  },
-  locationBody: {
-    fontSize: typography.caption,
-    lineHeight: 19,
-  },
-  list: {
-    marginTop: 12,
-  },
-  card: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-    paddingVertical: 12,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  icon: {
-    width: 36,
-    height: 36,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  cardCopy: {
-    flex: 1,
-    gap: 3,
-  },
-  name: {
-    fontSize: typography.label,
-    lineHeight: 20,
-    fontWeight: "700",
-  },
-  area: {
-    fontSize: typography.caption,
-    lineHeight: 18,
-  },
-  distance: {
-    fontSize: typography.caption,
-    fontWeight: "800",
-  },
-  demoTag: {
-    fontSize: 9,
-    fontWeight: "700",
-    letterSpacing: 0.5,
-  },
+  locationStatus: { flexDirection: "row", alignItems: "flex-start", gap: spacing.sm, marginTop: spacing.md, borderRadius: radius.sm, padding: 12 },
+  locationCopy: { flex: 1, gap: 2 },
+  locationTitle: { fontSize: typography.label, fontWeight: "800" },
+  locationBody: { fontSize: typography.caption, lineHeight: 18 },
+  fixture: { marginTop: spacing.md },
+  list: { gap: 12, marginTop: spacing.md },
+  card: { borderWidth: StyleSheet.hairlineWidth, borderRadius: radius.md, padding: 14, gap: spacing.sm },
+  cardHeader: { flexDirection: "row", alignItems: "center", gap: 12 },
+  icon: { width: 42, height: 42, alignItems: "center", justifyContent: "center", borderRadius: radius.sm },
+  cardCopy: { flex: 1, gap: 2 },
+  name: { fontSize: typography.body, lineHeight: 22, fontWeight: "800" },
+  category: { fontSize: typography.caption, lineHeight: 18, fontWeight: "700" },
+  details: { borderTopWidth: StyleSheet.hairlineWidth, paddingTop: spacing.sm, gap: 4 },
+  detail: { fontSize: typography.caption, lineHeight: 18 },
+  detailLabel: { fontWeight: "800" },
+  unavailable: { fontSize: typography.caption, lineHeight: 18, fontStyle: "italic" },
 });

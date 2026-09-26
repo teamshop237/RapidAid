@@ -37,7 +37,7 @@ describe("mobile offline protocol integration", () => {
     );
 
     expect(await screen.findAllByText(syntheticTitle)).toHaveLength(2);
-    expect(screen.getByText("VERIFIED SYNTHETIC DEMO")).toBeTruthy();
+    expect(screen.getByText("DEVELOPMENT FIXTURE")).toBeTruthy();
     expect(screen.getByText(syntheticStep)).toBeTruthy();
   });
 
@@ -52,7 +52,7 @@ describe("mobile offline protocol integration", () => {
     await fireEvent.press(screen.getByRole("radio", { name: "Français" }));
 
     expect(await screen.findByText("Guide synthétique Alpha — aucun conseil médical")).toBeTruthy();
-    expect(screen.getByText("DÉMO SYNTHÉTIQUE VÉRIFIÉE")).toBeTruthy();
+    expect(screen.getByText("DONNÉES DE DÉVELOPPEMENT")).toBeTruthy();
   });
 
   it("rejects a tampered bundled package without exposing its protocol", async () => {

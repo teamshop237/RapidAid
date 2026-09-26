@@ -2,7 +2,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, View } from "react-native";
 
 import { AppScreen } from "@/components/AppScreen";
-import { DemoNotice } from "@/components/DemoNotice";
 import { SectionHeading } from "@/components/SectionHeading";
 import { TranslationKey } from "@/localization/translations";
 import { useAppSettings } from "@/providers/AppProviders";
@@ -29,9 +28,7 @@ export function PrivacyScreen() {
           </View>
         ))}
       </View>
-      <View style={styles.notice}>
-        <DemoNotice message={t("privacyReview")} />
-      </View>
+      <Text style={[styles.reviewNote, { color: colors.textMuted, borderTopColor: colors.border }]}>{t("privacyReview")}</Text>
     </AppScreen>
   );
 }
@@ -55,7 +52,11 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     fontWeight: "600",
   },
-  notice: {
+  reviewNote: {
     marginTop: 16,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    paddingTop: spacing.md,
+    fontSize: typography.caption,
+    lineHeight: 18,
   },
 });

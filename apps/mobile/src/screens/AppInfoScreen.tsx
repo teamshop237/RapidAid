@@ -2,7 +2,6 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { AppScreen } from "@/components/AppScreen";
 import { BrandMark } from "@/components/BrandMark";
-import { DemoNotice } from "@/components/DemoNotice";
 import { TranslationKey } from "@/localization/translations";
 import { useAppSettings } from "@/providers/AppProviders";
 import { spacing, typography } from "@/theme/tokens";
@@ -21,9 +20,6 @@ export function AppInfoScreen() {
     <AppScreen includeTopInset={false} testID="app-info-screen">
       <BrandMark />
       <Text accessibilityRole="header" style={[styles.title, { color: colors.text }]}>{t("appInfoTitle")}</Text>
-      <View style={styles.notice}>
-        <DemoNotice message={t("onboardingNotice")} />
-      </View>
       <View style={[styles.card, { borderTopColor: colors.border }]}>
         {informationRows.map((row, index) => (
           <View
@@ -45,9 +41,6 @@ const styles = StyleSheet.create({
     fontSize: typography.title,
     lineHeight: 31,
     fontWeight: "800",
-  },
-  notice: {
-    marginTop: 12,
   },
   card: {
     marginTop: 16,
