@@ -1,5 +1,6 @@
 node_modules/
 .turbo/
+.next/
 dist/
 coverage/
 .pnpm-store/
@@ -7,6 +8,7 @@ coverage/
 .env.*
 !.env.example
 *.log
+*.tsbuildinfo
 .DS_Store
 android/
 ios/
