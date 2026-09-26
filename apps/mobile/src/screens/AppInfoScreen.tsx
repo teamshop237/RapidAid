@@ -11,6 +11,9 @@ const informationRows: readonly { label: TranslationKey; value: TranslationKey }
   { label: "scopeLabel", value: "scopeValue" },
   { label: "safetyLabel", value: "safetyValue" },
   { label: "releaseLabel", value: "releaseValue" },
+  { label: "sourcesLabel", value: "odersaAttribution" },
+  { label: "adaptationLabel", value: "odersaAdaptation" },
+  { label: "endorsementLabel", value: "odersaEndorsement" },
 ];
 
 export function AppInfoScreen() {

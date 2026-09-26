@@ -1,0 +1,438 @@
+{
+ "_licence": "CC BY 4.0 · https://creativecommons.org/licenses/by/4.0/",
+ "_source": "https://avantlessecours.odersa.org/cas/l-arret-cardiaque",
+ "_note": "Un cas d'Avant les secours (ODERSA), en licence ouverte. Les extraits de `source_officielle` sont des VERBATIMS de référentiels publics : ils gardent la licence de leurs éditeurs, et se citent avec leur adresse.",
+ "genere_le": "2026-09-14",
+ "id": "l-arret-cardiaque",
+ "numero": 8,
+ "niveau": 2,
+ "titre": "L'arrêt cardiaque",
+ "titreCourt": "L'arrêt cardiaque",
+ "punchline": "Personne ne t'a jamais dit à quel point c'est physique. Ici, tu vas le sentir dans ton bras avant de le comprendre dans ta tête.",
+ "metaDescription": "Jouez un arrêt cardiaque : reconnaître les hoquets qui ne sont pas une respiration, alerter, masser au bon rythme et à la bonne place. Mini-jeu de cadence, gratuit, référentiels publics français.",
+ "duree": "4 minutes",
+ "chrono_objectif": 240,
+ "gestes": [
+  "Reconnaître un arrêt cardiaque",
+  "Ne pas confondre les hoquets avec une respiration",
+  "Faire alerter et faire chercher le défibrillateur",
+  "Masser sur un plan dur",
+  "Placer ses mains au milieu de la poitrine",
+  "Tenir 100 à 120 compressions par minute",
+  "Laisser le thorax se relever entre deux compressions",
+  "Se relayer sans interrompre"
+ ],
+ "checkpoints": [
+  "s3-l-alerte",
+  "s6-l-epreuve"
+ ],
+ "requetes": [
+  "massage cardiaque rythme",
+  "comment savoir si quelqu'un est en arrêt cardiaque",
+  "il respire bizarrement arrêt cardiaque",
+  "combien de compressions par minute",
+  "où placer ses mains massage cardiaque"
+ ],
+ "scenes": [
+  {
+   "id": "s1-ouverture",
+   "titre": "Ouverture",
+   "decor": "gymnase-nuit",
+   "animation": "gymnase-fin-de-seance",
+   "narration": [
+    "21 h 30, gymnase municipal. Le cours de volley est fini depuis dix minutes. Vous êtes trois à ranger les filets, sous les halogènes que personne n'a songé à éteindre.",
+    "L'homme au fond s'arrête au milieu du terrain, une main sur le torse. Puis il tombe d'un bloc, sans se retenir."
+   ],
+   "sous_titres": "Un banc qui racle, des pas qui s'arrêtent, le silence d'une grande salle.",
+   "suite": {
+    "texte": "Courir vers lui",
+    "suivant": "s2-le-constat"
+   }
+  },
+  {
+   "id": "s2-le-constat",
+   "titre": "Le constat",
+   "decor": "gymnase-nuit",
+   "animation": "gymnase-arret",
+   "narration": [
+    "Il est sur le dos, sur le parquet. Il ne dit rien.",
+    "Sa gorge fait un bruit toutes les cinq ou six secondes, comme un hoquet. Sa poitrine, elle, ne se soulève pas."
+   ],
+   "question": "Qu'est-ce que tu fais en premier ?",
+   "choix": [
+    {
+     "texte": "Je m'agenouille, je lui parle fort, je lui secoue l'épaule, et je regarde sa poitrine pendant dix secondes.",
+     "type": "juste",
+     "consequence_animee": "verifie-arret",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Il ne réagit pas et il ne respire pas normalement",
+      "message": "C'est tout ce qu'il te fallait établir, et le référentiel borne même le temps : apprécier la respiration sur dix secondes au plus. Deux questions, deux réponses : est-ce qu'il réagit, est-ce que sa poitrine se soulève. À partir de là, tout est décidé.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s3-l-alerte"
+    },
+    {
+     "texte": "Ces hoquets, c'est qu'il respire encore : je le tourne sur le côté et j'attends que ça revienne.",
+     "type": "piege",
+     "consequence_animee": "agonique-piege",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Ces hoquets ne sont pas une respiration",
+      "message": "Des mouvements lents, bruyants, difficiles et inefficaces : le référentiel les nomme respiration agonique, et il dit de les considérer comme un arrêt cardiaque. C'est le signe le plus trompeur de toute cette situation, et celui qui fait perdre le plus de temps.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s2-le-constat"
+    },
+    {
+     "texte": "Je cherche « massage cardiaque » sur mon téléphone, il doit y avoir une vidéo.",
+     "type": "vanne",
+     "consequence_animee": "vanne-video",
+     "verdict": {
+      "couleur": "jaune",
+      "titre": "Il y en a. Elles durent quatre minutes",
+      "message": "Tu en as trois. Range-le, sauf pour appeler : c'est la seule chose que ton téléphone sait faire d'utile ce soir.",
+      "canon_source": null
+     },
+     "cout_chrono": 14,
+     "suivant": "s2-le-constat"
+    }
+   ]
+  },
+  {
+   "id": "s3-l-alerte",
+   "titre": "L'alerte",
+   "decor": "gymnase-nuit",
+   "animation": "gymnase-alerte",
+   "narration": [
+    "L'autre joueur est resté debout à trois mètres, son téléphone déjà dans la main, et il te regarde.",
+    "Au fond de la salle, sur le mur, il y a un boîtier vert."
+   ],
+   "question": "Tu as un témoin et dix secondes. Tu en fais quoi ?",
+   "choix": [
+    {
+     "texte": "Je lui crie deux choses : « Appelle le 15 » et « Va chercher le boîtier vert au mur ». Et je reste, moi.",
+     "type": "juste",
+     "consequence_animee": "envoie-temoin",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Deux ordres clairs, à quelqu'un de précis",
+      "message": "La Croix-Rouge l'écrit dans cet ordre : demander à quelqu'un de prévenir les secours et d'apporter immédiatement un défibrillateur. Toi, tu ne bouges plus de là. Un témoin qui a une consigne nette part tout de suite ; un témoin à qui on n'a rien dit regarde.",
+      "canon_source": "croix-rouge-arret-cardiaque"
+     },
+     "suivant": "s4-le-plan-dur"
+    },
+    {
+     "texte": "J'appelle moi-même, puis je traverse la salle chercher l'appareil : je préfère m'en occuper.",
+     "type": "piege",
+     "consequence_animee": "part-tout-seul",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Pendant ce temps, personne ne masse",
+      "message": "Tu es la seule personne à genoux près de lui : c'est ta place, et elle ne se quitte pas. Le référentiel donne les deux courses au tiers présent, précisément pour que le massage démarre tout de suite.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s3-l-alerte"
+    },
+    {
+     "texte": "Je commence le massage tout de suite et sans rien dire : l'alerte, on verra après.",
+     "type": "piege",
+     "consequence_animee": "masse-sans-alerte",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Tu masses pour une équipe que personne n'a appelée",
+      "message": "Le massage fait gagner du temps, il ne fait pas repartir un cœur à lui seul. Ce qui fait repartir un cœur arrive dans un camion, et avec l'appareil du mur. Une phrase suffisait à lancer les deux.",
+      "canon_source": "croix-rouge-arret-cardiaque"
+     },
+     "suivant": "s3-l-alerte"
+    }
+   ]
+  },
+  {
+   "id": "s4-le-plan-dur",
+   "titre": "L'installation",
+   "decor": "gymnase-nuit",
+   "animation": "gymnase-installe",
+   "narration": [
+    "L'autre est parti en courant, le téléphone contre l'oreille. Tu es seul avec lui.",
+    "À deux mètres, il y a une pile de tapis de gym."
+   ],
+   "question": "Tu l'installes comment ?",
+   "choix": [
+    {
+     "texte": "Je le laisse à plat sur le dos, sur le parquet, je me mets à genoux tout près, et je dénude sa poitrine.",
+     "type": "juste",
+     "consequence_animee": "installe-massage",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Le parquet est exactement ce qu'il faut",
+      "message": "Position horizontale, sur le dos, sur un plan dur : le sol fait le travail. À genoux au plus près, poitrine dénudée, et tu es prêt. Rien de plus à préparer.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s5-la-place"
+    },
+    {
+     "texte": "Je le tire sur les tapis de gym, il sera mieux qu'à même le sol.",
+     "type": "piege",
+     "consequence_animee": "tapis-mou",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Le tapis s'enfonce à la place de sa poitrine",
+      "message": "Un plan mou avale la compression : tu appuies fort et rien n'arrive au cœur. Le référentiel demande un plan dur, le sol ou une table. Le confort n'est pas la question de cette minute.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s4-le-plan-dur"
+    },
+    {
+     "texte": "Je le mets en position latérale de sécurité en attendant les secours.",
+     "type": "piege",
+     "consequence_animee": "pls-au-lieu-de-masser",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "La position latérale, c'est pour quelqu'un qui respire",
+      "message": "Elle protège les voies aériennes d'une personne inconsciente qui respire normalement. Lui ne respire pas : ce qu'il attend de toi, ce sont des compressions, et sur le dos.",
+      "canon_source": "croix-rouge-arret-cardiaque"
+     },
+     "suivant": "s4-le-plan-dur"
+    }
+   ]
+  },
+  {
+   "id": "s5-la-place",
+   "titre": "La place des mains",
+   "decor": "massage-serre",
+   "animation": "massage-plan-serre",
+   "narration": [
+    "Tu es à genoux contre lui, sa poitrine est dégagée. Tes mains sont au-dessus, elles hésitent d'un demi-centimètre."
+   ],
+   "sous_titres": "Le silence d'une grande salle, et le frottement du parquet sous tes genoux.",
+   "question": "Où poses-tu tes mains ?",
+   "choix": [
+    {
+     "texte": "Le talon d'une main au milieu de la poitrine, l'autre main par-dessus, doigts entrecroisés, bras tendus et coudes verrouillés.",
+     "type": "juste",
+     "consequence_animee": "mains-au-centre",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Le talon d'une main, au milieu de la poitrine",
+      "message": "L'autre main par-dessus, les doigts entrecroisés et relevés pour ne pas appuyer sur les côtes, les bras tendus et les coudes verrouillés. C'est ce montage qui transmet ton poids au sternum au lieu de le perdre dans tes bras.",
+      "canon_source": "croix-rouge-arret-cardiaque"
+     },
+     "suivant": "s6-l-epreuve"
+    },
+    {
+     "texte": "Sur le creux de l'estomac, un peu plus bas : c'est là que ça s'enfonce le mieux.",
+     "type": "piege",
+     "consequence_animee": "mains-trop-bas",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Trop bas : tu appuies sur le ventre",
+      "message": "Le repère de l'adulte est le centre de la poitrine, sur la ligne médiane, sur la moitié inférieure du sternum. Plus bas, on quitte le sternum et la pression ne va plus au cœur.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s5-la-place"
+    },
+    {
+     "texte": "À gauche, sur les côtes, là où on entend le cœur battre.",
+     "type": "piege",
+     "consequence_animee": "mains-sur-cotes",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Jamais sur les côtes",
+      "message": "Le référentiel le répète deux fois : appuyer verticalement, et ne pas appuyer sur les côtes. Le cœur est au milieu, derrière le sternum, et c'est le sternum qu'on enfonce.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s5-la-place"
+    }
+   ]
+  },
+  {
+   "id": "s6-l-epreuve",
+   "titre": "Tenir la cadence",
+   "decor": "massage-serre",
+   "animation": "massage-depart",
+   "narration": [
+    "Tes mains sont en place. Il n'y a plus rien à décider : il y a un rythme à tenir, et il est plus rapide que tu ne crois."
+   ],
+   "sous_titres": "Des appuis sourds, réguliers. Rien d'autre.",
+   "question": "Trente secondes de massage. Vas-y.",
+   "epreuve": {
+    "type": "cadence",
+    "consigne": "Appuie à chaque temps : au doigt, à la souris, ou avec la barre espace. L'aiguille doit rester dans la zone claire, entre 100 et 120 par minute. Le guide sonore est là si tu le veux, et il n'est pas obligatoire.",
+    "action": "Comprimer",
+    "cible_min": 100,
+    "cible_max": 120,
+    "secondes": 30,
+    "serie": 30,
+    "coups_min": 34,
+    "part_min": 0.5,
+    "depart": "Appuie une première fois : le décompte part avec ta première compression.",
+    "en_cours": "Tiens la cadence. Laisse la poitrine se relever complètement entre deux appuis.",
+    "serie_texte": "Trente compressions. Deux insufflations, puis on reprend.",
+    "fatigue_texte": "Ton bras fatigue et la cadence glisse toute seule. C'est normal, et c'est le vrai sujet : compense.",
+    "canon_source": "psc1-2024-dgscgc",
+    "reussite": {
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Tu as tenu, et maintenant tu sais ce que ça coûte",
+      "message": "Entre 100 et 120 par minute, un temps de compression égal au temps de relâchement, et la poitrine qui reprend sa forme entre chaque appui. Trente secondes t'ont suffi à comprendre pourquoi on se relaie toutes les deux minutes.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s7-le-relais"
+    },
+    "echec": {
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "La cadence n'a pas tenu : quelqu'un prend le relais",
+      "message": "Trop lent, le sang ne circule plus assez. Trop vite, la poitrine n'a pas le temps de se relever et le cœur ne se remplit pas. La fenêtre est étroite pour cette raison : 100 à 120 par minute, avec un relâchement complet. Ici, tu passes la main : le référentiel demande de se relayer toutes les deux minutes en interrompant le moins possible les compressions. Le massage continue sans toi.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s7-le-relais"
+    }
+   }
+  },
+  {
+   "id": "s7-le-relais",
+   "titre": "Le relais",
+   "decor": "massage-serre",
+   "animation": "massage-relais",
+   "narration": [
+    "Deux minutes. Ton épaule brûle, ton dos t'a lâché avant ton bras.",
+    "L'autre joueur revient en courant, le boîtier vert dans les mains. Il a le 15 en ligne."
+   ],
+   "question": "Tu fais quoi ?",
+   "choix": [
+    {
+     "texte": "Je ne m'arrête pas, et je lui dis d'allumer l'appareil tout de suite.",
+     "type": "juste",
+     "consequence_animee": "continue-sans-arret",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "L'appareil s'allume pendant que tu masses",
+      "message": "Les compressions ne s'interrompent que lorsque l'appareil demande de ne plus toucher la victime. Tout le reste, y compris son installation, se fait autour de tes mains sans les arrêter.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s8-les-secours"
+    },
+    {
+     "texte": "Je retire mes mains une seconde pour voir s'il respire maintenant.",
+     "type": "piege",
+     "consequence_animee": "arrete-pour-regarder",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Chaque pause remet la pression à zéro",
+      "message": "On poursuit jusqu'à ce que les secours arrivent ou que la respiration redevienne normale de façon évidente. Vérifier toutes les trente secondes ne fait pas revenir la respiration : cela interrompt la seule chose qui fait circuler du sang.",
+      "canon_source": "croix-rouge-arret-cardiaque"
+     },
+     "suivant": "s7-le-relais"
+    },
+    {
+     "texte": "On se relaie, mais je lui dis de poser le boîtier de côté : on s'en occupera après.",
+     "type": "piege",
+     "consequence_animee": "pose-l-appareil",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Un appareil éteint ne sert à rien",
+      "message": "Le relais est juste. Mais l'appareil, lui, se met en marche dès qu'il est disponible, pas quand on aura le temps : on l'allume et on suit ses instructions.",
+      "canon_source": "croix-rouge-dae"
+     },
+     "suivant": "s7-le-relais"
+    }
+   ]
+  },
+  {
+   "id": "s8-les-secours",
+   "titre": "Les secours",
+   "decor": "gymnase-nuit",
+   "animation": "secours-gymnase",
+   "narration": [
+    "Du bleu par la porte du fond, deux sirènes qui s'arrêtent l'une après l'autre. Quatre personnes traversent la salle avec un sac et une planche.",
+    "Quelqu'un met une main sur ton épaule et dit « on prend ». Tes mains partent, et tes bras tremblent tout seuls.",
+    "Tu n'as rien réparé ce soir. Tu as fait circuler du sang pendant les minutes où personne d'autre ne pouvait le faire."
+   ],
+   "sous_titres": "Deux sirènes qui s'arrêtent, une porte, des voix calmes.",
+   "final": true
+  }
+ ],
+ "fiche_recap": {
+  "titre": "Arrêt cardiaque : la reconnaissance et le massage",
+  "chapeau": "Huit règles, toutes tirées du référentiel PSC1 2024 du ministère de l'Intérieur et des consignes publiques de la Croix-Rouge française.",
+  "regles": [
+   {
+    "cle": "1",
+    "titre": "Deux questions, dix secondes",
+    "texte": "Est-ce qu'elle réagit quand on lui parle et qu'on lui secoue l'épaule ? Est-ce que sa poitrine se soulève ? La respiration s'apprécie sur dix secondes au plus. Deux non, et c'est un arrêt cardiaque. Il n'y a rien d'autre à chercher.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "2",
+    "titre": "Les hoquets ne sont pas une respiration",
+    "texte": "Des mouvements respiratoires lents, bruyants, difficiles et inefficaces portent un nom : respiration agonique. Le référentiel demande de les considérer comme un arrêt cardiaque. C'est le signe qui trompe le plus de monde.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "3",
+    "titre": "Faire alerter, faire apporter l'appareil",
+    "texte": "Demander à quelqu'un de prévenir les secours, le 15 ou le 18, et d'apporter immédiatement un défibrillateur automatisé externe. Deux consignes nettes, à une personne désignée. Si tu es seul, tu appelles toi-même, très tôt, en haut-parleur.",
+    "source": "croix-rouge-arret-cardiaque"
+   },
+   {
+    "cle": "4",
+    "titre": "Sur le dos, sur un plan dur",
+    "texte": "Position horizontale, sur le dos, de préférence sur un plan dur : le sol, une table. Se placer à genoux au plus près, et dénuder la poitrine. Un matelas ou un tapis avale la compression.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "5",
+    "titre": "Au milieu de la poitrine, de 5 à 6 cm",
+    "texte": "Le talon d'une main au milieu de la poitrine nue, sur le sternum, l'autre main par-dessus, doigts entrecroisés et relevés. Comprimer verticalement le sternum en l'enfonçant de 5 à 6 cm, bras tendus, coudes verrouillés. Jamais sur les côtes.",
+    "source": "croix-rouge-arret-cardiaque"
+   },
+   {
+    "cle": "6",
+    "titre": "100 à 120 par minute",
+    "texte": "Maintenir une fréquence comprise entre 100 et 120 compressions par minute. Un temps de compression égal au temps de relâchement. Si l'on sait insuffler, répéter des cycles de 30 compressions suivies de 2 insufflations ; si les insufflations sont impossibles ou qu'on ne s'en sent pas capable, masser en continu, sans interruption.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "7",
+    "titre": "Laisser la poitrine se relever",
+    "texte": "Après chaque pression, laisser la poitrine reprendre sa position initiale, sans décoller le talon de la main. C'est ce relâchement qui permet au sang de revenir vers le cœur : une compression qui ne relâche pas ne remplit rien.",
+    "source": "croix-rouge-arret-cardiaque"
+   },
+   {
+    "cle": "8",
+    "titre": "Se relayer, ne pas s'arrêter",
+    "texte": "À plusieurs, relayer la personne qui masse toutes les deux minutes, en interrompant le moins possible. Poursuivre jusqu'à l'arrivée des secours ou jusqu'au retour d'une respiration normale. Les compressions ne s'arrêtent que lorsque le défibrillateur demande de ne plus toucher la victime.",
+    "source": "psc1-2024-dgscgc"
+   }
+  ],
+  "avertissement": "Cette fiche entraîne. Elle ne remplace ni une formation certifiante, ni un avis médical. En situation réelle : 15 ou 112."
+ },
+ "source_officielle": {
+  "verifie_le": "2026-08-23",
+  "sources": [
+   {
+    "cle": "psc1-2024-dgscgc",
+    "titre": "Référentiel national de compétences de sécurité civile, Prévention et secours civiques de niveau 1 (PSC1), édition 2024",
+    "editeur": "Direction générale de la sécurité civile et de la gestion des crises (DGSCGC), ministère de l'Intérieur",
+    "url": "https://mobile.interieur.gouv.fr/content/download/111131/888067/file/2024%20PSC1.pdf",
+    "extrait": "Rechercher l'absence de réponse et pour cela : poser des questions simples (exemples : « Comment ça va ? », « Vous m'entendez ? ») ; secouer doucement les épaules ou lui prendre la main et demander d'exécuter un ordre simple (exemple : « serrez-moi la main »). […] apprécier la respiration sur 10 secondes au plus. Pour cela : maintenir la libération des voies aériennes ; se pencher sur la victime, oreille et joue du sauveteur au-dessus de la bouche et du nez de la victime pour : regarder si le ventre et la poitrine se soulèvent ; écouter d'éventuels sons provoqués par la respiration ; sentir un éventuel flux d'air à l'expiration. […] ne présente pas de respiration ou présente une respiration anormale, débuter la RCP. […] ou présente une respiration anormale avec des mouvements respiratoires lents, bruyants, difficiles et inefficaces (respiration agonique). […] Une respiration anormale (agonique) doit être considérée comme un arrêt cardiaque. […] Un tiers est présent : […] débuter immédiatement une RCP en répétant des cycles de 30 compressions thoraciques suivies de 2 insufflations. […] La victime est installée en position horizontale, sur le dos, de préférence sur un plan dur (sol, table, etc). […] se placer à genoux au plus près de la victime (adulte et enfant) ; dénuder la poitrine de la victime, dans la mesure du possible ; […] appuyer verticalement ; ne pas appuyer sur les côtes ; maintenir une fréquence comprise entre 100 et 120 compressions par minute ; assurer un temps de compression égal au temps de relâchement ; laisser le thorax reprendre sa forme initiale, entre chaque compression, sans pour cela décoller le talon de la main (adulte, enfant) […] Chez l'adulte : placer le talon d'une main au centre de la poitrine, sur la ligne médiane, sur la moitié inférieure du sternum ; placer l'autre main au-dessus de la première et entrecroiser les doigts des deux mains ; relever les doigts pour ne pas appuyer sur les côtes ; tendre les bras et verrouiller les coudes ; réaliser des compressions thoraciques d'une profondeur d'environ 5 cm, sans dépasser 6 cm. […] En présence de plusieurs sauveteurs, relayer le sauveteur qui réalise les compressions thoraciques toutes les 2 minutes en interrompant le moins possible les compressions thoraciques (en cas d'utilisation d'un DAE, le relais sera réalisé pendant l'analyse). […] Le DAE doit être utilisé en suivant toutes les indications de l'appareil (schéma, messages vocaux). Si plus d'un sauveteur est présent, la RCP doit être poursuivie durant l'installation du DAE. Les compressions thoraciques doivent être interrompues seulement lorsque le DAE indique de ne plus toucher à la victime. […] si les insufflations ne peuvent pas être effectuées (répulsion, covid-19, vomissements, traumatisme majeur de la face, etc.) ou si le sauveteur ne se sent pas capable, il doit réaliser uniquement les compressions thoraciques en continu à un rythme de 100 à 120 compressions par minute"
+   },
+   {
+    "cle": "croix-rouge-arret-cardiaque",
+    "titre": "L'arrêt cardiaque",
+    "editeur": "Croix-Rouge française",
+    "url": "https://www.croix-rouge.fr/les-gestes-de-premiers-secours/arret-cardiaque",
+    "extrait": "Observer la victime : vérifiez que la victime ne réagit pas et ne respire pas normalement. […] Appeler les secours : demandez à quelqu'un de prévenir les secours d'urgence (le 15 ou le 18) et d'apporter immédiatement un défibrillateur automatisé externe. […] Placez la victime sur un plan dur, le plus souvent à terre. […] Placez le talon d'une de vos mains au milieu de sa poitrine nue. Placez le talon de l'autre main sur votre première main. […] comprimez verticalement le sternum en l'enfonçant de 5 à 6 cm. […] Après chaque pression, laissez la poitrine de la victime reprendre sa position initiale afin de permettre au sang de revenir vers le cœur. […] La durée de la compression doit être égale à celle du relâchement de la pression. […] Alternez 30 compressions thoraciques et 2 insufflations. […] Poursuivez la réanimation jusqu'à ce que les secours d'urgence arrivent ou que la victime reprenne une respiration normale."
+   },
+   {
+    "cle": "croix-rouge-dae",
+    "titre": "Le défibrillateur automatisé externe",
+    "editeur": "Croix-Rouge française",
+    "url": "https://www.croix-rouge.fr/les-gestes-de-premiers-secours/defibrillateur",
+    "extrait": "Dès qu'il est disponible, mettez le DAE en marche et suivez les instructions de l'appareil. […] Dénudez la poitrine de la victime et placez les électrodes à même la peau. […] Assurez-vous que personne ne touche la victime lorsque le DAE analyse le rythme cardiaque."
+   }
+  ]
+ }
+}

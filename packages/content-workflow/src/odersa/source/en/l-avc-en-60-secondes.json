@@ -1,0 +1,408 @@
+{
+ "_licence": "CC BY 4.0 · https://creativecommons.org/licenses/by/4.0/",
+ "_source": "https://avantlessecours.odersa.org/en/cas/l-avc-en-60-secondes",
+ "_note": "Un cas d'Avant les secours (ODERSA), en licence ouverte. Les extraits de `source_officielle` sont des VERBATIMS de référentiels publics : ils gardent la licence de leurs éditeurs, et se citent avec leur adresse.",
+ "genere_le": "2026-09-14",
+ "id": "l-avc-en-60-secondes",
+ "numero": 10,
+ "niveau": 2,
+ "titre": "Stroke, in 60 seconds",
+ "titreCourt": "Stroke",
+ "punchline": "Three questions, under a minute, and one time to remember. This one is played with a watch in your hand, because that is exactly how it is played for real.",
+ "metaDescription": "Play out a stroke: check the face, the arms and the speech, call 15 without waiting, hold on to the time the first signs appeared. Free, from the French public guidelines.",
+ "duree": "3 min",
+ "chrono_objectif": 200,
+ "gestes": [
+  "Recognise the sudden signs of a stroke",
+  "Test the face, the arms and the speech",
+  "Call 15 or 112 on a single sign",
+  "Hold on to the time the first signs appeared",
+  "Give the exact address before anything else",
+  "Give nothing to drink and nothing to eat",
+  "Lay the person flat, or on their side if they feel sick",
+  "Do not hang up before you are asked to"
+ ],
+ "checkpoints": [
+  "s3-les-trois-signes",
+  "s5-l-heure"
+ ],
+ "requetes": [
+  "signs of a stroke what to do",
+  "how to recognise a stroke",
+  "stroke note the time",
+  "face arms speech test stroke",
+  "what to do while waiting for help stroke",
+  "should you give a drink to someone having a stroke"
+ ],
+ "scenes": [
+  {
+   "id": "s1-ouverture",
+   "titre": "Opening",
+   "decor": "salon-nuit",
+   "animation": "salon-soiree",
+   "narration": [
+    "21.40. The film started ten minutes ago. She sat down in the armchair with her cup, the way she does every Sunday.",
+    "She puts the cup down beside the table, not on it. She tries again, and puts it down beside it again."
+   ],
+   "sous_titres": "A lamp humming, the television in the distance, a cup put down twice.",
+   "suite": {
+    "texte": "Look at her",
+    "suivant": "s2-le-doute"
+   }
+  },
+  {
+   "id": "s2-le-doute",
+   "titre": "The doubt",
+   "decor": "salon-nuit",
+   "animation": "avc-parle-mal",
+   "narration": [
+    "You ask her if she is all right. She answers, and the words are the wrong ones.",
+    "One side of her mouth is not moving like the other."
+   ],
+   "question": "You have twenty seconds and a doubt. What do you do with them?",
+   "choix": [
+    {
+     "texte": "I ask her to smile, to raise both arms, and to repeat a sentence after me.",
+     "type": "juste",
+     "consequence_animee": "avc-test-depart",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "The face, the arms, the speech",
+      "message": "Those three signs have to be looked for every time, and they have a name in the guidance. Three simple requests, said out loud, and you know in under a minute whether you have to call.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s3-les-trois-signes"
+    },
+    {
+     "texte": "I fetch her a glass of water, that will put her right.",
+     "type": "piege",
+     "consequence_animee": "avc-verre-eau",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "She may not be able to swallow any more",
+      "message": "Close to two thirds of stroke casualties also have trouble swallowing: the civil safety first aid recommendations say so in as many words. The glass of water then goes into the lungs, and you have just added a problem to the one that was already there. Nothing by mouth.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s2-le-doute"
+    },
+    {
+     "texte": "I type “mouth drooping” into my phone to see what it might be.",
+     "type": "vanne",
+     "consequence_animee": "avc-vanne-recherche",
+     "verdict": {
+      "couleur": "jaune",
+      "titre": "Nine hundred thousand results, each more reassuring than the last",
+      "message": "Your phone can do one useful thing tonight, and it is not reading. Three questions will give you the answer faster than the first result.",
+      "canon_source": null
+     },
+     "cout_chrono": 14,
+     "suivant": "s2-le-doute"
+    }
+   ]
+  },
+  {
+   "id": "s3-les-trois-signes",
+   "titre": "The three signs",
+   "decor": "avc-signes",
+   "animation": "avc-trois-signes",
+   "narration": [
+    "The smile comes out crooked. One arm goes up, the other drops. The sentence does not come out whole.",
+    "You look at the time: 21.42. Twelve minutes ago, she was fine."
+   ],
+   "sous_titres": "The silence of the room, and a clock somewhere.",
+   "question": "Three signs out of three. What do you do?",
+   "choix": [
+    {
+     "texte": "One of those signs would have been enough. I call 15 right now.",
+     "type": "juste",
+     "consequence_animee": "avc-decision-appel",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "One sign, one call",
+      "message": "If any one of those signs is there, you call 15 or 112. There is no threshold to reach, no second opinion to get: the guidance asks for an immediate call, and the doctor on the line is the one who decides.",
+      "canon_source": "ameli-avc"
+     },
+     "suivant": "s4-l-appel"
+    },
+    {
+     "texte": "I will give it a quarter of an hour to see if it clears: maybe she slept badly.",
+     "type": "piege",
+     "consequence_animee": "avc-attend",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "The quarter of an hour you have just lost does not come back",
+      "message": "The fire and rescue services sum it up in one sentence: with a stroke, what counts is how quickly the person is treated. Those minutes had already started running before you noticed anything at all. All waiting produces is delay, and delay is paid for in lasting damage.",
+      "canon_source": "sdis77-avc"
+     },
+     "suivant": "s3-les-trois-signes"
+    },
+    {
+     "texte": "I call her GP, he knows her better than anyone.",
+     "type": "piege",
+     "consequence_animee": "avc-appelle-medecin",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "The surgery is shut, and that is not even the point",
+      "message": "The health insurance guidance is explicit: the way to shorten the delay before treatment is to call 15 or 112 directly. The doctor on 15 is a doctor, he answers at night, and he is the one who can send the right thing to the right place.",
+      "canon_source": "ameli-avc"
+     },
+     "suivant": "s3-les-trois-signes"
+    }
+   ]
+  },
+  {
+   "id": "s4-l-appel",
+   "titre": "The call",
+   "decor": "appel-ligne",
+   "animation": "ligne-ouverte",
+   "dialogue": [
+    {
+     "voix": "regulateur",
+     "texte": "Samu, go ahead."
+    }
+   ],
+   "sous_titres": "A radio voice, calm, and the breath of an open line.",
+   "minuteur": {
+    "secondes": 40,
+    "libelle": "The dispatcher is waiting",
+    "depassement": "He has prompted you twice. Every prompt is a sentence you did not say."
+   },
+   "question": "He is listening. What do you say first?",
+   "choix": [
+    {
+     "texte": "The address, the floor, the door code. Then the three signs I saw.",
+     "type": "juste",
+     "consequence_animee": "ligne-note",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "The place first, the signs second",
+      "message": "Give the place and the exact address, the floor and the entry code, then describe as precisely as you can the signs that worried you. In that order: a crew that knows where to go is already moving while you carry on talking.",
+      "canon_source": "ameli-avc"
+     },
+     "suivant": "s5-l-heure"
+    },
+    {
+     "texte": "I tell him the whole thing from the start, in whatever order it comes to me.",
+     "type": "piege",
+     "consequence_animee": "ligne-insiste",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "“Where exactly are you?”",
+      "message": "He cut across you to ask, and he will be right to cut across you as many times as it takes. The place comes first because it is what sets a crew moving. The story can be told while the vehicle is on the road.",
+      "canon_source": "ameli-avc"
+     },
+     "suivant": "s4-l-appel"
+    },
+    {
+     "texte": "I give the address and hang up: I would rather look after her than talk.",
+     "type": "piege",
+     "consequence_animee": "ligne-raccroche",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "You had half the call left",
+      "message": "You do not hang up before the person on the line asks you to. The dispatcher still has details to take and instructions to give about what to do until the crew gets there. By hanging up, you cut yourself off from the only help available.",
+      "canon_source": "ameli-avc"
+     },
+     "suivant": "s4-l-appel"
+    }
+   ]
+  },
+  {
+   "id": "s5-l-heure",
+   "titre": "The time",
+   "decor": "appel-ligne",
+   "animation": "ligne-consignes",
+   "dialogue": [
+    {
+     "voix": "regulateur",
+     "texte": "What time did the first signs appear?"
+    }
+   ],
+   "sous_titres": "The question comes with no preamble.",
+   "question": "This is the question of the whole situation. What do you answer?",
+   "choix": [
+    {
+     "texte": "21.42. I looked at my watch. Before that, at 21.30, she was fine.",
+     "type": "juste",
+     "consequence_animee": "avc-heure-donnee",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "It is the most valuable thing you have",
+      "message": "Note the time the first signs appeared: the health insurance guidance says this detail matters for what happens next. You are neither a doctor nor a paramedic, and you have just brought them something nobody else will ever be able to recover.",
+      "canon_source": "ameli-avc"
+     },
+     "suivant": "s6-l-attente"
+    },
+    {
+     "texte": "No idea, and it makes no difference anyway. Just get here.",
+     "type": "piege",
+     "consequence_animee": "avc-heure-inconnue",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "It makes all the difference, and he is going to ask again",
+      "message": "The time the first signs appeared is written down because it matters for the treatments to come. You were there, so you are the only person in the world who can give it. Look at your watch, run the last ten minutes back through your head, and give a time.",
+      "canon_source": "ameli-avc"
+     },
+     "suivant": "s5-l-heure"
+    },
+    {
+     "texte": "I give him the time, and add that she had this six months ago and it went away on its own.",
+     "type": "piege",
+     "consequence_animee": "avc-deja-vu",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "An episode that clears on its own is one more emergency",
+      "message": "Signs that disappear within minutes have a name, and the health insurance guidance is clear that the urgency and the need for proper treatment are exactly the same, because the risk of it happening again within twenty-four hours is high. What you have just told him is not reassuring: it is a history, and it makes matters worse.",
+      "canon_source": "ameli-avc"
+     },
+     "suivant": "s5-l-heure"
+    }
+   ]
+  },
+  {
+   "id": "s6-l-attente",
+   "titre": "The wait",
+   "decor": "salon-nuit",
+   "animation": "avc-parle-mal",
+   "narration": [
+    "The dispatcher said a crew was on its way and that you had to stay with her.",
+    "She is still in the armchair. She looks as if she has understood that something is happening."
+   ],
+   "question": "Seven minutes before they ring the bell. What do you do with her?",
+   "choix": [
+    {
+     "texte": "I help her lie down flat, I stay beside her, and I give her nothing.",
+     "type": "juste",
+     "consequence_animee": "avc-installe-plat",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Flat, and nothing in the mouth",
+      "message": "The guidance asks you to lay the person strictly flat, or on their side if they feel sick or are vomiting. Nothing to drink and nothing to eat, and you tell her help is on the way. There is nothing else for you to do, and that is already a lot.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s7-les-secours"
+    },
+    {
+     "texte": "I get her on her feet and walk her to bed, she will be better off there.",
+     "type": "piege",
+     "consequence_animee": "avc-fait-marcher",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Her leg does not follow, and the hallway is hard",
+      "message": "The health insurance page says to help the person sit down or lie down where they are; the national guidance asks for the casualty to be laid down. On one point the two agree: you do not walk her about. Unsteadiness on the feet is one of the signs you have just spotted: walking her about adds a fall to a stroke. The crew does not need her to be in a bed.",
+      "canon_source": "ameli-avc"
+     },
+     "suivant": "s6-l-attente"
+    },
+    {
+     "texte": "I tidy the living room: I do not want the crew seeing it like this.",
+     "type": "vanne",
+     "consequence_animee": "avc-vanne-rangement",
+     "verdict": {
+      "couleur": "jaune",
+      "titre": "They have seen far worse, and they are not here for the decor",
+      "message": "The only useful tidying tonight is clearing the hallway and opening the front door. The rest can wait until tomorrow.",
+      "canon_source": null
+     },
+     "cout_chrono": 12,
+     "suivant": "s6-l-attente"
+    }
+   ]
+  },
+  {
+   "id": "s7-les-secours",
+   "titre": "The crew",
+   "decor": "salon-nuit",
+   "animation": "secours-interieur",
+   "narration": [
+    "Blue light on the walls, two vehicles below, footsteps on the stairs. You left the door open.",
+    "The first question they ask you is the one you were expecting: what time did it start.",
+    "You answer 21.42. It is all you had, and it was exactly what was needed."
+   ],
+   "sous_titres": "Two sirens winding down, a door, calm voices.",
+   "final": true
+  }
+ ],
+ "fiche_recap": {
+  "titre": "Stroke: knowing it in under a minute",
+  "chapeau": "Seven rules, taken from the public guidance of the French national health insurance body, from the PSC1 2024 syllabus of the Ministry of the Interior and from the civil safety first aid recommendations.",
+  "regles": [
+   {
+    "cle": "1",
+    "titre": "Three signs, every time",
+    "texte": "The face, the arms, the speech. Ask them to smile, to raise and hold out both arms, to repeat a sentence. Those three signs have to be looked for every time, and looking takes under a minute.",
+    "source": "reco-premiers-secours-mi"
+   },
+   {
+    "cle": "2",
+    "titre": "Anything that comes on all at once",
+    "texte": "Weakness or paralysis of an arm, a distorted face, loss of sight in one eye or both, difficulty speaking or understanding, a severe and unusual headache, loss of balance or an unexplained fall. On their own or together, even lasting a very short time, these signs call for an immediate emergency call.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "3",
+    "titre": "One sign is enough to call",
+    "texte": "If any one of those signs is there, call 15 or 112. There is no threshold, no second opinion to get. A stroke has to be treated within three hours of the first symptoms appearing.",
+    "source": "ameli-avc"
+   },
+   {
+    "cle": "4",
+    "titre": "The time of the first signs",
+    "texte": "Note the time the first signs appeared: this detail matters for what happens next. It is the one piece of information the bystander holds that nobody else can recover in their place.",
+    "source": "ameli-avc"
+   },
+   {
+    "cle": "5",
+    "titre": "Nothing to drink, nothing to eat, no medicine",
+    "texte": "Do not give anything to drink, do not give anything to eat: nothing by mouth, not even a glass of water. Give them no medicine, by mouth or by injection, not even their usual treatment. Help them sit down or lie down where they are: you do not walk them about.",
+    "source": "ameli-avc"
+   },
+   {
+    "cle": "6",
+    "titre": "Flat on their back, on their side if they feel sick",
+    "texte": "Lay the person strictly flat, or in the recovery position if they feel sick or are vomiting. Close to two thirds of stroke casualties also have trouble swallowing: that is why the position changes as soon as there is nausea. And if they lose consciousness while still breathing, you apply what is done for any loss of consciousness: the recovery position.",
+    "source": "reco-premiers-secours-mi"
+   },
+   {
+    "cle": "7",
+    "titre": "What you tell 15, and in what order",
+    "texte": "The place and the exact address, the floor and the entry code. Then the signs you saw, the time they started and how they have changed. Do not hang up before the person on the line asks you to.",
+    "source": "ameli-avc"
+   }
+  ],
+  "avertissement": "This card is practice. It replaces neither a certified course nor medical advice. In a real emergency in France: 15 or 112."
+ },
+ "source_officielle": {
+  "verifie_le": "2026-08-23",
+  "sources": [
+   {
+    "cle": "ameli-avc",
+    "titre": "AVC : que faire ? (Stroke: what to do)",
+    "editeur": "Assurance Maladie (ameli.fr)",
+    "url": "https://www.ameli.fr/assure/sante/urgence/pathologies/avc",
+    "extrait": "Lorsqu'un accident vasculaire cérébral survient, un ou plusieurs symptômes apparaissent de façon brutale : une perte de force ou un engourdissement d'un membre supérieur (impossibilité de lever le bras) ; […] une déformation ou une paralysie du visage : par exemple, la lèvre est tombante d'un côté, la bouche est tordue ou le sourire est asymétrique ; un trouble de la parole : difficulté à parler ou à répéter une phrase […] ; une perte soudaine de l'équilibre : instabilité en marchant, comme en cas d'ivresse ; un mal de tête intense, brutal et inhabituel […]. En présence de l'un ou l'autre de ces signes, appelez le 15 ou le 112 (numéro d'urgence européen) […]. L'accident ischémique transitoire se traduit par au moins un de ces signes d'alerte […]. Ces symptômes disparaissent en quelques minutes. […] L'urgence et la nécessité d'une prise en charge adaptée sont identiques, car le risque de faire un nouvel AVC dans les 24 heures est élevé. […] Un accident vasculaire cérébral doit être pris en charge moins de trois heures après l'apparition des premiers symptômes. […] Au moindre doute, devant des signes évoquant un accident vasculaire cérébral, le moyen de diminuer le délai de prise en charge est d'appeler directement le 15 ou le 112. […] Il est important de veiller au confort de la personne : aidez-la à s'asseoir ou à s'allonger. Si la personne a des troubles de la conscience, mettez-la en position latérale de sécurité ; notez l'heure de survenue des premiers signes de l'AVC. Ce détail est important pour les traitements à venir ; […] ne faites pas boire, ni manger la personne ; ne lui donnez aucun médicament oral ou en injection même s'il s'agit d'un traitement habituel ; […] dites-lui que les secours sont en route afin de la calmer et de la rassurer. […] indiquez le lieu et l'adresse exacte, ainsi que l'étage et le code d'accès éventuel ; décrivez le plus précisément possible les signes qui vous ont alerté […], l'heure de début, le mode d'installation des symptômes et leur évolution […] ; ne raccrochez pas avant que votre interlocuteur ne vous le demande."
+   },
+   {
+    "cle": "reco-premiers-secours-mi",
+    "titre": "Recommandations premiers secours, fiches modifiées juin 2018 publiées (First aid recommendations, sheets revised June 2018)",
+    "editeur": "Direction générale de la sécurité civile et de la gestion des crises (DGSCGC), ministère de l'Intérieur",
+    "url": "https://www.interieur.gouv.fr/content/download/111138/888108/file/Recommandations%20premiers%20secours%20-%20Fiches%20modifi%C3%A9es%20juin%202018%20publi%C3%A9es.pdf",
+    "extrait": "Ces trois signes doivent être systématiquement recherchés. Ils sont communément appelés FAST ou \"Face, Arm et Speech test\". […] demander un avis médical immédiat et respecter les consignes. […] La victime a perdu connaissance et respire […] appliquer la conduite à tenir devant une victime qui présente une perte de connaissance. […] installer la victime en position strictement horizontale à plat ou en PLS si elle présente des nausées et des vomissements. […] Près des 2/3 des victimes qui présentent un AVC présentent des troubles de la déglutition associés."
+   },
+   {
+    "cle": "psc1-2024-dgscgc",
+    "titre": "Référentiel national de compétences de sécurité civile, Prévention et secours civiques de niveau 1 (PSC1), édition 2024 (National civil safety competence syllabus, level 1 civic prevention and first aid, 2024 edition)",
+    "editeur": "Direction générale de la sécurité civile et de la gestion des crises (DGSCGC), ministère de l'Intérieur",
+    "url": "https://mobile.interieur.gouv.fr/content/download/111131/888067/file/2024%20PSC1.pdf",
+    "extrait": "observer les signes d'apparition soudaine, isolés ou associés, même de très courte durée, qui peuvent orienter le médecin vers : […] un accident vasculaire cérébral (AVC) : faiblesse ou paralysie d'un bras ; déformation de la face ; perte de la vision d'un œil ou des deux ; difficulté de langage (incohérence de la parole) ou de compréhension ; mal de tête sévère, inhabituel ; perte d'équilibre, instabilité de la marche ou chute inexpliquée. […] L'apparition d'un de ces signes impose une alerte immédiate."
+   },
+   {
+    "cle": "sdis77-avc",
+    "titre": "L'accident vasculaire cérébral (AVC) (The stroke)",
+    "editeur": "Service départemental d'incendie et de secours de Seine-et-Marne (SDIS 77)",
+    "url": "https://www.sdis77.fr/gestes-qui-sauvent/les-premiers-secours/avc/",
+    "extrait": "Ce qui compte en présence d'une victime d'AVC c'est le temps de prise en charge. […] Le visage : Hémiplégie (paralysie d'un côté du corps) ; Déformation notable de la face ; Incapacité à gonfler ses joues ; Faiblesse, engourdissement. Les membres : Incapacité de lever les deux bras en l'air ; Incapacité de répondre à une commande de mouvement ; Faiblesse générale ; Perte de motricité et de sensibilité. La parole : Incapacité de parler ; Difficulté certaine à articuler ; Désorientation ; Oublis de mots. […] L'information importante à détenir est le facteur temps. Depuis combien de temps ces symptômes sont-ils apparus ? Alerter les secours le plus rapidement possible en transmettant un maximum d'information."
+   }
+  ]
+ }
+}

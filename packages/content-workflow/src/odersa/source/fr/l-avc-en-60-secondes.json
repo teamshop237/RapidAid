@@ -1,0 +1,408 @@
+{
+ "_licence": "CC BY 4.0 · https://creativecommons.org/licenses/by/4.0/",
+ "_source": "https://avantlessecours.odersa.org/cas/l-avc-en-60-secondes",
+ "_note": "Un cas d'Avant les secours (ODERSA), en licence ouverte. Les extraits de `source_officielle` sont des VERBATIMS de référentiels publics : ils gardent la licence de leurs éditeurs, et se citent avec leur adresse.",
+ "genere_le": "2026-09-14",
+ "id": "l-avc-en-60-secondes",
+ "numero": 10,
+ "niveau": 2,
+ "titre": "L'AVC en 60 secondes",
+ "titreCourt": "L'AVC",
+ "punchline": "Trois questions, moins d'une minute, et une heure à retenir. Ce cas se joue montre en main, parce que c'est exactement comme cela qu'il se joue en vrai.",
+ "metaDescription": "Jouez un accident vasculaire cérébral : reconnaître le visage, les bras et la parole, appeler le 15 sans attendre, retenir l'heure des premiers signes. Gratuit, référentiels publics français.",
+ "duree": "3 minutes",
+ "chrono_objectif": 200,
+ "gestes": [
+  "Reconnaître les signes soudains d'un AVC",
+  "Faire le test du visage, des bras et de la parole",
+  "Appeler le 15 ou le 112 dès un seul signe",
+  "Retenir l'heure d'apparition des premiers signes",
+  "Donner l'adresse exacte avant tout le reste",
+  "Ne rien donner à boire ni à manger",
+  "Allonger la personne à plat, ou sur le côté si elle a des nausées",
+  "Ne pas raccrocher avant qu'on le demande"
+ ],
+ "checkpoints": [
+  "s3-les-trois-signes",
+  "s5-l-heure"
+ ],
+ "requetes": [
+  "signes d'un AVC que faire",
+  "comment reconnaître un AVC",
+  "AVC noter l'heure",
+  "test visage bras parole AVC",
+  "que faire en attendant les secours AVC",
+  "faut-il donner à boire à quelqu'un qui fait un AVC"
+ ],
+ "scenes": [
+  {
+   "id": "s1-ouverture",
+   "titre": "Ouverture",
+   "decor": "salon-nuit",
+   "animation": "salon-soiree",
+   "narration": [
+    "21 h 40. Le film est commencé depuis dix minutes. Elle s'est assise dans le fauteuil avec sa tasse, comme tous les dimanches.",
+    "Elle repose la tasse à côté de la table, pas dessus. Elle recommence, et elle la repose encore à côté."
+   ],
+   "sous_titres": "Une lampe qui bourdonne, la télévision au loin, une tasse posée deux fois.",
+   "suite": {
+    "texte": "La regarder",
+    "suivant": "s2-le-doute"
+   }
+  },
+  {
+   "id": "s2-le-doute",
+   "titre": "Le doute",
+   "decor": "salon-nuit",
+   "animation": "avc-parle-mal",
+   "narration": [
+    "Tu lui demandes si ça va. Elle répond, et les mots ne sont pas les bons.",
+    "Un côté de sa bouche ne bouge pas comme l'autre."
+   ],
+   "question": "Tu as vingt secondes et un doute. Tu en fais quoi ?",
+   "choix": [
+    {
+     "texte": "Je lui demande de sourire, de lever les deux bras, et de répéter une phrase après moi.",
+     "type": "juste",
+     "consequence_animee": "avc-test-depart",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Le visage, les bras, la parole",
+      "message": "Ces trois signes doivent être systématiquement recherchés, et ils portent un nom dans le référentiel. Trois demandes simples, faites à voix haute, et tu sais en moins d'une minute si tu dois appeler.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s3-les-trois-signes"
+    },
+    {
+     "texte": "Je lui apporte un verre d'eau, ça va la remettre d'aplomb.",
+     "type": "piege",
+     "consequence_animee": "avc-verre-eau",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Elle ne peut peut-être plus avaler",
+      "message": "Près des deux tiers des victimes qui présentent un AVC présentent des troubles de la déglutition associés : les Recommandations premiers secours de la sécurité civile le disent en toutes lettres. Le verre d'eau part alors dans les poumons, et tu viens d'ajouter un problème à celui qui existait déjà. Rien dans la bouche.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s2-le-doute"
+    },
+    {
+     "texte": "Je tape « bouche qui tombe » dans mon téléphone pour voir ce que ça peut être.",
+     "type": "vanne",
+     "consequence_animee": "avc-vanne-recherche",
+     "verdict": {
+      "couleur": "jaune",
+      "titre": "Neuf cent mille résultats, tous plus rassurants les uns que les autres",
+      "message": "Ton téléphone sait faire une chose utile ce soir, et ce n'est pas de la lecture. Trois questions te donneront la réponse plus vite que le premier résultat.",
+      "canon_source": null
+     },
+     "cout_chrono": 14,
+     "suivant": "s2-le-doute"
+    }
+   ]
+  },
+  {
+   "id": "s3-les-trois-signes",
+   "titre": "Les trois signes",
+   "decor": "avc-signes",
+   "animation": "avc-trois-signes",
+   "narration": [
+    "Le sourire part de travers. Un bras monte, l'autre retombe. La phrase ne sort pas entière.",
+    "Tu regardes l'heure : 21 h 42. Il y a douze minutes, elle allait bien."
+   ],
+   "sous_titres": "Le silence de la pièce, et une horloge quelque part.",
+   "question": "Trois signes sur trois. Tu fais quoi ?",
+   "choix": [
+    {
+     "texte": "Un seul de ces signes suffisait. J'appelle le 15 tout de suite.",
+     "type": "juste",
+     "consequence_animee": "avc-decision-appel",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Un signe, un appel",
+      "message": "En présence de l'un ou l'autre de ces signes, on appelle le 15 ou le 112. Il n'y a pas de seuil à atteindre, pas de deuxième avis à prendre : le référentiel demande une alerte immédiate, et c'est le régulateur qui tranche.",
+      "canon_source": "ameli-avc"
+     },
+     "suivant": "s4-l-appel"
+    },
+    {
+     "texte": "J'attends un quart d'heure de voir si ça se dissipe : elle a peut-être mal dormi.",
+     "type": "piege",
+     "consequence_animee": "avc-attend",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Le quart d'heure que tu viens de perdre ne se rattrape pas",
+      "message": "Les sapeurs-pompiers le résument en une phrase : ce qui compte devant un AVC, c'est le temps de prise en charge. Ces minutes ont déjà commencé à courir avant que tu ne remarques quoi que ce soit. Tout ce que l'attente produit, c'est du retard, et le retard se paie en séquelles.",
+      "canon_source": "sdis77-avc"
+     },
+     "suivant": "s3-les-trois-signes"
+    },
+    {
+     "texte": "J'appelle son médecin traitant, il la connaît mieux que n'importe qui.",
+     "type": "piege",
+     "consequence_animee": "avc-appelle-medecin",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Le cabinet est fermé, et ce n'est même pas la question",
+      "message": "L'Assurance Maladie est explicite : le moyen de réduire le délai de prise en charge est d'appeler directement le 15 ou le 112. Le régulateur du 15 est un médecin, il répond la nuit, et c'est lui qui peut envoyer ce qu'il faut là où il faut.",
+      "canon_source": "ameli-avc"
+     },
+     "suivant": "s3-les-trois-signes"
+    }
+   ]
+  },
+  {
+   "id": "s4-l-appel",
+   "titre": "L'appel",
+   "decor": "appel-ligne",
+   "animation": "ligne-ouverte",
+   "dialogue": [
+    {
+     "voix": "regulateur",
+     "texte": "Samu, j'écoute."
+    }
+   ],
+   "sous_titres": "Une voix de radio, calme, et un souffle de ligne.",
+   "minuteur": {
+    "secondes": 40,
+    "libelle": "Le régulateur attend",
+    "depassement": "Il t'a relancé deux fois. Chaque relance est une phrase que tu n'as pas dite."
+   },
+   "question": "Il écoute. Qu'est-ce que tu dis en premier ?",
+   "choix": [
+    {
+     "texte": "L'adresse, l'étage, le code de la porte. Puis les trois signes que j'ai vus.",
+     "type": "juste",
+     "consequence_animee": "ligne-note",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Le lieu d'abord, les signes ensuite",
+      "message": "Indiquer le lieu et l'adresse exacte, l'étage et le code d'accès, puis décrire le plus précisément possible les signes qui ont alerté. Dans cet ordre : une équipe qui sait où aller part déjà pendant que tu continues de parler.",
+      "canon_source": "ameli-avc"
+     },
+     "suivant": "s5-l-heure"
+    },
+    {
+     "texte": "Je raconte tout depuis le début, dans l'ordre où ça m'est venu.",
+     "type": "piege",
+     "consequence_animee": "ligne-insiste",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "« Où êtes-vous exactement ? »",
+      "message": "Il t'a coupé pour te le demander, et il aura raison de te couper autant de fois qu'il le faudra. Le lieu se donne en premier parce qu'il déclenche le départ. Le récit, lui, peut se faire pendant que le véhicule roule.",
+      "canon_source": "ameli-avc"
+     },
+     "suivant": "s4-l-appel"
+    },
+    {
+     "texte": "Je donne l'adresse et je raccroche : je préfère m'occuper d'elle que de parler.",
+     "type": "piege",
+     "consequence_animee": "ligne-raccroche",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Il te restait la moitié de l'appel",
+      "message": "On ne raccroche pas avant que l'interlocuteur ne le demande. Le régulateur a encore des renseignements à prendre et des consignes à donner sur ce qu'il faut faire en attendant l'équipe. En raccrochant, tu t'es privé de la seule aide disponible.",
+      "canon_source": "ameli-avc"
+     },
+     "suivant": "s4-l-appel"
+    }
+   ]
+  },
+  {
+   "id": "s5-l-heure",
+   "titre": "L'heure",
+   "decor": "appel-ligne",
+   "animation": "ligne-consignes",
+   "dialogue": [
+    {
+     "voix": "regulateur",
+     "texte": "À quelle heure les premiers signes sont-ils apparus ?"
+    }
+   ],
+   "sous_titres": "La question tombe sans préambule.",
+   "question": "C'est la question du cas. Tu réponds quoi ?",
+   "choix": [
+    {
+     "texte": "21 h 42. J'ai regardé ma montre. Avant cela, à 21 h 30, elle allait bien.",
+     "type": "juste",
+     "consequence_animee": "avc-heure-donnee",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "C'est le renseignement le plus précieux que tu possèdes",
+      "message": "Noter l'heure de survenue des premiers signes : l'Assurance Maladie écrit que ce détail est important pour la suite de la prise en charge. Tu n'es ni médecin ni secouriste, et tu viens quand même d'apporter quelque chose que personne d'autre ne pourra retrouver.",
+      "canon_source": "ameli-avc"
+     },
+     "suivant": "s6-l-attente"
+    },
+    {
+     "texte": "Aucune idée, et de toute façon ça ne change rien. Venez vite.",
+     "type": "piege",
+     "consequence_animee": "avc-heure-inconnue",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Ça change tout, et il va te le redemander",
+      "message": "L'heure de survenue des premiers signes est notée parce qu'elle est importante pour les traitements à venir. Toi qui étais là, tu es la seule personne au monde à pouvoir la donner. Regarde ta montre, refais le film des dix dernières minutes, et donne une heure.",
+      "canon_source": "ameli-avc"
+     },
+     "suivant": "s5-l-heure"
+    },
+    {
+     "texte": "Je lui dis l'heure, et j'ajoute qu'elle a déjà eu ça il y a six mois et que c'est passé tout seul.",
+     "type": "piege",
+     "consequence_animee": "avc-deja-vu",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Un épisode qui passe tout seul est une urgence de plus",
+      "message": "Des signes qui disparaissent en quelques minutes portent un nom, et l'Assurance Maladie précise que l'urgence et la nécessité d'une prise en charge adaptée sont identiques, parce que le risque de récidive dans les vingt-quatre heures est élevé. Ce que tu viens de raconter n'est pas rassurant : c'est un antécédent, et il aggrave l'affaire.",
+      "canon_source": "ameli-avc"
+     },
+     "suivant": "s5-l-heure"
+    }
+   ]
+  },
+  {
+   "id": "s6-l-attente",
+   "titre": "L'attente",
+   "decor": "salon-nuit",
+   "animation": "avc-parle-mal",
+   "narration": [
+    "Le régulateur a dit qu'une équipe partait et qu'il fallait rester avec elle.",
+    "Elle est toujours dans le fauteuil. Elle a l'air d'avoir compris qu'il se passe quelque chose."
+   ],
+   "question": "Il reste sept minutes avant qu'ils sonnent. Tu fais quoi d'elle ?",
+   "choix": [
+    {
+     "texte": "Je l'aide à s'allonger à plat, je reste à côté, et je ne lui donne rien.",
+     "type": "juste",
+     "consequence_animee": "avc-installe-plat",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "À plat, et rien dans la bouche",
+      "message": "Le référentiel demande d'installer la personne en position strictement horizontale, ou sur le côté si elle a des nausées et des vomissements. Ni à boire ni à manger, et on lui dit que les secours sont en route. Tu n'as rien de plus à faire, et c'est déjà beaucoup.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s7-les-secours"
+    },
+    {
+     "texte": "Je la mets debout et je l'emmène s'allonger dans son lit, elle y sera mieux.",
+     "type": "piege",
+     "consequence_animee": "avc-fait-marcher",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Sa jambe ne suit pas, et le couloir est dur",
+      "message": "L'Assurance Maladie écrit d'aider la personne à s'asseoir ou à s'allonger, là où elle est ; le référentiel national, lui, demande d'allonger la victime. Les deux disent la même chose sur un point : on ne la fait pas marcher. L'instabilité de la marche fait partie des signes que tu viens justement de repérer : la faire marcher, c'est ajouter une chute à un AVC. Les secours n'ont pas besoin qu'elle soit dans un lit.",
+      "canon_source": "ameli-avc"
+     },
+     "suivant": "s6-l-attente"
+    },
+    {
+     "texte": "Je range le salon : je ne veux pas que les pompiers voient ça.",
+     "type": "vanne",
+     "consequence_animee": "avc-vanne-rangement",
+     "verdict": {
+      "couleur": "jaune",
+      "titre": "Ils ont vu bien pire, et ils ne sont pas là pour l'intérieur",
+      "message": "Le seul rangement utile ce soir, c'est de dégager le couloir et d'ouvrir la porte d'entrée. Le reste attendra demain.",
+      "canon_source": null
+     },
+     "cout_chrono": 12,
+     "suivant": "s6-l-attente"
+    }
+   ]
+  },
+  {
+   "id": "s7-les-secours",
+   "titre": "Les secours",
+   "decor": "salon-nuit",
+   "animation": "secours-interieur",
+   "narration": [
+    "Du bleu sur les murs, deux véhicules en bas, des pas dans l'escalier. Tu as laissé la porte ouverte.",
+    "La première question qu'ils te posent est celle que tu attendais : à quelle heure ça a commencé.",
+    "Tu réponds 21 h 42. C'est tout ce que tu avais, et c'est exactement ce qu'il fallait."
+   ],
+   "sous_titres": "Deux sirènes qui s'arrêtent, une porte, des voix calmes.",
+   "final": true
+  }
+ ],
+ "fiche_recap": {
+  "titre": "AVC : reconnaître en moins d'une minute",
+  "chapeau": "Sept règles, tirées des consignes publiques de l'Assurance Maladie, du référentiel PSC1 2024 du ministère de l'Intérieur et des Recommandations premiers secours de la sécurité civile.",
+  "regles": [
+   {
+    "cle": "1",
+    "titre": "Trois signes, systématiquement",
+    "texte": "Le visage, les bras, la parole. Demander de sourire, de lever et d'étendre les deux bras, de répéter une phrase. Ces trois signes doivent être systématiquement recherchés, et ils se cherchent en moins d'une minute.",
+    "source": "reco-premiers-secours-mi"
+   },
+   {
+    "cle": "2",
+    "titre": "Tout ce qui arrive d'un coup",
+    "texte": "Faiblesse ou paralysie d'un bras, déformation de la face, perte de la vision d'un œil ou des deux, difficulté de langage ou de compréhension, mal de tête sévère et inhabituel, perte d'équilibre ou chute inexpliquée. Isolés ou associés, même de très courte durée, ces signes imposent une alerte immédiate.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "3",
+    "titre": "Un seul signe suffit pour appeler",
+    "texte": "En présence de l'un ou l'autre de ces signes, appeler le 15 ou le 112. Il n'y a pas de seuil, pas de deuxième avis à prendre. Un accident vasculaire cérébral se prend en charge en moins de trois heures après l'apparition des premiers symptômes.",
+    "source": "ameli-avc"
+   },
+   {
+    "cle": "4",
+    "titre": "L'heure des premiers signes",
+    "texte": "Noter l'heure de survenue des premiers signes : ce détail est important pour la suite de la prise en charge. C'est le seul renseignement que le témoin possède et que personne ne pourra retrouver à sa place.",
+    "source": "ameli-avc"
+   },
+   {
+    "cle": "5",
+    "titre": "Ni à boire, ni à manger, aucun médicament",
+    "texte": "Ne pas faire boire, ne pas faire manger : rien dans la bouche, pas même un verre d'eau. Ne lui donner aucun médicament, oral ou en injection, même s'il s'agit d'un traitement habituel. L'aider à s'asseoir ou à s'allonger là où elle se trouve : on ne la fait pas marcher.",
+    "source": "ameli-avc"
+   },
+   {
+    "cle": "6",
+    "titre": "Allongée à plat, sur le côté si elle a des nausées",
+    "texte": "Installer la personne en position strictement horizontale, ou en position latérale de sécurité si elle a des nausées et des vomissements. Près des deux tiers des victimes qui présentent un AVC présentent des troubles de la déglutition associés : c'est pour cela que la position change dès qu'il y a des nausées. Et si elle perd connaissance tout en respirant, on applique la conduite à tenir devant une perte de connaissance : la position latérale de sécurité.",
+    "source": "reco-premiers-secours-mi"
+   },
+   {
+    "cle": "7",
+    "titre": "Ce qu'on dit au 15, et dans quel ordre",
+    "texte": "Le lieu et l'adresse exacte, l'étage et le code d'accès. Puis les signes observés, l'heure de début et leur évolution. Ne pas raccrocher avant que l'interlocuteur ne le demande.",
+    "source": "ameli-avc"
+   }
+  ],
+  "avertissement": "Cette fiche entraîne. Elle ne remplace ni une formation certifiante, ni un avis médical. En situation réelle : 15 ou 112."
+ },
+ "source_officielle": {
+  "verifie_le": "2026-08-23",
+  "sources": [
+   {
+    "cle": "ameli-avc",
+    "titre": "AVC : que faire ?",
+    "editeur": "Assurance Maladie (ameli.fr)",
+    "url": "https://www.ameli.fr/assure/sante/urgence/pathologies/avc",
+    "extrait": "Lorsqu'un accident vasculaire cérébral survient, un ou plusieurs symptômes apparaissent de façon brutale : une perte de force ou un engourdissement d'un membre supérieur (impossibilité de lever le bras) ; […] une déformation ou une paralysie du visage : par exemple, la lèvre est tombante d'un côté, la bouche est tordue ou le sourire est asymétrique ; un trouble de la parole : difficulté à parler ou à répéter une phrase […] ; une perte soudaine de l'équilibre : instabilité en marchant, comme en cas d'ivresse ; un mal de tête intense, brutal et inhabituel […]. En présence de l'un ou l'autre de ces signes, appelez le 15 ou le 112 (numéro d'urgence européen) […]. L'accident ischémique transitoire se traduit par au moins un de ces signes d'alerte […]. Ces symptômes disparaissent en quelques minutes. […] L'urgence et la nécessité d'une prise en charge adaptée sont identiques, car le risque de faire un nouvel AVC dans les 24 heures est élevé. […] Un accident vasculaire cérébral doit être pris en charge moins de trois heures après l'apparition des premiers symptômes. […] Au moindre doute, devant des signes évoquant un accident vasculaire cérébral, le moyen de diminuer le délai de prise en charge est d'appeler directement le 15 ou le 112. […] Il est important de veiller au confort de la personne : aidez-la à s'asseoir ou à s'allonger. Si la personne a des troubles de la conscience, mettez-la en position latérale de sécurité ; notez l'heure de survenue des premiers signes de l'AVC. Ce détail est important pour les traitements à venir ; […] ne faites pas boire, ni manger la personne ; ne lui donnez aucun médicament oral ou en injection même s'il s'agit d'un traitement habituel ; […] dites-lui que les secours sont en route afin de la calmer et de la rassurer. […] indiquez le lieu et l'adresse exacte, ainsi que l'étage et le code d'accès éventuel ; décrivez le plus précisément possible les signes qui vous ont alerté […], l'heure de début, le mode d'installation des symptômes et leur évolution […] ; ne raccrochez pas avant que votre interlocuteur ne vous le demande."
+   },
+   {
+    "cle": "reco-premiers-secours-mi",
+    "titre": "Recommandations premiers secours, fiches modifiées juin 2018 publiées",
+    "editeur": "Direction générale de la sécurité civile et de la gestion des crises (DGSCGC), ministère de l'Intérieur",
+    "url": "https://www.interieur.gouv.fr/content/download/111138/888108/file/Recommandations%20premiers%20secours%20-%20Fiches%20modifi%C3%A9es%20juin%202018%20publi%C3%A9es.pdf",
+    "extrait": "Ces trois signes doivent être systématiquement recherchés. Ils sont communément appelés FAST ou \"Face, Arm et Speech test\". […] demander un avis médical immédiat et respecter les consignes. […] La victime a perdu connaissance et respire […] appliquer la conduite à tenir devant une victime qui présente une perte de connaissance. […] installer la victime en position strictement horizontale à plat ou en PLS si elle présente des nausées et des vomissements. […] Près des 2/3 des victimes qui présentent un AVC présentent des troubles de la déglutition associés."
+   },
+   {
+    "cle": "psc1-2024-dgscgc",
+    "titre": "Référentiel national de compétences de sécurité civile, Prévention et secours civiques de niveau 1 (PSC1), édition 2024",
+    "editeur": "Direction générale de la sécurité civile et de la gestion des crises (DGSCGC), ministère de l'Intérieur",
+    "url": "https://mobile.interieur.gouv.fr/content/download/111131/888067/file/2024%20PSC1.pdf",
+    "extrait": "observer les signes d'apparition soudaine, isolés ou associés, même de très courte durée, qui peuvent orienter le médecin vers : […] un accident vasculaire cérébral (AVC) : faiblesse ou paralysie d'un bras ; déformation de la face ; perte de la vision d'un œil ou des deux ; difficulté de langage (incohérence de la parole) ou de compréhension ; mal de tête sévère, inhabituel ; perte d'équilibre, instabilité de la marche ou chute inexpliquée. […] L'apparition d'un de ces signes impose une alerte immédiate."
+   },
+   {
+    "cle": "sdis77-avc",
+    "titre": "L'accident vasculaire cérébral (AVC)",
+    "editeur": "Service départemental d'incendie et de secours de Seine-et-Marne (SDIS 77)",
+    "url": "https://www.sdis77.fr/gestes-qui-sauvent/les-premiers-secours/avc/",
+    "extrait": "Ce qui compte en présence d'une victime d'AVC c'est le temps de prise en charge. […] Le visage : Hémiplégie (paralysie d'un côté du corps) ; Déformation notable de la face ; Incapacité à gonfler ses joues ; Faiblesse, engourdissement. Les membres : Incapacité de lever les deux bras en l'air ; Incapacité de répondre à une commande de mouvement ; Faiblesse générale ; Perte de motricité et de sensibilité. La parole : Incapacité de parler ; Difficulté certaine à articuler ; Désorientation ; Oublis de mots. […] L'information importante à détenir est le facteur temps. Depuis combien de temps ces symptômes sont-ils apparus ? Alerter les secours le plus rapidement possible en transmettant un maximum d'information."
+   }
+  ]
+ }
+}

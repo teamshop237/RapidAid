@@ -1,0 +1,416 @@
+{
+ "_licence": "CC BY 4.0 · https://creativecommons.org/licenses/by/4.0/",
+ "_source": "https://avantlessecours.odersa.org/en/cas/l-hemorragie-grave-et-le-garrot",
+ "_note": "Un cas d'Avant les secours (ODERSA), en licence ouverte. Les extraits de `source_officielle` sont des VERBATIMS de référentiels publics : ils gardent la licence de leurs éditeurs, et se citent avec leur adresse.",
+ "genere_le": "2026-09-14",
+ "id": "l-hemorragie-grave-et-le-garrot",
+ "numero": 20,
+ "niveau": 3,
+ "titre": "Severe bleeding and the tourniquet",
+ "titreCourt": "The tourniquet",
+ "punchline": "A tourniquet is not the brave move. It is the one you fit when pressing does not work, or when you cannot press at all.",
+ "metaDescription": "Play out severe bleeding and fitting a tourniquet: direct pressure first, a tourniquet if pressure fails or cannot be done, above the wound, never over a joint, never taken off. Free, from the French public guidelines.",
+ "duree": "4 min",
+ "chrono_objectif": 240,
+ "gestes": [
+  "Press straight onto the bleeding wound",
+  "Lay the casualty down while you press",
+  "Know when pressure is failing or impossible",
+  "Fit the tourniquet above the wound, between the wound and the heart",
+  "Never over a joint",
+  "Use a WIDE strap, never a thin cord",
+  "Tighten until the bleeding stops, and hold it there",
+  "Leave the tourniquet visible and never take it off"
+ ],
+ "checkpoints": [
+  "s3-la-compression-echoue",
+  "s5-le-serrage"
+ ],
+ "requetes": [
+  "how to apply a tourniquet",
+  "when to use a tourniquet",
+  "tourniquet or pressure for bleeding",
+  "tourniquet over a joint",
+  "should you loosen a tourniquet"
+ ],
+ "scenes": [
+  {
+   "id": "s1-ouverture",
+   "titre": "Opening",
+   "decor": "atelier-nuit",
+   "animation": "atelier-hemorragie-grave",
+   "narration": [
+    "23.20, the workshop. She was cutting sheet steel on the circular saw, you were outside with the compressor.",
+    "When you come in, she is sitting against the workbench, her right leg caught under a sheet that has tipped over.",
+    "The floor stains in a few seconds. This is a bleed, and there is nothing to wonder about."
+   ],
+   "sous_titres": "A compressor stopping, a sheet of steel still ringing.",
+   "suite": {
+    "texte": "Kneel down beside her",
+    "suivant": "s2-la-compression"
+   }
+  },
+  {
+   "id": "s2-la-compression",
+   "titre": "The pressure",
+   "decor": "atelier-nuit",
+   "animation": "atelier-hemorragie-grave",
+   "narration": [
+    "The wound is on her thigh, partly under the steel. There is a clean folded rag on the workbench, within reach.",
+    "Your phone is in your pocket and there is nobody else here."
+   ],
+   "question": "What do you do with the first second?",
+   "choix": [
+    {
+     "texte": "I press straight away, directly, with the rag, with all my weight, and I lay her down.",
+     "type": "juste",
+     "consequence_animee": "garrot-compression-directe",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Direct pressure, before anything else",
+      "message": "The guidance is plain: direct pressure applies to any wound bleeding heavily, and it is the simplest and most effective way to stop bleeding. Then lay the casualty down comfortably, on a bed, a sofa, or the floor if there is nothing else, to hold off the collapse that comes with losing blood.",
+      "canon_source": "gqs-2019-dgscgc"
+     },
+     "suivant": "s3-la-compression-echoue"
+    },
+    {
+     "texte": "I take my belt off and fit a tourniquet right now: it is bleeding too much.",
+     "type": "piege",
+     "consequence_animee": "garrot-tout-de-suite",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "You have not even tried pressing",
+      "message": "A tourniquet is for when direct pressure fails or cannot be done: that is its definition, and it assumes you tried. A tourniquet cuts off the blood supply to that part of the limb completely, and once it is on it must never be taken off without medical advice. You do not start there.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s2-la-compression"
+    },
+    {
+     "texte": "I go through the toolbox: there must be a proper tourniquet somewhere.",
+     "type": "vanne",
+     "consequence_animee": "garrot-vanne-boite-a-outils",
+     "verdict": {
+      "couleur": "jaune",
+      "titre": "Three size-twelve spanners and a tape measure",
+      "message": "You already have what a tourniquet is made of: a strap and a piece of wood. But this is not the moment, and your hand is free.",
+      "canon_source": null
+     },
+     "cout_chrono": 14,
+     "suivant": "s2-la-compression"
+    }
+   ]
+  },
+  {
+   "id": "s3-la-compression-echoue",
+   "titre": "The pressure fails",
+   "decor": "garrot-serre",
+   "animation": "garrot-plan-serre",
+   "narration": [
+    "You have been pressing for a minute and the rag has soaked through. The wound runs under the edge of the steel: you cannot reach half its length.",
+    "There is a length of webbing from a lashing strap on the workbench, and a piece of batten.",
+    "15 is on speakerphone on the floor and is telling you to keep going."
+   ],
+   "sous_titres": "Short breathing, cloth rubbing, a speakerphone on the floor.",
+   "question": "You cannot reach the wound and it is not stopping. What do you do?",
+   "choix": [
+    {
+     "texte": "Pressure is impossible: I fit a tourniquet above the wound, between the wound and the heart.",
+     "type": "juste",
+     "consequence_animee": "garrot-pose-le-garrot",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "This is exactly the case the guidance provides for",
+      "message": "If direct pressure on a bleed from a limb fails, because the bleeding carries on regardless, or cannot be done, in particular when the wound is out of reach, then you fit a tourniquet above the wound to stop the bleeding, between the wound and the heart.",
+      "canon_source": "pompiers-hemorragie"
+     },
+     "suivant": "s4-le-garrot"
+    },
+    {
+     "texte": "I add a third layer of cloth on top and press harder.",
+     "type": "piege",
+     "consequence_animee": "garrot-troisieme-tissu",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Your hand still is not reaching the wound",
+      "message": "Piling on layers makes sense when the pressure is working but is not enough. Here the pressure is IMPOSSIBLE: part of the wound is out of reach, and the guidance names that exact case as an indication for a tourniquet. Pressing next to the wound compresses nothing.",
+      "canon_source": "pompiers-hemorragie"
+     },
+     "suivant": "s3-la-compression-echoue"
+    },
+    {
+     "texte": "I put the strap below the wound, towards the knee and the foot.",
+     "type": "piege",
+     "consequence_animee": "garrot-en-dessous",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "The blood arrives from above",
+      "message": "The tourniquet goes ABOVE the wound, between the wound and the top of the limb, that is to say between the wound and the heart. That is where the blood is coming from. Below it, you are squeezing a section that is receiving nothing any more.",
+      "canon_source": "pompiers-hemorragie"
+     },
+     "suivant": "s3-la-compression-echoue"
+    }
+   ]
+  },
+  {
+   "id": "s4-le-garrot",
+   "titre": "The tourniquet",
+   "decor": "garrot-serre",
+   "animation": "garrot-pose-le-garrot",
+   "narration": [
+    "The webbing is four centimetres wide and a metre and a half long. The batten is fifteen centimetres.",
+    "Her thigh, her knee, her calf. You have to choose where the strap goes, and the guidance has an answer."
+   ],
+   "question": "Where do you fit it, and with what?",
+   "choix": [
+    {
+     "texte": "The wide webbing, two turns, 5 to 7 centimetres above the wound, on the thigh, never over the knee.",
+     "type": "juste",
+     "consequence_animee": "garrot-le-serrage",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "On muscle, never over a joint",
+      "message": "The guidance describes both the kit and the place: a strong strip of fabric, not elastic, 3 to 5 cm wide and at least 1.50 m long, a bar 10 to 20 cm long, two turns around the limb, ideally 5 to 7 centimetres above the wound, between the heart and the wound, and never over a joint.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s5-le-serrage"
+    },
+    {
+     "texte": "I put the strap over the knee, it is the narrowest part of the leg.",
+     "type": "piege",
+     "consequence_animee": "garrot-sur-le-genou",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Never over a joint",
+      "message": "That ban appears twice in the guidance, right next to the description of how to fit one. A joint has none of the muscle bulk that lets you squeeze the vessels shut: you are tightening on bone and tendon, the bleeding carries on, and you wreck a knee as well.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s4-le-garrot"
+    },
+    {
+     "texte": "I take some thin electrical wire from the box, it will bite far harder.",
+     "type": "piege",
+     "consequence_animee": "garrot-fil-fin",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "It cuts the skin and stops nothing",
+      "message": "The guidance gives dimensions, and not at random: a strong strip of fabric, not elastic, 3 to 5 centimetres wide. A thin cord concentrates all the force on one line, it slices the surface tissue without squeezing the deep vessels. The guidance also rules out elastic tourniquets.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s4-le-garrot"
+    }
+   ]
+  },
+  {
+   "id": "s5-le-serrage",
+   "titre": "Tightening",
+   "decor": "garrot-serre",
+   "animation": "garrot-le-serrage",
+   "narration": [
+    "Two turns, a knot, the batten slipped underneath, a second knot over it. You start to twist.",
+    "On the third turn she screams. On the fourth, the bleeding stops."
+   ],
+   "question": "She is screaming and it has stopped bleeding. What do you do?",
+   "choix": [
+    {
+     "texte": "I hold the tension, even though the pain is severe, and I lock the bar off.",
+     "type": "juste",
+     "consequence_animee": "garrot-maintient",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "The guidance foresaw this moment, and it foresaw your reaction",
+      "message": "Twist the bar so as to tighten the tourniquet until the bleeding stops, then hold the tension yourself, even though the pain it causes is severe, or by any means available if you have to free yourself up. The tourniquet is working if the bleeding has stopped. If it carries on, you tighten it further.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s6-l-attente"
+    },
+    {
+     "texte": "I ease it back half a turn, she is in too much pain and it is not bleeding now.",
+     "type": "piege",
+     "consequence_animee": "garrot-desserre",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "It starts again at once",
+      "message": "The guidance anticipates this exact move: the rescuer holds the tension even though the pain it causes is severe. And once it is on, a tourniquet must never be taken off without medical advice. The pain of a tourniquet is the price of a limb and a life.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s5-le-serrage"
+    },
+    {
+     "texte": "I lay her jacket over the tourniquet, she is shivering and it will cover it up.",
+     "type": "piege",
+     "consequence_animee": "garrot-le-couvre",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Nobody can see whether it is holding any more",
+      "message": "The guidance asks you to leave the tourniquet visible wherever possible. And it adds: if the casualty is covered completely to prevent hypothermia, the tourniquet has to be checked regularly and often. A hidden tourniquet is one the crew will not see when they walk in.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s5-le-serrage"
+    }
+   ]
+  },
+  {
+   "id": "s6-l-attente",
+   "titre": "The wait",
+   "decor": "atelier-nuit",
+   "animation": "garrot-laisse-visible",
+   "narration": [
+    "The tourniquet is tight, locked, visible. She is lying down, very pale, and she is cold.",
+    "The dispatcher says seven minutes. The floor is not staining any more."
+   ],
+   "question": "Seven minutes, and the bleeding has stopped. What do you do?",
+   "choix": [
+    {
+     "texte": "I cover her but leave the thigh and the tourniquet clear, I talk to her, and I touch nothing else.",
+     "type": "juste",
+     "consequence_animee": "garrot-laisse-visible",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Cover the casualty, not the tourniquet",
+      "message": "The two instructions go together: protect the casualty from the cold and warm her if she needs it, and leave the tourniquet visible wherever possible. You also write down the time the tourniquet went on, on the tourniquet or on her, so you can pass it to whoever takes over. You reassure her by talking to her regularly, you watch for signs of things getting worse, and you call back if her condition changes.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s7-les-secours"
+    },
+    {
+     "texte": "It has stopped bleeding: I will loosen it to give her leg back before they get here.",
+     "type": "piege",
+     "consequence_animee": "garrot-le-retire",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "It comes back at once, and harder",
+      "message": "Once the tourniquet is on, it may be loosened only on a doctor's instruction. A tourniquet cuts off the blood supply to that segment of the limb completely: the decision to release a total compression belongs to a team that can deal with what follows. This is not excessive caution: it is the only rule there is.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s6-l-attente"
+    },
+    {
+     "texte": "It looks badly placed to me: I will loosen it and move it a bit higher.",
+     "type": "piege",
+     "consequence_animee": "garrot-le-deplace",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "In between the two, nothing is compressing anything",
+      "message": "A tourniquet does not get moved: it may be loosened only on a doctor's instruction. If it is working, meaning the bleeding has stopped, it is in the right place. If it is not, the guidance says to TIGHTEN it further, not to shift it, and if need be to fit a second one between the first and the top of the limb.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s6-l-attente"
+    }
+   ]
+  },
+  {
+   "id": "s7-les-secours",
+   "titre": "The crew",
+   "decor": "atelier-nuit",
+   "animation": "secours-interieur",
+   "narration": [
+    "Four people come in with a board and an orange bag. The first look goes to the thigh, and they see the tourniquet straight away: that is why you leave it visible.",
+    "They do not touch it. They put a drip in, they roll her onto the board, and they take her away with the batten still locked off.",
+    "You pressed for a minute, tightened a strap, and held a piece of wood for seven minutes. That was the whole thing, and it was the hardest in the game."
+   ],
+   "sous_titres": "Two sirens winding down, a door, calm voices.",
+   "final": true
+  }
+ ],
+ "fiche_recap": {
+  "titre": "Severe bleeding: press, and the tourniquet if you cannot",
+  "chapeau": "Nine rules, taken from the PSC1 2024 syllabus and the “Les Gestes qui Sauvent” syllabus of the French Ministry of the Interior, from the civil safety first aid recommendations, and from the public guidance of the fire and rescue services and the Croix-Rouge française.",
+  "regles": [
+   {
+    "cle": "1",
+    "titre": "Press, straight away",
+    "texte": "Direct pressure applies to any wound bleeding heavily, and it is the simplest and most effective way to stop bleeding. Press with your hand, through a clean cloth if you can.",
+    "source": "gqs-2019-dgscgc"
+   },
+   {
+    "cle": "2",
+    "titre": "Lay them down, and do not walk away without a relay",
+    "texte": "Lay the casualty down comfortably to hold off a collapse. If you have to free yourself up, first put a pad in place: a thickness of clean cloth covering the wound completely.",
+    "source": "croix-rouge-hemorragie"
+   },
+   {
+    "cle": "3",
+    "titre": "A tourniquet has a precise indication",
+    "texte": "When direct pressure on a bleed from a limb FAILS, the bleeding carrying on regardless, or is IMPOSSIBLE: many casualties, many injuries, a wound out of reach, an object in the wound. Not before. And only on a limb: an arm or a leg, nowhere else.",
+    "source": "pompiers-hemorragie"
+   },
+   {
+    "cle": "4",
+    "titre": "Above the wound, between the wound and the heart",
+    "texte": "Ideally 5 to 7 centimetres above the wound, between the heart and the wound. NEVER over a joint.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "5",
+    "titre": "A WIDE strap",
+    "texte": "A strong strip of fabric, not elastic, 3 to 5 cm wide and at least 1.50 m long, with a rigid bar 10 to 20 cm long to twist it tight. Never a thin cord, never an elastic tourniquet. If there is no bar, make the tourniquet with the wide strap alone: fold the strap in two, slide the loop under the limb, pass one end through the loop, pull on both ends to tighten the knot as hard as you can, then finish with a double holding knot.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "6",
+    "titre": "Tighten until it stops, and hold",
+    "texte": "Twist the bar until the bleeding stops, then hold the tension, even though the pain it causes is severe. If the rescuer has to break off, the tension is held by any means available. Once it is on, the tourniquet must never be taken off without medical advice.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "7",
+    "titre": "Visible, checked, and never loosened",
+    "texte": "Leave the tourniquet visible wherever possible. Cover the casualty but leave the tourniquet clear; if she is covered completely to spare her hypothermia, the tourniquet has to be checked regularly and frequently. The tourniquet is working if the bleeding has stopped; if it carries on, tighten it further. Once the tourniquet is on, it may be loosened only on a doctor's instruction.",
+    "source": "reco-premiers-secours-mi"
+   },
+   {
+    "cle": "8",
+    "titre": "Write down the time it went on",
+    "texte": "Note the time the tourniquet went on: on the tourniquet itself, on the casualty's record, even on her forehead if there are many casualties. That time is passed on to the people who take over her care.",
+    "source": "reco-premiers-secours-mi"
+   },
+   {
+    "cle": "9",
+    "titre": "Where a tourniquet does not go",
+    "texte": "A tourniquet can only go on an upper or a lower limb. And in some cases it cannot be fitted at all: a wound to the neck, a wound or a severed limb sitting too close to the top of the limb, at the groin or in the armpit. Local manual compression has to be kept up instead.",
+    "source": "reco-premiers-secours-mi"
+   }
+  ],
+  "avertissement": "This card is practice. It replaces neither a certified course nor medical advice. In a real emergency in France: 15 or 112."
+ },
+ "source_officielle": {
+  "verifie_le": "2026-08-23",
+  "sources": [
+   {
+    "cle": "psc1-2024-dgscgc",
+    "titre": "Référentiel national de compétences de sécurité civile, Prévention et secours civiques de niveau 1 (PSC1), édition 2024, fiche “Hémorragies externes” (National civil safety competence syllabus, level 1, 2024 edition, sheet on external bleeding)",
+    "editeur": "Direction générale de la sécurité civile et de la gestion des crises (DGSCGC), ministère de l'Intérieur",
+    "url": "https://mobile.interieur.gouv.fr/content/download/111131/888067/file/2024%20PSC1.pdf",
+    "extrait": "La compression directe doit être : suffisante pour arrêter le saignement ; permanente. […] Cette technique est indiquée en cas d'hémorragie d'un membre lorsque la compression directe est inefficace ou impossible. […] Garrot improvisé : lien de toile, solide, non élastique, improvisé, de 3 à 5 cm de large et d'au moins 1,50m de longueur. barre, pièce longue de 10 à 20 cm environ en bois solide, PVC dur ou métal rigide pour permettre le serrage. […] Il ne faut pas utiliser les garrots élastiques prévus pour les prises de sang. […] Le garrot est mis en place idéalement de 5 à 7 centimètres au-dessus de la plaie (entre le cœur et la plaie), jamais sur une articulation. Une fois mis en place, il ne doit jamais être retiré sans avis médical. […] faire deux tours autour du membre avec le lien large à l'endroit où le garrot doit être placé ; faire un nœud ; placer au-dessus du nœud la barre et faire deux nœuds par-dessus pour la maintenir ; tourner la barre de façon à serrer le garrot jusqu'à l'arrêt du saignement ; maintenir le serrage par : o le sauveteur même si la douleur provoquée est intense ; o quelque moyen que ce soit (autre lien, etc) si le sauveteur doit se libérer. N. B. En l'absence de barre, faire le garrot uniquement avec le lien large. Faire une boucle avec le lien en le pliant en deux, la glisser sous le membre. Glisser une extrémité du lien dans la boucle afin que le garrot entoure le membre. Serrer le nœud du garrot le plus fortement possible en tirant sur chaque extrémité du lien et réaliser un double nœud de maintien. […] Le garrot doit : être situé en amont de la plaie qui saigne (entre le cœur et la plaie) ; être serré pour arrêter le saignement."
+   },
+   {
+    "cle": "reco-premiers-secours-mi",
+    "titre": "Recommandations premiers secours, fiches modifiées juin 2018 publiées, fiches “Garrot improvisé” et “Garrot spécifique” (First aid recommendations, sheets revised June 2018, sheets on the improvised and the purpose-made tourniquet)",
+    "editeur": "Direction générale de la sécurité civile et de la gestion des crises (DGSCGC), ministère de l'Intérieur",
+    "url": "https://www.interieur.gouv.fr/content/download/111138/888108/file/Recommandations%20premiers%20secours%20-%20Fiches%20modifi%C3%A9es%20juin%202018%20publi%C3%A9es.pdf",
+    "extrait": "Le garrot est indiqué lorsque la compression directe est inefficace ou impossible (victime qui présente de nombreuses lésions, plusieurs victimes, plaie inaccessible) ou lors de situations particulières (catastrophes, théâtres d'opérations militaires ou situations apparentées, situation d'isolement). Il ne peut être posé qu'aux membres supérieurs ou inférieurs. […] Le garrot arrête une hémorragie externe en interrompant totalement la circulation du sang en amont de la plaie. […] faire, avec le lien large, deux tours autour du membre, en le positionnant correctement : à quelques centimètres de la plaie ; entre la plaie et la racine du membre ; jamais sur une articulation. […] tourner le bâton afin de serrer le garrot jusqu'à l'obtention de l'arrêt du saignement ; […] laisser préférentiellement le garrot visible ; Si la victime est totalement recouverte afin de lui éviter une hypothermie préjudiciable en cas de saignement, l'efficacité du garrot doit être vérifiée régulièrement et fréquemment. […] noter l'heure de pose du garrot (sur le garrot, sur la fiche de la victime, voire sur son front en cas de nombreuses victimes) afin de pouvoir la communiquer aux personnes assurant le relais dans la prise en charge de la victime. […] Le garrot supprime totalement la circulation du sang dans le segment de membre concerné. Il doit être posé en respectant scrupuleusement les indications ci-dessus. Dans certains cas, le garrot ne peut être installé : plaie du cou, plaie ou section de membre qui siège trop près de sa racine (pli de l'aine, creux axillaire). Il est alors nécessaire de maintenir une compression manuelle locale ou de mettre en place un pansement compressif avec contre-appui opposé. Une fois le garrot posé, il ne doit être desserré que sur ordre d'un médecin. […] Le garrot est efficace si le saignement est arrêté. En cas de persistance du saignement, resserrer le garrot. Si ce n'est pas suffisant, compléter par un ou plusieurs autres dispositifs d'arrêt des hémorragies : second garrot entre le premier et la racine du membre […]."
+   },
+   {
+    "cle": "pompiers-hemorragie",
+    "titre": "Hémorragie : prévention des risques et conduite à tenir (Bleeding: preventing the risks and what to do)",
+    "editeur": "Fédération nationale des sapeurs-pompiers de France",
+    "url": "https://www.pompiers.fr/grand-public/hemorragie",
+    "extrait": "Une hémorragie est une perte de sang prolongée qui provient d'une plaie ou d'un orifice naturel et qui ne s'arrête pas spontanément. Elle imbibe de sang un mouchoir de tissu ou de papier en quelques secondes. […] Constater l'hémorragie, en écartant les vêtements si nécessaire. Demander à la victime de comprimer immédiatement l'endroit qui saigne ou à défaut, le faire à sa place. Allonger confortablement la victime, par exemple sur un lit, un canapé ou à défaut sur le sol, afin de retarder ou empêcher l'installation d'une détresse liée à la perte de sang. Alerter les secours en composant le 18 ou le 112. Si le saignement se poursuit, reprendre la compression directe par-dessus l'éventuel pansement compressif. Si la compression directe d'une hémorragie d'un membre est inefficace (le saignement persiste malgré tout) ou impossible (nombreuses victimes, catastrophes, situations de violence collective ou de guerre, nombreuses lésions, plaie inaccessible, corps étranger), mettre en place un garrot au-dessus de la plaie pour arrêter le saignement (entre la plaie et le cœur). Rassurer la victime, en lui parlant régulièrement et en lui expliquant ce qui se passe. Protéger la victime contre la chaleur, le froid ou les intempéries, la réchauffer si nécessaire. Surveiller l'apparition de signes d'aggravation (sueurs abondantes, sensation de froid, pâleur intense, perte de connaissance) : contacter à nouveau les secours pour signaler l'aggravation."
+   },
+   {
+    "cle": "gqs-2019-dgscgc",
+    "titre": "Référentiel national “Les Gestes qui Sauvent”, édition 2019 (National syllabus, The Actions That Save Lives, 2019 edition)",
+    "editeur": "Direction générale de la sécurité civile et de la gestion des crises (DGSCGC), ministère de l'Intérieur",
+    "url": "https://www.interieur.gouv.fr/content/download/105174/832517/file/Les%20Gestes%20qui%20Sauvent%202019.pdf",
+    "extrait": "Préciser que la compression directe, avec la main, de la plaie qui saigne est la technique la plus simple et la plus efficace pour arrêter un saignement. […] Le sauveteur doit arrêter ou limiter la perte de sang de la victime et retarder l'installation d'une détresse qui peut entraîner la mort. […] allonger confortablement la victime, par exemple sur un lit, un canapé ou à défaut sur le sol ; […] La compression directe est indiquée sur toute plaie qui saigne abondamment."
+   },
+   {
+    "cle": "croix-rouge-hemorragie",
+    "titre": "L'hémorragie (Bleeding)",
+    "editeur": "Croix-Rouge française",
+    "url": "https://www.croix-rouge.fr/les-gestes-de-premiers-secours/hemorragie",
+    "extrait": "Si vous devez vous libérer (par exemple pour aller donner l'alerte), appliquez un tampon relais pour remplacer votre compression manuelle. […] Le tissu mis à la place de la main doit être propre et recouvrir complètement la plaie qui saigne. […] Si le tampon relais n'arrête pas totalement l'hémorragie, posez un second tampon, posé sur le premier pour augmenter la compression. En cas d'échec, reprenez la compression manuelle."
+   }
+  ]
+ }
+}

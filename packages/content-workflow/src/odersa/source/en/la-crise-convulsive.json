@@ -1,0 +1,373 @@
+{
+ "_licence": "CC BY 4.0 · https://creativecommons.org/licenses/by/4.0/",
+ "_source": "https://avantlessecours.odersa.org/en/cas/la-crise-convulsive",
+ "_note": "Un cas d'Avant les secours (ODERSA), en licence ouverte. Les extraits de `source_officielle` sont des VERBATIMS de référentiels publics : ils gardent la licence de leurs éditeurs, et se citent avec leur adresse.",
+ "genere_le": "2026-09-14",
+ "id": "la-crise-convulsive",
+ "numero": 12,
+ "niveau": 2,
+ "titre": "A convulsive seizure",
+ "titreCourt": "The seizure",
+ "punchline": "Everything your instinct tells you to do is wrong. The right move here consists mostly of not making one.",
+ "metaDescription": "Play out a convulsive seizure: nothing in the mouth, never hold the movements down, protect the head, time it, recovery position afterwards. Free, from the French public guidelines.",
+ "duree": "3 min",
+ "chrono_objectif": 190,
+ "gestes": [
+  "Recognise a generalised convulsive seizure",
+  "Never hold the movements down",
+  "Put nothing in the mouth",
+  "Protect the head with a folded piece of clothing",
+  "Move away anything that could injure",
+  "Move the people around away",
+  "Time how long the seizure lasts",
+  "Recovery position once the shaking stops, if they are breathing"
+ ],
+ "checkpoints": [
+  "s3-pendant-la-crise",
+  "s5-apres-les-secousses"
+ ],
+ "requetes": [
+  "what to do during a seizure",
+  "should you put something in the mouth during a seizure",
+  "how long does a seizure last",
+  "what to do after a seizure",
+  "protecting the head during a seizure"
+ ],
+ "scenes": [
+  {
+   "id": "s1-ouverture",
+   "titre": "Opening",
+   "decor": "bureau-nuit",
+   "animation": "bureau-fin-de-soiree",
+   "narration": [
+    "22.10. The open-plan floor is empty, the strip light has gone to standby, two screens are lighting up chairs nobody is using.",
+    "She stands up all at once, without a word, and she does not break her fall."
+   ],
+   "sous_titres": "A chair rolling away, an empty floor, air conditioning running.",
+   "suite": {
+    "texte": "Rush over",
+    "suivant": "s2-le-constat"
+   }
+  },
+  {
+   "id": "s2-le-constat",
+   "titre": "What you find",
+   "decor": "bureau-nuit",
+   "animation": "convulsion-en-cours",
+   "narration": [
+    "She goes rigid, then her whole body is shaken by movements she is not in charge of.",
+    "It has only just started. Your first thought is to hold her, and that is exactly the one to push away."
+   ],
+   "question": "What do you do with these first seconds?",
+   "choix": [
+    {
+     "texte": "I do not hold her down. I slide a folded piece of clothing under her head, I clear away what is lying around, and I look at the time.",
+     "type": "juste",
+     "consequence_animee": "convulsion-protege",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Never hold the movements down",
+      "message": "The civil safety guidance is categorical: never hold the casualty's movements down, at any point in the seizure. What you do instead: protect her head by sliding a folded piece of clothing or cloth under it without covering her airway, move away anything that could injure her, and note how long the seizure lasts.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s3-pendant-la-crise"
+    },
+    {
+     "texte": "I pin her arms and legs down so she does not hurt herself.",
+     "type": "piege",
+     "consequence_animee": "convulsion-contient",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "You are the one hurting her now",
+      "message": "Never hold the movements down, at any point in the seizure. A convulsing body puts out a force nobody holds without breaking something, and what you hold down does not shorten the seizure by a second. You protect the surroundings, not the body.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s2-le-constat"
+    },
+    {
+     "texte": "I get my phone out and film it, that will be useful for the doctor.",
+     "type": "vanne",
+     "consequence_animee": "convulsion-vanne-video",
+     "verdict": {
+      "couleur": "jaune",
+      "titre": "Twenty seconds of vertical video, badly out of focus",
+      "message": "What the crew wants from you comes down to two numbers: the time it started and how long it lasted. Your phone is for calling them, not for documenting.",
+      "canon_source": null
+     },
+     "cout_chrono": 14,
+     "suivant": "s2-le-constat"
+    }
+   ]
+  },
+  {
+   "id": "s3-pendant-la-crise",
+   "titre": "During the seizure",
+   "decor": "bureau-nuit",
+   "animation": "convulsion-protege",
+   "narration": [
+    "The clothing is under her head, the chair is out of the way, the clock is running.",
+    "Her jaw is clenched and she is making a sound with nothing human in it. That is when the old story comes back."
+   ],
+   "question": "She might bite her tongue. What do you do?",
+   "choix": [
+    {
+     "texte": "Nothing more. I put nothing in her mouth, and I keep counting.",
+     "type": "juste",
+     "consequence_animee": "convulsion-fin",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Nothing between her teeth, nothing in her mouth",
+      "message": "Put nothing between the casualty's teeth or in her mouth: it is written in those words. The shaking phase usually lasts under five minutes, and it is during that phase that she may bite her tongue. A bitten tongue heals; broken teeth pushed into an airway do not.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s4-le-temps"
+    },
+    {
+     "texte": "I slip something flat between her teeth to protect her tongue.",
+     "type": "piege",
+     "consequence_animee": "convulsion-dans-la-bouche",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "This is the most dangerous move in the whole situation",
+      "message": "Put nothing between the casualty's teeth or in her mouth. Her jaws clamp with a force that breaks whatever you put there, and whatever breaks goes down. It is the least intuitive instruction in first aid, and the one that injures the most rescuers and the most casualties.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s3-pendant-la-crise"
+    },
+    {
+     "texte": "I sit her up against the wall, she will breathe better.",
+     "type": "piege",
+     "consequence_animee": "convulsion-assoit",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "She has no business sitting up",
+      "message": "During the seizure you leave her lying on the floor, protect her head and clear what is around her. Sitting her up is holding her down again, and her head drops. The recovery position comes AFTER the shaking, when she is breathing and not responding.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s3-pendant-la-crise"
+    }
+   ]
+  },
+  {
+   "id": "s4-le-temps",
+   "titre": "The time",
+   "decor": "bureau-nuit",
+   "animation": "convulsion-fin",
+   "narration": [
+    "The shaking stops. One minute forty on the clock.",
+    "She responds to nothing, not your voice, not your hand on her shoulder. Her chest, though, is rising."
+   ],
+   "question": "There are two people on this floor. What do you do?",
+   "choix": [
+    {
+     "texte": "I stay next to her and call 15 on speakerphone, with the exact time I noted.",
+     "type": "juste",
+     "consequence_animee": "convulsion-pls",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "The duration is the first thing they will ask you for",
+      "message": "The guidance asks you to note how long the seizure lasted and to pass on a report. A call on speakerphone means you never have to leave her. She stays unconscious for several minutes after the shaking, her breathing may be noisy, and somebody has to be beside her the whole time.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s5-apres-les-secousses"
+    },
+    {
+     "texte": "I step into the corridor to call in peace, you cannot hear anything in here.",
+     "type": "piege",
+     "consequence_animee": "convulsion-part-appeler",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Nobody is watching her any more",
+      "message": "She stays unconscious for several minutes after the shaking, and the guidance asks you to watch the casualty until she is properly conscious again. In some cases a second seizure follows on. A corridor ten metres away is already too far.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s4-le-temps"
+    },
+    {
+     "texte": "She is breathing and it is over: I will let her sleep there and finish my file.",
+     "type": "piege",
+     "consequence_animee": "convulsion-assoit",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "It is not over, and medical advice is not optional",
+      "message": "The guidance asks you to pass on a report and follow the instructions you are given, in every case. After the shaking she stays unconscious for several minutes, she may run several seizures together, and she will remember none of it. Letting somebody sleep who is not responding is not letting them sleep.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s4-le-temps"
+    }
+   ]
+  },
+  {
+   "id": "s5-apres-les-secousses",
+   "titre": "Once the shaking stops",
+   "decor": "bureau-nuit",
+   "animation": "convulsion-pls",
+   "narration": [
+    "The dispatcher asked whether she was breathing normally. She is.",
+    "He said three words, and you already know which ones."
+   ],
+   "question": "She is not responding and she is breathing. How do you position her?",
+   "choix": [
+    {
+     "texte": "I roll her onto her side, into the recovery position, and I watch her breathing.",
+     "type": "juste",
+     "consequence_animee": "convulsion-pls",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "On her side, and you do not leave her",
+      "message": "Once the convulsions end, check that the airway is clear and check her breathing, then put her in the recovery position if she is breathing. An unconscious person left on her back is exposed to her own vomit, and a seizure often brings some.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s6-le-reveil"
+    },
+    {
+     "texte": "I leave her flat on her back, she looks better like that.",
+     "type": "piege",
+     "consequence_animee": "convulsion-assoit",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "On her back she is in danger and nothing shows",
+      "message": "The risk the guidance names is a blocked airway in an unconscious casualty left on her back, or if she vomits. She is breathing, so the recovery position is exactly what protects her while you wait.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s5-apres-les-secousses"
+    },
+    {
+     "texte": "I shake her awake: the sooner she comes round the better.",
+     "type": "piege",
+     "consequence_animee": "hypo-secoue",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "She comes back at her own pace, not yours",
+      "message": "After the shaking, the casualty stays unconscious for several minutes: that is described as the normal course of a seizure. The guidance asks you to watch her until she is properly conscious again, and to keep her calm once she is. Nothing gets faster for being shaken.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s5-apres-les-secousses"
+    }
+   ]
+  },
+  {
+   "id": "s6-le-reveil",
+   "titre": "Coming round",
+   "decor": "bureau-nuit",
+   "animation": "convulsion-fin",
+   "narration": [
+    "She opens her eyes, staring. She asks you what you are doing on the floor.",
+    "She remembers nothing, and that is exactly how the guidance describes it."
+   ],
+   "question": "She is confused and she wants to get up. What do you do?",
+   "choix": [
+    {
+     "texte": "I keep her calm, lying down, I reassure her, and I wait for the crew with her.",
+     "type": "juste",
+     "consequence_animee": "convulsion-pls",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Calm, and reassured",
+      "message": "When the casualty becomes conscious again, keep her calm and reassure her. The guidance describes this moment: she may be dazed, staring, behaving oddly, and remembering nothing. It is not a sign that things are getting worse, and it is not the moment to walk her about.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s7-les-secours"
+    },
+    {
+     "texte": "I give her a glass of water, her mouth is dry.",
+     "type": "piege",
+     "consequence_animee": "hypo-verre-eau",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "She has only just come out of a seizure",
+      "message": "She is dazed, she remembers nothing, and she has just spent several minutes unconscious: nothing gets drunk in that state. You keep her calm and reassure her, until help arrives and according to what they tell you.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s6-le-reveil"
+    },
+    {
+     "texte": "I let her get up and go home, she says she is fine.",
+     "type": "piege",
+     "consequence_animee": "convulsion-assoit",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "She says that because she remembers nothing",
+      "message": "The guidance asks you to watch the casualty until she is properly conscious again, and to pass on a report in every case. Somebody with no memory of the last few minutes is in no state to decide whether she can drive. Help is on its way, and that is what it is coming for.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s6-le-reveil"
+    }
+   ]
+  },
+  {
+   "id": "s7-les-secours",
+   "titre": "The crew",
+   "decor": "bureau-nuit",
+   "animation": "secours-bureau",
+   "narration": [
+    "Blue light in the glazed courtyard, the lift, two people with a bag.",
+    "They ask you how long it lasted. You answer one minute forty, and the exact time it started.",
+    "You did almost nothing tonight: you put down a piece of clothing, pushed a chair away, and looked at a watch. That was the whole programme."
+   ],
+   "sous_titres": "Two sirens winding down, a lift, calm voices.",
+   "final": true
+  }
+ ],
+ "fiche_recap": {
+  "titre": "A seizure: protect, count, do not hold down",
+  "chapeau": "Seven rules, taken from the first aid recommendations of the civil safety directorate of the French Ministry of the Interior.",
+  "regles": [
+   {
+    "cle": "1",
+    "titre": "Never hold the movements down",
+    "texte": "At any point in the seizure. You hold neither the arms, nor the legs, nor the head. Holding down a convulsing body shortens nothing and breaks something. At the start of the seizure, lay her on the floor if she is not already there, so she cannot hurt herself falling, and move the people around her away.",
+    "source": "reco-premiers-secours-mi"
+   },
+   {
+    "cle": "2",
+    "titre": "Nothing in the mouth, ever",
+    "texte": "Put nothing between the casualty's teeth or in her mouth. It is the least intuitive instruction in first aid, and the most important one here.",
+    "source": "reco-premiers-secours-mi"
+   },
+   {
+    "cle": "3",
+    "titre": "Protect the head",
+    "texte": "If you can, slide a folded piece of clothing or cloth under her head, without covering her airway. It is the only useful contact during the shaking.",
+    "source": "reco-premiers-secours-mi"
+   },
+   {
+    "cle": "4",
+    "titre": "Move objects away, move people away",
+    "texte": "Move away anything that could injure her, and move the people around her away. The danger is not in the body, it is around it.",
+    "source": "reco-premiers-secours-mi"
+   },
+   {
+    "cle": "5",
+    "titre": "Count",
+    "texte": "Note how long the seizure lasts, and the time it started. The shaking phase usually lasts under five minutes. It is the first thing the crew will ask you for.",
+    "source": "reco-premiers-secours-mi"
+   },
+   {
+    "cle": "6",
+    "titre": "Once the shaking stops: the recovery position",
+    "texte": "Check that the airway is clear and check her breathing. If she is breathing, put her in the recovery position. If she is not breathing, start resuscitation.",
+    "source": "reco-premiers-secours-mi"
+   },
+   {
+    "cle": "7",
+    "titre": "Coming round is confused, and that is normal",
+    "texte": "She stays unconscious for several minutes, her breathing may be noisy. As she comes round she may be dazed, staring, and remember nothing. Keep her calm, reassure her, and pass on a report in every case.",
+    "source": "reco-premiers-secours-mi"
+   }
+  ],
+  "avertissement": "This card is practice. It replaces neither a certified course nor medical advice. In a real emergency in France: 15 or 112."
+ },
+ "source_officielle": {
+  "verifie_le": "2026-08-23",
+  "sources": [
+   {
+    "cle": "reco-premiers-secours-mi",
+    "titre": "Recommandations premiers secours, fiches modifiées juin 2018 publiées, fiche “Crise convulsive généralisée” (First aid recommendations, sheets revised June 2018, sheet on the generalised convulsive seizure)",
+    "editeur": "Direction générale de la sécurité civile et de la gestion des crises (DGSCGC), ministère de l'Intérieur",
+    "url": "https://www.interieur.gouv.fr/content/download/111138/888108/file/Recommandations%20premiers%20secours%20-%20Fiches%20modifi%C3%A9es%20juin%202018%20publi%C3%A9es.pdf",
+    "extrait": "Ne jamais contraindre les mouvements de la victime durant toute la crise. […] Au début de la crise : allonger la victime au sol, si elle n'est pas déjà dans cette position pour éviter qu'elle ne se blesse en chutant ; écarter les personnes qui sont autour. […] Pendant la crise : protéger la tête de la victime en glissant si possible un vêtement ou un tissu plié sous sa tête, sans recouvrir les voies aériennes ; écarter tout objet qui pourrait être traumatisant ; ne rien placer entre les dents de la victime ou dans sa bouche. Elle n'avalera pas sa langue. […] noter l'heure de survenue et la durée de la crise ; […] transmettre un bilan et appliquer les consignes ; surveiller la victime jusqu'à ce qu'elle retrouve un état normal de conscience ; […] A la fin des convulsions : s'assurer que les voies aériennes de la victime sont libres et vérifier sa respiration ; débuter la RCP si elle ne respire plus ; installer la victime en PLS, si elle respire ; lorsque la victime redevient consciente, la garder au calme et la rassurer ; […] Cette phase dure en règle générale moins de cinq minutes, période pendant laquelle la victime peut se mordre la langue ; […] enfin, après les secousses, la victime reste sans connaissance plusieurs minutes. Sa respiration peut être bruyante. […] Lors de la reprise progressive de sa conscience, la victime peut être hébétée, le regard fixe ou se comporter de manière étrange et ne se souvient de rien (amnésie des circonstances). Dans certains cas, elle peut enchaîner plusieurs crises convulsives avec ou sans reprise de conscience entre les crises. […] obstruction des voies aériennes chez une victime sans connaissance si elle est laissée sur le dos ou si elle vomit (détresse respiratoire)."
+   }
+  ]
+ }
+}

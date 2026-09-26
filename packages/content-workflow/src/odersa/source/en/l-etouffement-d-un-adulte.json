@@ -1,0 +1,377 @@
+{
+ "_licence": "CC BY 4.0 · https://creativecommons.org/licenses/by/4.0/",
+ "_source": "https://avantlessecours.odersa.org/en/cas/l-etouffement-d-un-adulte",
+ "_note": "Un cas d'Avant les secours (ODERSA), en licence ouverte. Les extraits de `source_officielle` sont des VERBATIMS de référentiels publics : ils gardent la licence de leurs éditeurs, et se citent avec leur adresse.",
+ "genere_le": "2026-09-14",
+ "id": "l-etouffement-d-un-adulte",
+ "numero": 3,
+ "niveau": 1,
+ "titre": "An adult choking",
+ "titreCourt": "Choking",
+ "punchline": "While she is coughing, do not touch her. The moment she stops coughing, you have a few seconds.",
+ "metaDescription": "Play out choking at the dinner table: telling a partial blockage from a complete one, encouraging the cough, five back blows, abdominal thrusts. Free training.",
+ "duree": "3 min",
+ "chrono_objectif": 175,
+ "gestes": [
+  "Ask “are you choking?”",
+  "Let her cough while the cough is working",
+  "Five blows between the shoulder blades",
+  "Five abdominal thrusts",
+  "Chest thrusts when the abdomen cannot be encircled",
+  "Alternate blows and thrusts",
+  "Stop at the first cough, cry or return of breathing"
+ ],
+ "checkpoints": [
+  "s3-plus-un-son",
+  "s4-les-claques"
+ ],
+ "requetes": [
+  "what to do when someone is choking",
+  "someone is choking what do i do",
+  "how to do the heimlich manoeuvre",
+  "back blows for choking",
+  "how many back blows for choking"
+ ],
+ "scenes": [
+  {
+   "id": "s1-ouverture",
+   "titre": "Opening",
+   "decor": "tablee-nuit",
+   "animation": "tablee-repas",
+   "narration": [
+    "Sunday evening, six people round the table. Your mother-in-law is telling a story with her mouth full.",
+    "She stops in the middle of a sentence, gets up all at once, and brings both hands to her throat."
+   ],
+   "sous_titres": "A chair pushed back, conversations falling away.",
+   "suite": {
+    "texte": "Get up",
+    "suivant": "s2-la-question"
+   }
+  },
+  {
+   "id": "s2-la-question",
+   "titre": "The question",
+   "decor": "tablee-nuit",
+   "animation": "victime-tousse",
+   "narration": [
+    "She is coughing. A real cough, loud, coming from deep down. She can still make a noise.",
+    "Everyone has stood up and nobody is moving."
+   ],
+   "question": "What do you do?",
+   "choix": [
+    {
+     "texte": "I ask her “are you choking?”, I settle her however she feels best, and I encourage her to cough.",
+     "type": "juste",
+     "consequence_animee": "encourage-toux",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Her cough is the best thing happening at this table",
+      "message": "If she can speak, shout or cough, the blockage is PARTIAL: you settle her in the position she feels best in, you encourage her to cough, you get medical advice and you watch her closely. You do not hit her.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s3-plus-un-son"
+    },
+    {
+     "texte": "I give her five good hard blows on the back straight away.",
+     "type": "piege",
+     "consequence_animee": "tape-dos-a-tort",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "You have just stopped the one thing that was working",
+      "message": "Back blows are for a COMPLETE blockage, when the person can no longer speak, shout, cough or make any sound at all. While the cough is working, you let it do its job.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s2-la-question"
+    },
+    {
+     "texte": "I signal to her to put her arms in the air, I have seen that somewhere.",
+     "type": "vanne",
+     "consequence_animee": "vanne-bras-en-l-air",
+     "verdict": {
+      "couleur": "jaune",
+      "titre": "Her arms are up. She is still coughing.",
+      "message": "You have seen it somewhere, yes. The guidance has not seen it anywhere. Put her arms down and watch her cough: that is exactly what she needs to be doing.",
+      "canon_source": null
+     },
+     "cout_chrono": 11,
+     "suivant": "s2-la-question"
+    }
+   ]
+  },
+  {
+   "id": "s3-plus-un-son",
+   "titre": "Not a sound",
+   "decor": "tablee-nuit",
+   "animation": "obstruction-complete",
+   "narration": [
+    "The cough dies away. She opens her mouth, she is thrashing about, and nothing at all is coming out.",
+    "She can no longer speak, or shout, or cough."
+   ],
+   "question": "This has just changed. What do you do?",
+   "choix": [
+    {
+     "texte": "I step to her side, I lean her forward with a hand supporting her chest, and I strike between the shoulder blades.",
+     "type": "juste",
+     "consequence_animee": "penche-en-avant",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "The blockage is complete: you clear it",
+      "message": "Mouth open, thrashing about, not a sound left: that is the picture of a complete blockage. One hand supports the chest so the object does not go further down, the other one strikes.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s4-les-claques"
+    },
+    {
+     "texte": "I get her to drink a big glass of water to wash it down.",
+     "type": "piege",
+     "consequence_animee": "boire-pour-faire-passer",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Nothing can go down: the way through is blocked",
+      "message": "Water has no more room than air. What the guidance asks for is back blows, then abdominal thrusts. Drinking appears in no first aid procedure at all.",
+      "canon_source": "croix-rouge-etouffement"
+     },
+     "suivant": "s3-plus-un-son"
+    },
+    {
+     "texte": "I call 15 and wait to be told what to do.",
+     "type": "piege",
+     "consequence_animee": "attend-au-telephone",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "The dispatcher is going to tell you to strike, and you will have lost that time",
+      "message": "With a complete blockage, the action comes BEFORE the call: somebody else round the table can call for help while you are striking. There were six of you here.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s3-plus-un-son"
+    }
+   ]
+  },
+  {
+   "id": "s4-les-claques",
+   "titre": "Between the shoulder blades",
+   "decor": "dos-claques",
+   "animation": "claques-dos",
+   "narration": [
+    "You are at her side, slightly behind. Your left hand holds her chest, she is leaning forward.",
+    "Your right hand is open, heel first."
+   ],
+   "question": "How do you strike?",
+   "choix": [
+    {
+     "texte": "One to five firm blows between the shoulder blades, with the heel of my open hand, and I check after each one.",
+     "type": "juste",
+     "consequence_animee": "claques-dos",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "The food has come out",
+      "message": "One to five firm blows between the shoulder blades, with the heel of the open hand. Each blow is trying to set off a cough. After every one, you look: if the object has been thrown clear, you stop.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s5-si-ca-resiste"
+    },
+    {
+     "texte": "I hit as fast and as hard as I can, without counting and without looking.",
+     "type": "piege",
+     "consequence_animee": "claques-inutiles",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Five at most, and you look between each one",
+      "message": "The guidance says one to five blows, and to check after each one whether things are back to normal. Striking blind means carrying on when the airway may already be clear.",
+      "canon_source": "croix-rouge-etouffement"
+     },
+     "suivant": "s4-les-claques"
+    },
+    {
+     "texte": "I go straight to abdominal thrusts, they work better.",
+     "type": "piege",
+     "consequence_animee": "compressions-abdo",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Thrusts come AFTER the blows",
+      "message": "Abdominal thrusts are used after a series of five back blows has failed. The order is not a preference: it is the procedure.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s4-les-claques"
+    }
+   ]
+  },
+  {
+   "id": "s5-si-ca-resiste",
+   "titre": "If it will not shift",
+   "decor": "dos-claques",
+   "animation": "victime-tousse",
+   "narration": [
+    "Picture the other ending, the one where the five blows did nothing. That is the one you need to have rehearsed."
+   ],
+   "question": "Five blows, no effect. What do you do?",
+   "choix": [
+    {
+     "texte": "Five abdominal thrusts, then I alternate five blows and five thrusts for as long as it holds.",
+     "type": "juste",
+     "consequence_animee": "compressions-abdo",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Alternate, and never stop",
+      "message": "If the blows have no effect, five abdominal thrusts at most. If the problem still is not solved, you alternate five back blows and five abdominal thrusts.",
+      "canon_source": "croix-rouge-etouffement"
+     },
+     "suivant": "s6-si-elle-tombe"
+    },
+    {
+     "texte": "I keep going with back blows, one after another, until it comes out.",
+     "type": "piege",
+     "consequence_animee": "claques-inutiles",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Five blows with no effect, and you change what you are doing",
+      "message": "The procedure runs on: blows, then thrusts, then alternating. Sticking with something that has just failed five times burns the seconds that are left.",
+      "canon_source": "croix-rouge-etouffement"
+     },
+     "suivant": "s5-si-ca-resiste"
+    },
+    {
+     "texte": "I lay her on her back and start pressing on her chest straight away.",
+     "type": "piege",
+     "consequence_animee": "claques-inutiles",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "She is still conscious: this is not that action",
+      "message": "The chest compressions of resuscitation come when the casualty LOSES consciousness. While she is on her feet and conscious, you alternate back blows and abdominal thrusts.",
+      "canon_source": "croix-rouge-etouffement"
+     },
+     "suivant": "s5-si-ca-resiste"
+    }
+   ]
+  },
+  {
+   "id": "s6-si-elle-tombe",
+   "titre": "If she loses consciousness",
+   "decor": "tablee-nuit",
+   "animation": "victime-s-affaisse",
+   "narration": [
+    "The other ending again: her legs give way."
+   ],
+   "question": "She loses consciousness in your arms. What do you do?",
+   "choix": [
+    {
+     "texte": "I lower her gently to the floor, I call for help immediately, and I start thirty chest compressions.",
+     "type": "juste",
+     "consequence_animee": "allonge-et-alerte",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Lay her down, call, resuscitate",
+      "message": "Lay the casualty gently on the floor and call for help immediately, then start resuscitation with thirty chest compressions. Keep going until help arrives or until she starts breathing normally again.",
+      "canon_source": "croix-rouge-etouffement"
+     },
+     "suivant": "s7-les-secours"
+    },
+    {
+     "texte": "I hold her up and carry on with the abdominal thrusts.",
+     "type": "piege",
+     "consequence_animee": "boire-pour-faire-passer",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "An unconscious person goes on the floor",
+      "message": "Losing consciousness changes the procedure: you lay her down gently, you call, and you move to chest compressions. Holding her upright stops you doing either.",
+      "canon_source": "croix-rouge-etouffement"
+     },
+     "suivant": "s6-si-elle-tombe"
+    },
+    {
+     "texte": "I put her on her side in the recovery position and wait.",
+     "type": "piege",
+     "consequence_animee": "allonge-et-alerte",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "The recovery position assumes she is breathing",
+      "message": "Here the way through is blocked: she is not breathing. What the guidance asks for is resuscitation, starting with thirty chest compressions, once you have called.",
+      "canon_source": "croix-rouge-etouffement"
+     },
+     "suivant": "s6-si-elle-tombe"
+    }
+   ]
+  },
+  {
+   "id": "s7-les-secours",
+   "titre": "The crew",
+   "decor": "tablee-nuit",
+   "animation": "secours-interieur",
+   "narration": [
+    "Go back to the first ending, the good one: the food came out on the third blow, she coughed, she got her breath back, she sat down again.",
+    "The crew comes anyway, because somebody called while you were striking. They examine her, they talk to her, they write down what happened.",
+    "Nobody at that table will ever know whether she would have died. That is exactly why you practise."
+   ],
+   "sous_titres": "A door, calm voices, a chair being pulled up.",
+   "final": true
+  }
+ ],
+ "fiche_recap": {
+  "titre": "An adult choking: the question first, the action second",
+  "chapeau": "Seven rules, taken from the national PSC1 syllabus of the civil safety directorate of the French Ministry of the Interior and from the life-saving guide of the Croix-Rouge française.",
+  "regles": [
+   {
+    "cle": "1",
+    "titre": "Ask her: “are you choking?”",
+    "texte": "That is the first question, and it sorts out everything else. If the person can speak, shout or cough, the blockage is partial. If she can no longer speak, shout, cough or make any sound, keeps her mouth open and is thrashing about, the blockage is complete.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "2",
+    "titre": "Partial blockage: do not touch her",
+    "texte": "Settle her in the position she feels best in, encourage her to cough, get medical advice and follow it, watch her closely. Her cough works better than anything you could do. If the cough stops working, move on to the procedure for a complete blockage.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "3",
+    "titre": "Complete blockage: one to five back blows",
+    "texte": "Move to her side, lean her forward with one hand supporting her chest. One to five firm blows between the shoulder blades, with the heel of your open hand. After each blow, check whether the object has been thrown clear: if it has, stop.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "4",
+    "titre": "Then five abdominal thrusts, then alternate",
+    "texte": "If the back blows have no effect, do five abdominal thrusts at most. If the problem still is not solved, alternate five back blows and five abdominal thrusts.",
+    "source": "croix-rouge-etouffement"
+   },
+   {
+    "cle": "5",
+    "titre": "When abdominal thrusts are impossible",
+    "texte": "Abdominal thrusts assume a complete obstruction, an adult or a child, and a rescuer who can stand or kneel behind the casualty, after a series of five ineffective back blows. If the abdomen cannot be encircled, an obese adult or a pregnant woman in the last months of pregnancy, the thrusts are done on the chest: stand behind her, pass your forearms under her arms and encircle her chest, closed fist in the middle of the breastbone, the other hand on top, and pull backwards, one to five thrusts, releasing between each one. For someone bedridden or lying down and hard to move, the chest is compressed as for a casualty in cardiac arrest.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "6",
+    "titre": "Stop the moment she coughs, cries out or breathes",
+    "texte": "Repeat the cycle of blows to the back then thrusts, and stop the manoeuvres as soon as a cough, a cry or crying appears, as soon as breathing comes back, or as soon as the foreign body is expelled. Then settle her in the position where she feels best, comfort her by talking to her regularly, loosen her clothing, have someone call for help and follow their instructions, and keep watching her.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "7",
+    "titre": "If she loses consciousness",
+    "texte": "Lay her gently on the floor and call for help immediately. Then start resuscitation with thirty chest compressions, and keep going until help arrives or until she starts breathing normally again.",
+    "source": "croix-rouge-etouffement"
+   }
+  ],
+  "avertissement": "This card is practice. It replaces neither a certified course nor medical advice. In a real emergency in France: 15 or 112."
+ },
+ "source_officielle": {
+  "verifie_le": "2026-08-23",
+  "sources": [
+   {
+    "cle": "psc1-2024-dgscgc",
+    "titre": "Référentiel national de compétences de sécurité civile, Prévention et secours civiques de niveau 1 (PSC1), édition 2024 (National civil safety competence syllabus, level 1 civic prevention and first aid, 2024 edition)",
+    "editeur": "Direction générale de la sécurité civile et de la gestion des crises (DGSCGC), ministère de l'Intérieur",
+    "url": "https://mobile.interieur.gouv.fr/content/download/111131/888067/file/2024%20PSC1.pdf",
+    "extrait": "Demander à la victime « est-ce que vous vous étouffez ? ». […] Si la victime ne peut plus parler, crier, tousser ou émettre un son, garde la bouche ouverte, s'agite, devient […] obstruction complète. […] La victime présente une obstruction partielle : installer la victime dans la position où elle se sent le mieux ; encourager la victime à tousser ; demander un avis médical et appliquer les consignes ; surveiller attentivement la victime. Si la toux devient inefficace et que la victime montre des signes de fatigue, il convient alors d'appliquer la conduite à tenir devant une obstruction complète. […] La victime présente une obstruction complète : […] donner de 1 à 5 claques vigoureuses dans le dos, entre les deux omoplates, avec le talon de la main ouverte. […] Désobstruction par compressions abdominales […] Cette technique est indiquée en cas d'obstruction complète des voies aériennes par un corps étranger chez un adulte ou un enfant après une série de 5 claques dans le dos inefficaces, et si le sauveteur peut se tenir debout ou à genou derrière elle. […] faire alerter ou alerter les secours et appliquer leurs consignes ; […] réaliser de 1 à 5 « compressions » en cas d'inefficacité ou d'impossibilité de pratiquer des « claques dans le dos » : au niveau abdominal, s'il s'agit d'un adulte ou d'un enfant ; au niveau thoracique, s'il s'agit : d'un nourrisson ; d'un adulte obèse ou d'une femme enceinte lorsqu'il est impossible d'encercler l'abdomen ; d'une personne alitée ou allongée, difficilement mobilisable. […] répéter le cycle « claques dans le dos » et « compressions » ; interrompre les manœuvres dès : o l'apparition d'une toux, de cris ou de pleurs ; o la reprise de la respiration ; o le rejet du corps étranger. Si les manœuvres de désobstruction sont efficaces : installer la victime dans la position où elle se sent le mieux ; la réconforter en lui parlant régulièrement ; desserrer les vêtements ; faire alerter ou alerter les secours et appliquer leurs consignes ; surveiller la victime. […] Désobstruction par compressions thoraciques chez l'adulte […] Cette technique est indiquée en cas d'obstruction complète des voies aériennes par un corps étranger, lorsqu'il est impossible d'encercler l'abdomen de la victime (obèse, femme enceinte dans les derniers mois de grossesse, etc.) et après une série de 5 claques dans le dos inefficaces. […] Personne dont il est impossible d'encercler l'abdomen (obèse ou femme enceinte) : se positionner derrière la victime ; placer ses avant-bras sous les bras de la victime et encercler la poitrine de la victime ; placer le poing fermé (dos de la main vers le ciel) au milieu du sternum, sans appuyer sur la pointe inférieure du sternum ; placer l'autre main sur la première sans appuyer les avant-bras sur les côtes ; tirer franchement en exerçant une pression vers l'arrière ; effectuer de 1 à 5 compressions, en relâchant entre chacune. […] Personne alitée ou allongée, difficilement mobilisable : effectuer des compressions thoraciques, comme pour une victime en arrêt cardiaque. […] Les compressions thoraciques doivent être réalisées : au milieu du sternum ; sans appuyer sur les côtes ; vers l'arrière."
+   },
+   {
+    "cle": "croix-rouge-etouffement",
+    "titre": "L'étouffement (Choking)",
+    "editeur": "Croix-Rouge française",
+    "url": "https://www.croix-rouge.fr/les-gestes-de-premiers-secours/etouffement",
+    "extrait": "La victime ne peut ni parler, ni respirer, ni tousser. Elle peut émettre des sifflements ou tenter de tousser sans émettre de bruit. […] Donnez un maximum de 5 claques dans le dos de la victime. Après chaque claque, vérifiez si tout rentre dans l'ordre. […] Si les claques dans le dos n'ont pas d'effet, effectuez un maximum de 5 compressions abdominales. […] Si le problème n'est toujours pas résolu, alternez 5 claques dans le dos et 5 compressions abdominales. […] Posez-la victime délicatement au sol et alertez immédiatement les secours, puis entreprenez une réanimation cardio-pulmonaire en commençant par effectuer 30 compressions thoraciques. […] Poursuivez la réanimation jusqu'à ce que les secours arrivent ou que la victime reprenne une respiration normale. […] Administrez un maximum de 5 claques entre les omoplates. Chaque claque a pour but de provoquer un mouvement de toux permettant de déloger l'objet. […] Après chaque claque, observez si le corps étranger a été rejeté ou non."
+   }
+  ]
+ }
+}

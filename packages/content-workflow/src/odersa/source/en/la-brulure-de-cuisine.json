@@ -1,0 +1,370 @@
+{
+ "_licence": "CC BY 4.0 · https://creativecommons.org/licenses/by/4.0/",
+ "_source": "https://avantlessecours.odersa.org/en/cas/la-brulure-de-cuisine",
+ "_note": "Un cas d'Avant les secours (ODERSA), en licence ouverte. Les extraits de `source_officielle` sont des VERBATIMS de référentiels publics : ils gardent la licence de leurs éditeurs, et se citent avec leur adresse.",
+ "genere_le": "2026-09-14",
+ "id": "la-brulure-de-cuisine",
+ "numero": 5,
+ "niveau": 1,
+ "titre": "The kitchen burn",
+ "titreCourt": "The burn",
+ "punchline": "Water, straight away, and for far longer than you think. That is all there is to it. And it almost always gets cut short.",
+ "metaDescription": "Play out a kitchen burn: cool it under tepid water for at least ten minutes, take off rings and anything not stuck to the skin, leave the blisters alone. Free training.",
+ "duree": "3 min",
+ "chrono_objectif": 175,
+ "gestes": [
+  "Tepid water, straight away",
+  "Keep it there at least ten minutes",
+  "Take off rings and clothing that is not stuck",
+  "Do not burst the blisters",
+  "Know a serious burn when you see one",
+  "Call for help as soon as the water starts, if the burn is serious"
+ ],
+ "checkpoints": [
+  "s3-l-eau",
+  "s5-appeler"
+ ],
+ "requetes": [
+  "what to do for a burn",
+  "how long to hold a burn under water",
+  "should you burst a burn blister",
+  "burn cold water or tepid water",
+  "burn when to call 15"
+ ],
+ "scenes": [
+  {
+   "id": "s1-ouverture",
+   "titre": "Opening",
+   "decor": "cuisine-nuit",
+   "animation": "cuisine-brulure",
+   "narration": [
+    "20.15. Your father is draining the pasta. The pan tips sideways and the boiling water goes over his forearm and his wrist.",
+    "He swears, he backs away, he holds his arm against himself. The skin goes red very fast, over a good hand's width."
+   ],
+   "sous_titres": "A pan knocking the sink, water falling.",
+   "suite": {
+    "texte": "Go over to him",
+    "suivant": "s2-le-premier-reflexe"
+   }
+  },
+  {
+   "id": "s2-le-premier-reflexe",
+   "titre": "The first reflex",
+   "decor": "cuisine-nuit",
+   "animation": "interieur-arret",
+   "narration": [
+    "The sink is a metre and a half away. The cupboard above it has a bit of everything in it.",
+    "He says it is burning more and more."
+   ],
+   "question": "What do you do?",
+   "choix": [
+    {
+     "texte": "I turn the hob off and take him straight to the sink, under the tap.",
+     "type": "juste",
+     "consequence_animee": "vers-l-evier",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "How fast you act decides everything",
+      "message": "The first reflex is to cool the area that has been burnt. Every second of waiting lets the heat go deeper into the skin. Everything else comes after the water.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s3-l-eau"
+    },
+    {
+     "texte": "I get a cream out of the cupboard and put some on the burn.",
+     "type": "piege",
+     "consequence_animee": "met-pommade",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "You have just sealed the heat under a layer of grease",
+      "message": "Nothing goes on a burn before the water, and above all nothing greasy. No harsh antiseptic either, and no cotton wool, whose fibres would stick to the wound.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s2-le-premier-reflexe"
+    },
+    {
+     "texte": "I go looking for the toothpaste, my grandmother used to do that.",
+     "type": "vanne",
+     "consequence_animee": "vanne-dentifrice",
+     "verdict": {
+      "couleur": "jaune",
+      "titre": "Your grandmother has plenty of other qualities",
+      "message": "The tube in your hand is for cleaning your teeth. The thing you need is behind you, it is made of metal, and it runs.",
+      "canon_source": null
+     },
+     "cout_chrono": 12,
+     "suivant": "s2-le-premier-reflexe"
+    }
+   ]
+  },
+  {
+   "id": "s3-l-eau",
+   "titre": "Under the tap",
+   "decor": "evier-eau",
+   "animation": "eau-tempere",
+   "narration": [
+    "His forearm is over the basin. The tap is yours."
+   ],
+   "question": "How do you run it, and for how long?",
+   "choix": [
+    {
+     "texte": "Tepid water, gently, running above the burn, and I leave it there at least ten minutes.",
+     "type": "juste",
+     "consequence_animee": "eau-tempere",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "At least ten minutes, ideally twenty",
+      "message": "Tepid water between 15 and 25 degrees, at low pressure, running ABOVE the burn so that the jet does not land straight on it. That relieves the pain and limits how far the damage spreads. Ten minutes feels very long: it is the minimum.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s4-ce-qu-on-retire"
+    },
+    {
+     "texte": "Iced water and the ice tray, the colder the better.",
+     "type": "piege",
+     "consequence_animee": "eau-glacee",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "The water has to be TEPID, not iced",
+      "message": "The guidance says tepid water, between 15 and 25 degrees. Ice adds a cold injury to skin that has already been destroyed, and the shock of it does more harm than good.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s3-l-eau"
+    },
+    {
+     "texte": "Thirty seconds of water, then I wrap the arm in a tea towel with some butter.",
+     "type": "piege",
+     "consequence_animee": "corps-gras",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Thirty seconds cools nothing",
+      "message": "It takes at least ten minutes, ideally twenty. And nothing greasy goes on a burn: it holds the heat against the skin, which is the exact opposite of what you are trying to do.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s3-l-eau"
+    }
+   ]
+  },
+  {
+   "id": "s4-ce-qu-on-retire",
+   "titre": "What comes off",
+   "decor": "evier-eau",
+   "animation": "eau-tempere",
+   "narration": [
+    "The water has been running for four minutes. He is wearing a wedding ring and a watch, and the sleeve of his polo shirt is stuck to him in places.",
+    "A blister is starting to form, wider than half his palm."
+   ],
+   "question": "What do you take off?",
+   "choix": [
+    {
+     "texte": "The ring and the watch straight away, and I leave the sleeve where it is stuck.",
+     "type": "juste",
+     "consequence_animee": "retire-bague",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Whatever is not stuck comes off",
+      "message": "Take off clothing and jewellery if they are not stuck to the skin: it is going to swell, and a wedding ring becomes a tourniquet. Anything that has stuck, you leave alone, and you cut around the clothing if you have to.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s5-appeler"
+    },
+    {
+     "texte": "I pull the sleeve away to clear the whole area.",
+     "type": "piege",
+     "consequence_animee": "arrache-vetement",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "The skin came away with the fabric",
+      "message": "Never pull off clothing that has stuck to a burn: it would tear the skin away and make a bigger open wound. You cut around the clothing if you need to.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s4-ce-qu-on-retire"
+    },
+    {
+     "texte": "I burst the blister with a sterilised needle so it does not get in the way.",
+     "type": "piege",
+     "consequence_animee": "perce-cloque",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "The blister is a barrier: it stays shut",
+      "message": "Blisters work as a natural barrier against infection. Bursting them raises the risk of infection. You do not touch the burn with unwashed hands either.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s4-ce-qu-on-retire"
+    }
+   ]
+  },
+  {
+   "id": "s5-appeler",
+   "titre": "Is this serious?",
+   "decor": "cuisine-nuit",
+   "animation": "interieur-arret",
+   "narration": [
+    "The blister is now clearly bigger than half his palm, and it sits on the wrist, right over the joint.",
+    "He says he is fine, that he will get it looked at tomorrow."
+   ],
+   "question": "What do you do?",
+   "choix": [
+    {
+     "texte": "I call 15 while keeping his arm under the water, and I describe the blister and how big it is.",
+     "type": "juste",
+     "consequence_animee": "appelle-15-cuisine",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Two markers of a serious burn, so you call",
+      "message": "A burn is serious as soon as a blister is bigger than half the casualty's palm, or sits over a joint, the face, the neck, the hands or near a natural opening of the body. As soon as a burn is serious, you call for help immediately.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s6-en-attendant"
+    },
+    {
+     "texte": "We will see in the morning, he seems all right.",
+     "type": "piege",
+     "consequence_animee": "attendre-demain",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "It is not for him to decide whether it is serious",
+      "message": "A blister wider than half the palm, sitting over a joint: those two markers make a serious burn, and a serious burn gets called in immediately. 15 judges, you describe.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s5-appeler"
+    },
+    {
+     "texte": "I clean it with surgical spirit and put a tight dressing on it.",
+     "type": "piege",
+     "consequence_animee": "met-pommade",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "No spirit, and nothing tight",
+      "message": "You do not use harsh antiseptics such as alcohol or hydrogen peroxide. You cover the burn with a dressing or a clean cloth, laid on without tightening, and you call for help because it is serious.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s5-appeler"
+    }
+   ]
+  },
+  {
+   "id": "s6-en-attendant",
+   "titre": "While you wait",
+   "decor": "evier-eau",
+   "animation": "eau-tempere",
+   "narration": [
+    "The dispatcher tells you to keep the water going and wait for the crew."
+   ],
+   "question": "What do you do until they get here?",
+   "choix": [
+    {
+     "texte": "I keep the tepid water running, then I cover the burn with a clean cloth and put nothing on it.",
+     "type": "juste",
+     "consequence_animee": "protege-brulure",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Water, a clean cloth, and nothing else",
+      "message": "Cover the burn with a dressing or a clean cloth. No cotton wool, whose fibres would stick to the wound, nothing out of a bottle, nothing greasy. And wash your hands before you touch it.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s7-les-secours"
+    },
+    {
+     "texte": "I turn the water off so he does not get cold and wrap him in a blanket.",
+     "type": "piege",
+     "consequence_animee": "corps-gras",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "The cooling is not finished",
+      "message": "It takes at least ten minutes of water, ideally twenty. If you are worried about the cold, cover the REST of his body and leave the burn under the water: the heat goes on doing damage under the skin until it has been drawn out.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s6-en-attendant"
+    },
+    {
+     "texte": "I rub the area gently to clean it before they arrive.",
+     "type": "piege",
+     "consequence_animee": "perce-cloque",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Rubbing means opening the blister",
+      "message": "You do not rub a burn and you do not burst its blisters: they are the natural barrier against infection. Tepid water is enough, and cleaning it is not your job.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s6-en-attendant"
+    }
+   ]
+  },
+  {
+   "id": "s7-les-secours",
+   "titre": "The crew",
+   "decor": "cuisine-nuit",
+   "animation": "secours-interieur",
+   "narration": [
+    "Blue light turns across the kitchen cupboards. Two people come in, look at the arm, look at the tap still running, and say that is good.",
+    "They put a clean dressing on him, write down the time of the burn and how long it was cooled for, and take him away.",
+    "All you did was hold a tap open for a very long time. It is the most boring action in the game, and one of the most useful."
+   ],
+   "sous_titres": "Two sirens, a door, water still running.",
+   "final": true
+  }
+ ],
+ "fiche_recap": {
+  "titre": "Burns: water, for a long time, and nothing else",
+  "chapeau": "Six rules, taken from the public guidance of the Croix-Rouge française on what to do about a burn and from the national PSC1 2024 syllabus of the French Ministry of the Interior.",
+  "regles": [
+   {
+    "cle": "1",
+    "titre": "Tepid water, straight away",
+    "texte": "Cool the burnt surface immediately under tepid running water, between 15 and 25 degrees, at low pressure. Run the water above the burn so that the jet does not land straight on it: that keeps the pain down.",
+    "source": "croix-rouge-brulure"
+   },
+   {
+    "cle": "2",
+    "titre": "At least ten minutes, ideally twenty",
+    "texte": "This is the part everybody cuts short. Cooling relieves the pain and limits how far the skin damage spreads. No iced water, no ice cubes: the water has to be tepid.",
+    "source": "croix-rouge-brulure"
+   },
+   {
+    "cle": "3",
+    "titre": "Take off whatever is not stuck",
+    "texte": "Take off clothing and jewellery if they are not stuck to the skin, before the area swells. Never pull off clothing that has stuck to the burn: cut around it if you have to.",
+    "source": "croix-rouge-brulure"
+   },
+   {
+    "cle": "4",
+    "titre": "Do not burst the blisters",
+    "texte": "Blisters work as a natural barrier against infection. No cotton wool, whose fibres would stick to the wound, no alcohol and no hydrogen peroxide, nothing greasy, and washed hands. Cover it with a dressing or a clean cloth.",
+    "source": "croix-rouge-brulure"
+   },
+   {
+    "cle": "5",
+    "titre": "When the burn is serious, call 15",
+    "texte": "A burn is serious as soon as one or more blisters are bigger than half the casualty's palm, or it goes deeper (whitish or blackish, sometimes painless), or it sits on the face, the neck, the hands, the joints or near a natural opening of the body, or it was caused by chemicals, electricity or radiation, or a child has widespread redness. Call even faster for a baby or an elderly person.",
+    "source": "croix-rouge-brulure"
+   },
+   {
+    "cle": "6",
+    "titre": "Serious burn: call for help as soon as the water starts",
+    "texte": "For a serious burn, have someone call the emergency services, or call them yourself, as soon as the water starts running, and keep cooling the burn according to the instructions you are given. Once the cooling is done, settle the victim lying down comfortably, or sitting up if breathing is difficult, leave the burnt area visible if you can, and keep watching continuously. No product is to be applied to a serious burn without medical advice.",
+    "source": "psc1-2024-dgscgc"
+   }
+  ],
+  "avertissement": "This card is practice. It replaces neither a certified course nor medical advice. In a real emergency in France: 15 or 112."
+ },
+ "source_officielle": {
+  "verifie_le": "2026-08-23",
+  "sources": [
+   {
+    "cle": "croix-rouge-brulure",
+    "titre": "Que faire en cas de brûlure ? (What to do about a burn)",
+    "editeur": "Croix-Rouge française",
+    "url": "https://www.croix-rouge.fr/les-gestes-de-premiers-secours/que-faire-en-cas-de-brulure",
+    "extrait": "Face à une brûlure, la rapidité d'action est déterminante. Le premier réflexe consiste à refroidir la zone touchée sous l'eau tempérée (15-25°C) pendant au moins 10 minutes et idéalement 20 minutes en faisant couler l'eau en amont de la brûlure et afin que le jet n'arrive pas directement dessus pour limiter la douleur. Cette mesure soulage et limite l'étendue des dégâts cutanés. […] Refroidir immédiatement la surface brûlée avec de l'eau courante tempérée à faible pression pendant au moins 10 minutes, idéalement 20 minutes. Retirez les vêtements et bijoux s'ils ne sont pas collés à la peau. Protégez la brûlure avec un pansement ou un tissu propre. En cas d'apparition d'ampoules ne les crevez pas ! Si la brûlure est grave ou étendue alertez immédiatement les secours. […] Ne pas percer les cloques […] Les cloques agissent comme une barrière naturelle contre les infections. Les percer augmente le risque d'infection. […] Ne pas utiliser de coton hydrophile directement sur la brûlure […] Ne pas toucher la brûlure avec des mains non lavées […] Ne pas utiliser de produits désinfectants agressifs (alcool, eau oxygénée, mercurochrome) […] Ne pas arracher les vêtements collés à la brûlure […] Coupez autour du vêtement si nécessaire. […] Brûlure grave, dès lors que l'on est en présence : d'une ou plusieurs cloques dont la surface totale est supérieure à celle de la moitié de la paume de la main de la victime, d'une destruction plus profonde (aspect blanchâtre ou noirâtre, parfois indolore) […], d'une brûlure située sur le visage ou le cou, les mains, les articulations ou au voisinage des orifices naturels, d'une rougeur étendue de la peau chez l'enfant […], d'une brûlure d'origine chimique, électrique ou radiologique. […] Quand appeler immédiatement les secours (SAMU - 15) ? Dès que la brûlure est grave, et en particulier si la personne est un nourrisson, une personne âgée ou immunodéprimée, même pour des brûlures apparemment modérées."
+   },
+   {
+    "cle": "psc1-2024-dgscgc",
+    "titre": "Référentiel national de compétences de sécurité civile, Prévention et secours civiques de niveau 1 (PSC1), édition 2024, fiche “Brûlures” (National civil safety competence syllabus, level 1, 2024 edition, fact sheet on burns)",
+    "editeur": "Direction générale de la sécurité civile et de la gestion des crises (DGSCGC), ministère de l'Intérieur",
+    "url": "https://mobile.interieur.gouv.fr/content/download/111131/888067/file/2024%20PSC1.pdf",
+    "extrait": "Brûlure grave, dès lors que l'on est en présence : d'une ou plusieurs cloques dont la surface totale est supérieure à celle de la moitié de la paume de la main de la victime ; d'une destruction plus profonde (aspect blanchâtre ou noirâtre parfois indolore) associée souvent à des cloques et à une rougeur plus ou moins étendue ; d'une brûlure dont la localisation est sur le visage ou le cou, les mains, les articulations ou au voisinage des orifices naturels ; d'une rougeur étendue (un coup de soleil généralisé par exemple) de la peau chez l'enfant ; d'une brûlure d'origine chimique, électrique ou radiologique. […] refroidir immédiatement la surface brûlée avec de l'eau courante tempérée et à faible pression pendant au moins 10 minutes, idéalement 20 minutes. Débuter l'arrosage après 30 minutes n'a pas d'intérêt ; en parallèle, et s'ils n'adhèrent pas à la peau, retirer les vêtements et les bijoux sur ou près de la peau brûlée ; évaluer la gravité de la brûlure, puis : […] En présence d'une brûlure grave : faire alerter ou alerter les secours dès le début de l'arrosage ; poursuivre le refroidissement, selon les consignes données ; installer en position adaptée, après refroidissement : allongée confortablement (lit, canapé ou à défaut sur le sol) ; assise en cas de gêne respiratoire. laisser si possible la partie brûlée visible ; surveiller continuellement et respecter les consignes données par les secours. N. B. Aucun produit ne doit être appliqué sur une brûlure grave sans avis médical. En présence d'une brûlure simple : poursuivre le refroidissement jusqu'à disparition de la douleur ; ne jamais percer les cloques ; protéger la brûlure par un pansement stérile ou un film plastique non adhésif (type film alimentaire) qui maintient l'humidité et épouse facilement la zone brûlée."
+   }
+  ]
+ }
+}

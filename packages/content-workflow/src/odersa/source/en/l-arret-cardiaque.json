@@ -1,0 +1,438 @@
+{
+ "_licence": "CC BY 4.0 · https://creativecommons.org/licenses/by/4.0/",
+ "_source": "https://avantlessecours.odersa.org/en/cas/l-arret-cardiaque",
+ "_note": "Un cas d'Avant les secours (ODERSA), en licence ouverte. Les extraits de `source_officielle` sont des VERBATIMS de référentiels publics : ils gardent la licence de leurs éditeurs, et se citent avec leur adresse.",
+ "genere_le": "2026-09-14",
+ "id": "l-arret-cardiaque",
+ "numero": 8,
+ "niveau": 2,
+ "titre": "Cardiac arrest",
+ "titreCourt": "Cardiac arrest",
+ "punchline": "Nobody ever told you how physical it is. Here you will feel it in your arm before you work it out in your head.",
+ "metaDescription": "Play out a cardiac arrest: knowing the gasps that are not breathing, calling for help, pressing at the right rate in the right place. Rhythm mini-game, free, from the French public guidelines.",
+ "duree": "4 min",
+ "chrono_objectif": 240,
+ "gestes": [
+  "Recognise a cardiac arrest",
+  "Do not mistake the gasps for breathing",
+  "Get someone to call and to fetch the defibrillator",
+  "Press on a firm surface",
+  "Hands in the middle of the chest",
+  "Hold 100 to 120 compressions a minute",
+  "Let the chest come back up between compressions",
+  "Take turns without stopping"
+ ],
+ "checkpoints": [
+  "s3-l-alerte",
+  "s6-l-epreuve"
+ ],
+ "requetes": [
+  "chest compression rate",
+  "how to tell if someone is in cardiac arrest",
+  "he is breathing strangely cardiac arrest",
+  "how many compressions per minute",
+  "where to put your hands for chest compressions"
+ ],
+ "scenes": [
+  {
+   "id": "s1-ouverture",
+   "titre": "Opening",
+   "decor": "gymnase-nuit",
+   "animation": "gymnase-fin-de-seance",
+   "narration": [
+    "21.30, the council sports hall. Volleyball finished ten minutes ago. Three of you are putting the nets away, under floodlights nobody has thought to switch off.",
+    "The man at the far end stops in the middle of the court, one hand on his chest. Then he goes down in one piece, without breaking his fall."
+   ],
+   "sous_titres": "A bench scraping, footsteps stopping, the silence of a big hall.",
+   "suite": {
+    "texte": "Run over to him",
+    "suivant": "s2-le-constat"
+   }
+  },
+  {
+   "id": "s2-le-constat",
+   "titre": "What you find",
+   "decor": "gymnase-nuit",
+   "animation": "gymnase-arret",
+   "narration": [
+    "He is on his back, on the wooden floor. He says nothing.",
+    "His throat makes a noise every five or six seconds, like a gasp. His chest does not rise."
+   ],
+   "question": "What do you do first?",
+   "choix": [
+    {
+     "texte": "I kneel down, I speak to him loudly, I shake his shoulder, and I watch his chest for ten seconds.",
+     "type": "juste",
+     "consequence_animee": "verifie-arret",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "He is not responding and he is not breathing normally",
+      "message": "That is all you had to establish, and the guidance even puts a limit on the time: assess breathing for ten seconds at most. Two questions, two answers: does he respond, does his chest rise. From there, everything is decided.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s3-l-alerte"
+    },
+    {
+     "texte": "Those gasps mean he is still breathing: I roll him onto his side and wait for him to come round.",
+     "type": "piege",
+     "consequence_animee": "agonique-piege",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Those gasps are not breathing",
+      "message": "Slow, noisy, laboured, useless movements: the guidance calls this agonal breathing, and it says to treat it as a cardiac arrest. It is the most deceptive sign in this whole situation, and the one that costs the most time.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s2-le-constat"
+    },
+    {
+     "texte": "I look up “chest compressions” on my phone, there must be a video.",
+     "type": "vanne",
+     "consequence_animee": "vanne-video",
+     "verdict": {
+      "couleur": "jaune",
+      "titre": "There are. They run four minutes",
+      "message": "You have three. Put it away, except to call: that is the only useful thing your phone can do tonight.",
+      "canon_source": null
+     },
+     "cout_chrono": 14,
+     "suivant": "s2-le-constat"
+    }
+   ]
+  },
+  {
+   "id": "s3-l-alerte",
+   "titre": "The alert",
+   "decor": "gymnase-nuit",
+   "animation": "gymnase-alerte",
+   "narration": [
+    "The other player has stayed on his feet three metres away, phone already in his hand, watching you.",
+    "At the far end of the hall, on the wall, there is a green cabinet."
+   ],
+   "question": "You have a bystander and ten seconds. What do you do with them?",
+   "choix": [
+    {
+     "texte": "I shout two things at him: “Call 15” and “Go and get the green box off the wall”. And I stay here.",
+     "type": "juste",
+     "consequence_animee": "envoie-temoin",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Two clear orders, to one named person",
+      "message": "The Croix-Rouge sets it out in that order: ask someone to call the emergency services and to bring a defibrillator immediately. You do not move from where you are. A bystander with a sharp instruction goes at once; a bystander who has been told nothing just watches.",
+      "canon_source": "croix-rouge-arret-cardiaque"
+     },
+     "suivant": "s4-le-plan-dur"
+    },
+    {
+     "texte": "I call myself, then I cross the hall to fetch the machine: I would rather handle it.",
+     "type": "piege",
+     "consequence_animee": "part-tout-seul",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Meanwhile, nobody is doing compressions",
+      "message": "You are the only person kneeling beside him: that is your place, and you do not leave it. The guidance hands both errands to the bystander precisely so that compressions start at once.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s3-l-alerte"
+    },
+    {
+     "texte": "I start compressions right away and say nothing: the call can wait.",
+     "type": "piege",
+     "consequence_animee": "masse-sans-alerte",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "You are doing compressions for a crew nobody has called",
+      "message": "Compressions buy time, they do not restart a heart on their own. What restarts a heart arrives in a van, and in that box on the wall. One sentence would have set both moving.",
+      "canon_source": "croix-rouge-arret-cardiaque"
+     },
+     "suivant": "s3-l-alerte"
+    }
+   ]
+  },
+  {
+   "id": "s4-le-plan-dur",
+   "titre": "Setting up",
+   "decor": "gymnase-nuit",
+   "animation": "gymnase-installe",
+   "narration": [
+    "The other one has gone, running, phone against his ear. You are alone with him.",
+    "Two metres away there is a stack of gym mats."
+   ],
+   "question": "How do you set him up?",
+   "choix": [
+    {
+     "texte": "I leave him flat on his back on the wooden floor, I kneel right up close, and I bare his chest.",
+     "type": "juste",
+     "consequence_animee": "installe-massage",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "The wooden floor is exactly what you want",
+      "message": "Flat, on his back, on a firm surface: the floor does the job. Kneeling as close as you can, chest bared, and you are ready. There is nothing else to prepare.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s5-la-place"
+    },
+    {
+     "texte": "I drag him onto the gym mats, he will be better off than on bare floor.",
+     "type": "piege",
+     "consequence_animee": "tapis-mou",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "The mat sinks instead of his chest",
+      "message": "A soft surface swallows the compression: you press hard and nothing reaches the heart. The guidance asks for a firm surface, the floor or a table. Comfort is not the question this minute.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s4-le-plan-dur"
+    },
+    {
+     "texte": "I put him in the recovery position while I wait for help.",
+     "type": "piege",
+     "consequence_animee": "pls-au-lieu-de-masser",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "The recovery position is for someone who is breathing",
+      "message": "It protects the airway of an unconscious person who is breathing normally. He is not breathing: what he needs from you is compressions, and on his back.",
+      "canon_source": "croix-rouge-arret-cardiaque"
+     },
+     "suivant": "s4-le-plan-dur"
+    }
+   ]
+  },
+  {
+   "id": "s5-la-place",
+   "titre": "Where the hands go",
+   "decor": "massage-serre",
+   "animation": "massage-plan-serre",
+   "narration": [
+    "You are kneeling against him, his chest is clear. Your hands are above it, hesitating by half a centimetre."
+   ],
+   "sous_titres": "The silence of a big hall, and the floor rubbing under your knees.",
+   "question": "Where do you put your hands?",
+   "choix": [
+    {
+     "texte": "The heel of one hand in the middle of the chest, the other hand on top, fingers interlocked, arms straight and elbows locked.",
+     "type": "juste",
+     "consequence_animee": "mains-au-centre",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "The heel of one hand, in the middle of the chest",
+      "message": "The other hand on top, fingers interlocked and lifted so they do not press on the ribs, arms straight and elbows locked. That build is what carries your weight into the breastbone instead of losing it in your arms.",
+      "canon_source": "croix-rouge-arret-cardiaque"
+     },
+     "suivant": "s6-l-epreuve"
+    },
+    {
+     "texte": "On the pit of the stomach, a bit lower down: that is where it gives best.",
+     "type": "piege",
+     "consequence_animee": "mains-trop-bas",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Too low: you are pressing on the belly",
+      "message": "For an adult the landmark is the centre of the chest, on the midline, on the lower half of the breastbone. Any lower and you leave the breastbone, and the pressure no longer reaches the heart.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s5-la-place"
+    },
+    {
+     "texte": "On the left, over the ribs, where you can hear the heart beating.",
+     "type": "piege",
+     "consequence_animee": "mains-sur-cotes",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Never on the ribs",
+      "message": "The guidance says it twice: press straight down, and do not press on the ribs. The heart is in the middle, behind the breastbone, and it is the breastbone you push down.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s5-la-place"
+    }
+   ]
+  },
+  {
+   "id": "s6-l-epreuve",
+   "titre": "Holding the rhythm",
+   "decor": "massage-serre",
+   "animation": "massage-depart",
+   "narration": [
+    "Your hands are in place. There is nothing left to decide: there is a rhythm to hold, and it is faster than you think."
+   ],
+   "sous_titres": "Dull presses, regular. Nothing else.",
+   "question": "Thirty seconds of compressions. Go.",
+   "epreuve": {
+    "type": "cadence",
+    "consigne": "Press on every beat: with your finger, with the mouse, or with the space bar. The needle has to stay in the pale zone, between 100 and 120 a minute. The sound guide is there if you want it, and it is not compulsory.",
+    "action": "Compress",
+    "cible_min": 100,
+    "cible_max": 120,
+    "secondes": 30,
+    "serie": 30,
+    "coups_min": 34,
+    "part_min": 0.5,
+    "depart": "Press once: the count starts with your first compression.",
+    "en_cours": "Hold the rhythm. Let the chest come all the way back up between presses.",
+    "serie_texte": "Thirty compressions. Two rescue breaths, then back to it.",
+    "fatigue_texte": "Your arm is tiring and the rhythm slips on its own. That is normal, and it is the real point: make up for it.",
+    "canon_source": "psc1-2024-dgscgc",
+    "reussite": {
+     "verdict": {
+      "couleur": "vert",
+      "titre": "You held it, and now you know what it costs",
+      "message": "Between 100 and 120 a minute, as long pressing as releasing, and the chest recovering its shape between each press. Thirty seconds was enough to show you why people take turns every two minutes.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s7-le-relais"
+    },
+    "echec": {
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "The rhythm did not hold: someone takes over",
+      "message": "Too slow and the blood stops moving. Too fast and the chest has no time to come back up, so the heart does not refill. That is why the window is narrow: 100 to 120 a minute, with a full release. Here you hand over: the guidance asks for a change of rescuer every two minutes, interrupting the compressions as little as possible. The compressions carry on without you.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s7-le-relais"
+    }
+   }
+  },
+  {
+   "id": "s7-le-relais",
+   "titre": "Taking over",
+   "decor": "massage-serre",
+   "animation": "massage-relais",
+   "narration": [
+    "Two minutes. Your shoulder is burning, your back gave out before your arm did.",
+    "The other player comes back at a run, the green box in his hands. He has 15 on the line."
+   ],
+   "question": "What do you do?",
+   "choix": [
+    {
+     "texte": "I do not stop, and I tell him to switch the machine on right now.",
+     "type": "juste",
+     "consequence_animee": "continue-sans-arret",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "The machine goes on while you press",
+      "message": "Compressions stop only when the machine says to stop touching the casualty. Everything else, including setting it up, happens around your hands without stopping them.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s8-les-secours"
+    },
+    {
+     "texte": "I lift my hands off for a second to see whether he is breathing now.",
+     "type": "piege",
+     "consequence_animee": "arrete-pour-regarder",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Every pause puts the pressure back to nothing",
+      "message": "You keep going until help arrives or until breathing clearly comes back to normal. Checking every thirty seconds does not bring breathing back: it interrupts the only thing that is moving any blood.",
+      "canon_source": "croix-rouge-arret-cardiaque"
+     },
+     "suivant": "s7-le-relais"
+    },
+    {
+     "texte": "We swap over, but I tell him to put the box to one side: we will deal with it after.",
+     "type": "piege",
+     "consequence_animee": "pose-l-appareil",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "A machine that is switched off is no use to anyone",
+      "message": "Taking turns is right. But the machine is switched on as soon as it is there, not when there is time: you turn it on and you follow its instructions.",
+      "canon_source": "croix-rouge-dae"
+     },
+     "suivant": "s7-le-relais"
+    }
+   ]
+  },
+  {
+   "id": "s8-les-secours",
+   "titre": "The crew",
+   "decor": "gymnase-nuit",
+   "animation": "secours-gymnase",
+   "narration": [
+    "Blue light through the far door, two sirens stopping one after the other. Four people cross the hall with a bag and a board.",
+    "Somebody puts a hand on your shoulder and says “we have got him”. Your hands come away, and your arms shake on their own.",
+    "You repaired nothing tonight. You moved blood around for the minutes when nobody else could."
+   ],
+   "sous_titres": "Two sirens winding down, a door, calm voices.",
+   "final": true
+  }
+ ],
+ "fiche_recap": {
+  "titre": "Cardiac arrest: knowing it, and pressing",
+  "chapeau": "Eight rules, all taken from the PSC1 2024 syllabus of the French Ministry of the Interior and from the public guidance of the Croix-Rouge française.",
+  "regles": [
+   {
+    "cle": "1",
+    "titre": "Two questions, ten seconds",
+    "texte": "Does she respond when you speak to her and shake her shoulder? Does her chest rise? Breathing is assessed for ten seconds at most. Two noes, and this is a cardiac arrest. There is nothing else to look for.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "2",
+    "titre": "Gasps are not breathing",
+    "texte": "Slow, noisy, laboured, useless breathing movements have a name: agonal breathing. The guidance asks you to treat them as a cardiac arrest. It is the sign that fools the most people.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "3",
+    "titre": "Get someone to call, get someone to bring the machine",
+    "texte": "Ask someone to call the emergency services, 15 or 18, and to bring an automated external defibrillator immediately. Two sharp instructions, to one named person. If you are on your own, you call yourself, very early, on speakerphone.",
+    "source": "croix-rouge-arret-cardiaque"
+   },
+   {
+    "cle": "4",
+    "titre": "On the back, on a firm surface",
+    "texte": "Flat, on the back, ideally on a firm surface: the floor, a table. Kneel as close as you can, and bare the chest. A mattress or a mat swallows the compression.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "5",
+    "titre": "Middle of the chest, 5 to 6 cm deep",
+    "texte": "The heel of one hand in the middle of the bare chest, on the breastbone, the other hand on top, fingers interlocked and lifted. Press straight down on the breastbone, pushing it in by 5 to 6 cm, arms straight, elbows locked. Never on the ribs.",
+    "source": "croix-rouge-arret-cardiaque"
+   },
+   {
+    "cle": "6",
+    "titre": "100 to 120 a minute",
+    "texte": "Keep the rate between 100 and 120 compressions a minute. As long pressing as releasing. If you know how to give rescue breaths, repeat cycles of 30 compressions followed by 2 breaths; if rescue breaths are impossible or you do not feel able, press continuously, without interruption.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "7",
+    "titre": "Let the chest come back up",
+    "texte": "After each press, let the chest return to its starting position, without lifting the heel of your hand off. That release is what lets blood come back to the heart: a compression that does not release fills nothing.",
+    "source": "croix-rouge-arret-cardiaque"
+   },
+   {
+    "cle": "8",
+    "titre": "Take turns, do not stop",
+    "texte": "With more than one of you, swap the person doing compressions every two minutes, interrupting as little as possible. Keep going until help arrives or until normal breathing comes back. Compressions stop only when the defibrillator says to stop touching the casualty.",
+    "source": "psc1-2024-dgscgc"
+   }
+  ],
+  "avertissement": "This card is practice. It replaces neither a certified course nor medical advice. In a real emergency in France: 15 or 112."
+ },
+ "source_officielle": {
+  "verifie_le": "2026-08-23",
+  "sources": [
+   {
+    "cle": "psc1-2024-dgscgc",
+    "titre": "Référentiel national de compétences de sécurité civile, Prévention et secours civiques de niveau 1 (PSC1), édition 2024 (National civil safety competence syllabus, level 1 civic prevention and first aid, 2024 edition)",
+    "editeur": "Direction générale de la sécurité civile et de la gestion des crises (DGSCGC), ministère de l'Intérieur",
+    "url": "https://mobile.interieur.gouv.fr/content/download/111131/888067/file/2024%20PSC1.pdf",
+    "extrait": "Rechercher l'absence de réponse et pour cela : poser des questions simples (exemples : « Comment ça va ? », « Vous m'entendez ? ») ; secouer doucement les épaules ou lui prendre la main et demander d'exécuter un ordre simple (exemple : « serrez-moi la main »). […] apprécier la respiration sur 10 secondes au plus. Pour cela : maintenir la libération des voies aériennes ; se pencher sur la victime, oreille et joue du sauveteur au-dessus de la bouche et du nez de la victime pour : regarder si le ventre et la poitrine se soulèvent ; écouter d'éventuels sons provoqués par la respiration ; sentir un éventuel flux d'air à l'expiration. […] ne présente pas de respiration ou présente une respiration anormale, débuter la RCP. […] ou présente une respiration anormale avec des mouvements respiratoires lents, bruyants, difficiles et inefficaces (respiration agonique). […] Une respiration anormale (agonique) doit être considérée comme un arrêt cardiaque. […] Un tiers est présent : […] débuter immédiatement une RCP en répétant des cycles de 30 compressions thoraciques suivies de 2 insufflations. […] La victime est installée en position horizontale, sur le dos, de préférence sur un plan dur (sol, table, etc). […] se placer à genoux au plus près de la victime (adulte et enfant) ; dénuder la poitrine de la victime, dans la mesure du possible ; […] appuyer verticalement ; ne pas appuyer sur les côtes ; maintenir une fréquence comprise entre 100 et 120 compressions par minute ; assurer un temps de compression égal au temps de relâchement ; laisser le thorax reprendre sa forme initiale, entre chaque compression, sans pour cela décoller le talon de la main (adulte, enfant) […] Chez l'adulte : placer le talon d'une main au centre de la poitrine, sur la ligne médiane, sur la moitié inférieure du sternum ; placer l'autre main au-dessus de la première et entrecroiser les doigts des deux mains ; relever les doigts pour ne pas appuyer sur les côtes ; tendre les bras et verrouiller les coudes ; réaliser des compressions thoraciques d'une profondeur d'environ 5 cm, sans dépasser 6 cm. […] En présence de plusieurs sauveteurs, relayer le sauveteur qui réalise les compressions thoraciques toutes les 2 minutes en interrompant le moins possible les compressions thoraciques (en cas d'utilisation d'un DAE, le relais sera réalisé pendant l'analyse). […] Le DAE doit être utilisé en suivant toutes les indications de l'appareil (schéma, messages vocaux). Si plus d'un sauveteur est présent, la RCP doit être poursuivie durant l'installation du DAE. Les compressions thoraciques doivent être interrompues seulement lorsque le DAE indique de ne plus toucher à la victime. […] si les insufflations ne peuvent pas être effectuées (répulsion, covid-19, vomissements, traumatisme majeur de la face, etc.) ou si le sauveteur ne se sent pas capable, il doit réaliser uniquement les compressions thoraciques en continu à un rythme de 100 à 120 compressions par minute"
+   },
+   {
+    "cle": "croix-rouge-arret-cardiaque",
+    "titre": "L'arrêt cardiaque (Cardiac arrest)",
+    "editeur": "Croix-Rouge française",
+    "url": "https://www.croix-rouge.fr/les-gestes-de-premiers-secours/arret-cardiaque",
+    "extrait": "Observer la victime : vérifiez que la victime ne réagit pas et ne respire pas normalement. […] Appeler les secours : demandez à quelqu'un de prévenir les secours d'urgence (le 15 ou le 18) et d'apporter immédiatement un défibrillateur automatisé externe. […] Placez la victime sur un plan dur, le plus souvent à terre. […] Placez le talon d'une de vos mains au milieu de sa poitrine nue. Placez le talon de l'autre main sur votre première main. […] comprimez verticalement le sternum en l'enfonçant de 5 à 6 cm. […] Après chaque pression, laissez la poitrine de la victime reprendre sa position initiale afin de permettre au sang de revenir vers le cœur. […] La durée de la compression doit être égale à celle du relâchement de la pression. […] Alternez 30 compressions thoraciques et 2 insufflations. […] Poursuivez la réanimation jusqu'à ce que les secours d'urgence arrivent ou que la victime reprenne une respiration normale."
+   },
+   {
+    "cle": "croix-rouge-dae",
+    "titre": "Le défibrillateur automatisé externe (The automated external defibrillator)",
+    "editeur": "Croix-Rouge française",
+    "url": "https://www.croix-rouge.fr/les-gestes-de-premiers-secours/defibrillateur",
+    "extrait": "Dès qu'il est disponible, mettez le DAE en marche et suivez les instructions de l'appareil. […] Dénudez la poitrine de la victime et placez les électrodes à même la peau. […] Assurez-vous que personne ne touche la victime lorsque le DAE analyse le rythme cardiaque."
+   }
+  ]
+ }
+}

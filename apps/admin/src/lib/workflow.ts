@@ -1,4 +1,8 @@
-import { ContentWorkflowService, InMemoryContentWorkflowStore } from "@rapidaid/content-workflow";
+import {
+  ContentWorkflowService,
+  InMemoryContentWorkflowStore,
+  ODERSA_MVP_DRAFTS,
+} from "@rapidaid/content-workflow";
 import { makeSyntheticDraftContent, syntheticActors } from "@rapidaid/content-workflow/testing";
 
 type LocalWorkflow = {
@@ -17,6 +21,9 @@ function createLocalWorkflow(): LocalWorkflow {
     "protocol.synthetic.workflow.alpha",
     makeSyntheticDraftContent(),
   );
+  for (const draft of ODERSA_MVP_DRAFTS) {
+    service.createDraft(syntheticActors.editor, draft.protocolId, draft.content);
+  }
   return { service };
 }
 

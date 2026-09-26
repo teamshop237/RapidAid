@@ -1,0 +1,370 @@
+{
+ "_licence": "CC BY 4.0 · https://creativecommons.org/licenses/by/4.0/",
+ "_source": "https://avantlessecours.odersa.org/cas/la-brulure-de-cuisine",
+ "_note": "Un cas d'Avant les secours (ODERSA), en licence ouverte. Les extraits de `source_officielle` sont des VERBATIMS de référentiels publics : ils gardent la licence de leurs éditeurs, et se citent avec leur adresse.",
+ "genere_le": "2026-09-14",
+ "id": "la-brulure-de-cuisine",
+ "numero": 5,
+ "niveau": 1,
+ "titre": "La brûlure de cuisine",
+ "titreCourt": "La brûlure",
+ "punchline": "De l'eau, tout de suite, et bien plus longtemps que tu ne le crois. C'est tout. Et c'est presque toujours raté.",
+ "metaDescription": "Jouez une brûlure de cuisine : refroidir à l'eau tempérée au moins dix minutes, retirer bagues et vêtements non collés, ne pas percer les cloques. Entraînement gratuit.",
+ "duree": "3 minutes",
+ "chrono_objectif": 175,
+ "gestes": [
+  "Refroidir à l'eau tempérée tout de suite",
+  "Tenir au moins dix minutes",
+  "Retirer bagues et vêtements non collés",
+  "Ne pas percer les cloques",
+  "Reconnaître une brûlure grave",
+  "Alerter dès le début de l'arrosage si la brûlure est grave"
+ ],
+ "checkpoints": [
+  "s3-l-eau",
+  "s5-appeler"
+ ],
+ "requetes": [
+  "que faire en cas de brûlure",
+  "combien de temps passer une brûlure sous l'eau",
+  "faut-il percer une cloque de brûlure",
+  "brûlure eau froide ou tempérée",
+  "brûlure quand appeler le 15"
+ ],
+ "scenes": [
+  {
+   "id": "s1-ouverture",
+   "titre": "Ouverture",
+   "decor": "cuisine-nuit",
+   "animation": "cuisine-brulure",
+   "narration": [
+    "20 h 15. Ton père égoutte les pâtes. La casserole part de travers et l'eau bouillante passe sur son avant-bras et son poignet.",
+    "Il jure, il recule, il tient son bras contre lui. La peau devient rouge très vite, sur une bonne largeur de main."
+   ],
+   "sous_titres": "Une casserole qui cogne l'évier, de l'eau qui tombe.",
+   "suite": {
+    "texte": "Aller vers lui",
+    "suivant": "s2-le-premier-reflexe"
+   }
+  },
+  {
+   "id": "s2-le-premier-reflexe",
+   "titre": "Le premier réflexe",
+   "decor": "cuisine-nuit",
+   "animation": "interieur-arret",
+   "narration": [
+    "L'évier est à un mètre cinquante. Le placard au-dessus contient de tout.",
+    "Il dit que ça brûle de plus en plus."
+   ],
+   "question": "Qu'est-ce que tu fais ?",
+   "choix": [
+    {
+     "texte": "Je coupe le feu et je l'emmène directement à l'évier, sous l'eau.",
+     "type": "juste",
+     "consequence_animee": "vers-l-evier",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "La rapidité d'action est déterminante",
+      "message": "Le premier réflexe consiste à refroidir la zone touchée. Chaque seconde d'attente laisse la chaleur descendre plus profond dans la peau. Tout le reste vient après l'eau.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s3-l-eau"
+    },
+    {
+     "texte": "Je sors une crème du placard et j'en mets sur la brûlure.",
+     "type": "piege",
+     "consequence_animee": "met-pommade",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Tu viens d'enfermer la chaleur sous une couche de gras",
+      "message": "Rien ne se met sur une brûlure avant l'eau, et surtout rien de gras. On ne met pas non plus de produit désinfectant agressif, ni de coton hydrophile dont les fibres colleraient à la plaie.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s2-le-premier-reflexe"
+    },
+    {
+     "texte": "Je cherche du dentifrice, ma grand-mère faisait ça.",
+     "type": "vanne",
+     "consequence_animee": "vanne-dentifrice",
+     "verdict": {
+      "couleur": "jaune",
+      "titre": "Ta grand-mère a beaucoup d'autres qualités",
+      "message": "Le tube que tu tiens sert à te laver les dents. L'objet dont tu as besoin est derrière toi, il est en métal, et il coule.",
+      "canon_source": null
+     },
+     "cout_chrono": 12,
+     "suivant": "s2-le-premier-reflexe"
+    }
+   ]
+  },
+  {
+   "id": "s3-l-eau",
+   "titre": "Sous l'eau",
+   "decor": "evier-eau",
+   "animation": "eau-tempere",
+   "narration": [
+    "Son avant-bras est au-dessus de la cuve. Le robinet est à toi."
+   ],
+   "question": "Tu fais couler comment, et combien de temps ?",
+   "choix": [
+    {
+     "texte": "De l'eau tempérée, à faible pression, en amont de la brûlure, et je laisse couler au moins dix minutes.",
+     "type": "juste",
+     "consequence_animee": "eau-tempere",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Au moins dix minutes, idéalement vingt",
+      "message": "De l'eau tempérée entre 15 et 25 degrés, à faible pression, en faisant couler en AMONT de la brûlure pour que le jet n'arrive pas directement dessus. Cela soulage et limite l'étendue des dégâts. Dix minutes paraissent très longues : c'est le minimum.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s4-ce-qu-on-retire"
+    },
+    {
+     "texte": "De l'eau glacée et le bac à glaçons, plus c'est froid mieux c'est.",
+     "type": "piege",
+     "consequence_animee": "eau-glacee",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "L'eau doit être TEMPÉRÉE, pas glacée",
+      "message": "Le référentiel dit une eau tempérée, entre 15 et 25 degrés. La glace ajoute une agression du froid à une peau déjà détruite, et le choc thermique fait plus de mal que de bien.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s3-l-eau"
+    },
+    {
+     "texte": "Trente secondes d'eau, puis j'enveloppe le bras dans un torchon avec du beurre.",
+     "type": "piege",
+     "consequence_animee": "corps-gras",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Trente secondes ne refroidissent rien",
+      "message": "Il faut au moins dix minutes, idéalement vingt. Et aucun corps gras ne va sur une brûlure : il garde la chaleur au contact de la peau, exactement l'inverse du geste.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s3-l-eau"
+    }
+   ]
+  },
+  {
+   "id": "s4-ce-qu-on-retire",
+   "titre": "Ce qu'on retire",
+   "decor": "evier-eau",
+   "animation": "eau-tempere",
+   "narration": [
+    "L'eau coule depuis quatre minutes. Il porte une alliance, une montre, et la manche de son polo est collée par endroits.",
+    "Une cloque commence à se former, plus large que la moitié de sa paume."
+   ],
+   "question": "Tu retires quoi ?",
+   "choix": [
+    {
+     "texte": "L'alliance et la montre tout de suite, et je laisse la manche collée là où elle est collée.",
+     "type": "juste",
+     "consequence_animee": "retire-bague",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Ce qui n'est pas collé, on l'enlève",
+      "message": "Retire les vêtements et les bijoux s'ils ne sont pas collés à la peau : ça va gonfler, et une alliance devient un garrot. Ce qui adhère, on n'y touche pas, on coupe autour du vêtement si besoin.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s5-appeler"
+    },
+    {
+     "texte": "Je tire sur la manche pour dégager toute la zone.",
+     "type": "piege",
+     "consequence_animee": "arrache-vetement",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "La peau est venue avec le tissu",
+      "message": "N'arrache jamais un vêtement collé à une brûlure : cela arracherait la peau et créerait une plaie ouverte plus étendue. On coupe autour du vêtement si c'est nécessaire.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s4-ce-qu-on-retire"
+    },
+    {
+     "texte": "Je perce la cloque avec une aiguille désinfectée pour qu'elle ne gêne pas.",
+     "type": "piege",
+     "consequence_animee": "perce-cloque",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "La cloque est une barrière : elle reste fermée",
+      "message": "Les cloques agissent comme une barrière naturelle contre les infections. Les percer augmente le risque d'infection. On ne touche pas non plus la brûlure avec des mains non lavées.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s4-ce-qu-on-retire"
+    }
+   ]
+  },
+  {
+   "id": "s5-appeler",
+   "titre": "Est-ce que c'est grave ?",
+   "decor": "cuisine-nuit",
+   "animation": "interieur-arret",
+   "narration": [
+    "La cloque fait maintenant nettement plus que la moitié de sa paume, et elle est sur le poignet, à hauteur de l'articulation.",
+    "Il dit que ça va, qu'il ira voir demain."
+   ],
+   "question": "Tu fais quoi ?",
+   "choix": [
+    {
+     "texte": "J'appelle le 15 en gardant son bras sous l'eau, et je décris la cloque et sa taille.",
+     "type": "juste",
+     "consequence_animee": "appelle-15-cuisine",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Deux critères de gravité, donc on appelle",
+      "message": "Une brûlure est grave dès qu'une cloque dépasse la moitié de la paume de la victime, ou qu'elle siège sur une articulation, le visage, le cou, les mains ou près d'un orifice naturel. Dès que la brûlure est grave, on alerte immédiatement les secours.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s6-en-attendant"
+    },
+    {
+     "texte": "On verra demain matin, il a l'air d'aller.",
+     "type": "piege",
+     "consequence_animee": "attendre-demain",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Ce n'est pas à lui de décider si c'est grave",
+      "message": "Une cloque plus large que la moitié de la paume, sur une articulation : ces deux critères font une brûlure grave, et une brûlure grave s'alerte immédiatement. Le 15 juge, tu décris.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s5-appeler"
+    },
+    {
+     "texte": "Je désinfecte à l'alcool et je fais un pansement bien serré.",
+     "type": "piege",
+     "consequence_animee": "met-pommade",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Ni alcool, ni serrage",
+      "message": "On n'utilise pas de produits désinfectants agressifs comme l'alcool ou l'eau oxygénée. On protège la brûlure avec un pansement ou un tissu propre, posé sans serrer, et on alerte parce qu'elle est grave.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s5-appeler"
+    }
+   ]
+  },
+  {
+   "id": "s6-en-attendant",
+   "titre": "En attendant",
+   "decor": "evier-eau",
+   "animation": "eau-tempere",
+   "narration": [
+    "Le régulateur te dit de continuer l'eau et d'attendre l'équipe."
+   ],
+   "question": "Tu fais quoi jusqu'à leur arrivée ?",
+   "choix": [
+    {
+     "texte": "Je continue l'eau tempérée, puis je protège la brûlure avec un tissu propre, sans rien mettre dessus.",
+     "type": "juste",
+     "consequence_animee": "protege-brulure",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "De l'eau, un tissu propre, et rien d'autre",
+      "message": "Protège la brûlure avec un pansement ou un tissu propre. Pas de coton hydrophile dont les fibres adhéreraient à la plaie, pas de produit, pas de corps gras. Et lave-toi les mains avant d'y toucher.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s7-les-secours"
+    },
+    {
+     "texte": "J'arrête l'eau pour qu'il n'attrape pas froid et je l'emmitoufle dans une couverture.",
+     "type": "piege",
+     "consequence_animee": "corps-gras",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Le refroidissement n'est pas fini",
+      "message": "Il faut au moins dix minutes d'eau, idéalement vingt. Si tu crains le froid, couvre le RESTE du corps et laisse la brûlure sous l'eau : la chaleur continue de faire des dégâts sous la peau tant qu'elle n'est pas évacuée.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s6-en-attendant"
+    },
+    {
+     "texte": "Je frotte doucement la zone pour la nettoyer avant leur arrivée.",
+     "type": "piege",
+     "consequence_animee": "perce-cloque",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Frotter, c'est ouvrir la cloque",
+      "message": "On ne frotte pas une brûlure et on ne perce pas ses cloques : elles sont la barrière naturelle contre l'infection. L'eau tempérée suffit, et le nettoyage n'est pas ton travail.",
+      "canon_source": "croix-rouge-brulure"
+     },
+     "suivant": "s6-en-attendant"
+    }
+   ]
+  },
+  {
+   "id": "s7-les-secours",
+   "titre": "Les secours",
+   "decor": "cuisine-nuit",
+   "animation": "secours-interieur",
+   "narration": [
+    "Du bleu tourne sur les placards de la cuisine. Deux personnes entrent, regardent le bras, regardent le robinet encore ouvert, et disent que c'est bien.",
+    "On lui pose un pansement propre, on note l'heure de la brûlure et la durée du refroidissement, et on l'emmène.",
+    "Tu n'as rien fait qu'ouvrir un robinet pendant très longtemps. C'est le geste le plus ennuyeux du jeu, et l'un des plus utiles."
+   ],
+   "sous_titres": "Deux sirènes, une porte, de l'eau qui coule encore.",
+   "final": true
+  }
+ ],
+ "fiche_recap": {
+  "titre": "La brûlure : de l'eau, longtemps, et rien d'autre",
+  "chapeau": "Six règles, tirées des consignes publiques de la Croix-Rouge française sur la conduite à tenir face à une brûlure et du référentiel national PSC1 2024 du ministère de l'Intérieur.",
+  "regles": [
+   {
+    "cle": "1",
+    "titre": "De l'eau tempérée, tout de suite",
+    "texte": "Refroidis immédiatement la surface brûlée à l'eau courante tempérée, entre 15 et 25 degrés, à faible pression. Fais couler l'eau en amont de la brûlure pour que le jet n'arrive pas directement dessus : cela limite la douleur.",
+    "source": "croix-rouge-brulure"
+   },
+   {
+    "cle": "2",
+    "titre": "Au moins dix minutes, idéalement vingt",
+    "texte": "C'est la partie que tout le monde écourte. Le refroidissement soulage et limite l'étendue des dégâts cutanés. Ni eau glacée, ni glaçons : l'eau doit être tempérée.",
+    "source": "croix-rouge-brulure"
+   },
+   {
+    "cle": "3",
+    "titre": "Retire ce qui n'est pas collé",
+    "texte": "Retire les vêtements et les bijoux s'ils ne sont pas collés à la peau, avant que la zone ne gonfle. N'arrache jamais un vêtement collé à la brûlure : coupe autour si nécessaire.",
+    "source": "croix-rouge-brulure"
+   },
+   {
+    "cle": "4",
+    "titre": "Ne perce pas les cloques",
+    "texte": "Les cloques agissent comme une barrière naturelle contre les infections. Pas de coton hydrophile dont les fibres adhéreraient à la plaie, pas d'alcool ni d'eau oxygénée, pas de corps gras, et des mains lavées. Protège avec un pansement ou un tissu propre.",
+    "source": "croix-rouge-brulure"
+   },
+   {
+    "cle": "5",
+    "titre": "Quand la brûlure est grave, appelle le 15",
+    "texte": "Une brûlure est grave dès qu'une ou plusieurs cloques dépassent la moitié de la paume de la victime, qu'elle est plus profonde (aspect blanchâtre ou noirâtre, parfois indolore), qu'elle siège sur le visage, le cou, les mains, les articulations ou près d'un orifice naturel, qu'elle est d'origine chimique, électrique ou radiologique, ou en cas de rougeur étendue chez l'enfant. Alerte d'autant plus vite s'il s'agit d'un nourrisson ou d'une personne âgée.",
+    "source": "croix-rouge-brulure"
+   },
+   {
+    "cle": "6",
+    "titre": "Brûlure grave : alerter dès le début de l'arrosage",
+    "texte": "Sur une brûlure grave, on fait alerter ou on alerte les secours dès le début de l'arrosage, et on poursuit le refroidissement selon les consignes données. Après le refroidissement, on installe la victime allongée confortablement, ou assise en cas de gêne respiratoire, on laisse si possible la partie brûlée visible, et on surveille continuellement. Aucun produit ne doit être appliqué sur une brûlure grave sans avis médical.",
+    "source": "psc1-2024-dgscgc"
+   }
+  ],
+  "avertissement": "Cette fiche entraîne. Elle ne remplace ni une formation certifiante, ni un avis médical. En situation réelle : 15 ou 112."
+ },
+ "source_officielle": {
+  "verifie_le": "2026-08-23",
+  "sources": [
+   {
+    "cle": "croix-rouge-brulure",
+    "titre": "Que faire en cas de brûlure ?",
+    "editeur": "Croix-Rouge française",
+    "url": "https://www.croix-rouge.fr/les-gestes-de-premiers-secours/que-faire-en-cas-de-brulure",
+    "extrait": "Face à une brûlure, la rapidité d'action est déterminante. Le premier réflexe consiste à refroidir la zone touchée sous l'eau tempérée (15-25°C) pendant au moins 10 minutes et idéalement 20 minutes en faisant couler l'eau en amont de la brûlure et afin que le jet n'arrive pas directement dessus pour limiter la douleur. Cette mesure soulage et limite l'étendue des dégâts cutanés. […] Refroidir immédiatement la surface brûlée avec de l'eau courante tempérée à faible pression pendant au moins 10 minutes, idéalement 20 minutes. Retirez les vêtements et bijoux s'ils ne sont pas collés à la peau. Protégez la brûlure avec un pansement ou un tissu propre. En cas d'apparition d'ampoules ne les crevez pas ! Si la brûlure est grave ou étendue alertez immédiatement les secours. […] Ne pas percer les cloques […] Les cloques agissent comme une barrière naturelle contre les infections. Les percer augmente le risque d'infection. […] Ne pas utiliser de coton hydrophile directement sur la brûlure […] Ne pas toucher la brûlure avec des mains non lavées […] Ne pas utiliser de produits désinfectants agressifs (alcool, eau oxygénée, mercurochrome) […] Ne pas arracher les vêtements collés à la brûlure […] Coupez autour du vêtement si nécessaire. […] Brûlure grave, dès lors que l'on est en présence : d'une ou plusieurs cloques dont la surface totale est supérieure à celle de la moitié de la paume de la main de la victime, d'une destruction plus profonde (aspect blanchâtre ou noirâtre, parfois indolore) […], d'une brûlure située sur le visage ou le cou, les mains, les articulations ou au voisinage des orifices naturels, d'une rougeur étendue de la peau chez l'enfant […], d'une brûlure d'origine chimique, électrique ou radiologique. […] Quand appeler immédiatement les secours (SAMU - 15) ? Dès que la brûlure est grave, et en particulier si la personne est un nourrisson, une personne âgée ou immunodéprimée, même pour des brûlures apparemment modérées."
+   },
+   {
+    "cle": "psc1-2024-dgscgc",
+    "titre": "Référentiel national de compétences de sécurité civile, Prévention et secours civiques de niveau 1 (PSC1), édition 2024, fiche « Brûlures »",
+    "editeur": "Direction générale de la sécurité civile et de la gestion des crises (DGSCGC), ministère de l'Intérieur",
+    "url": "https://mobile.interieur.gouv.fr/content/download/111131/888067/file/2024%20PSC1.pdf",
+    "extrait": "Brûlure grave, dès lors que l'on est en présence : d'une ou plusieurs cloques dont la surface totale est supérieure à celle de la moitié de la paume de la main de la victime ; d'une destruction plus profonde (aspect blanchâtre ou noirâtre parfois indolore) associée souvent à des cloques et à une rougeur plus ou moins étendue ; d'une brûlure dont la localisation est sur le visage ou le cou, les mains, les articulations ou au voisinage des orifices naturels ; d'une rougeur étendue (un coup de soleil généralisé par exemple) de la peau chez l'enfant ; d'une brûlure d'origine chimique, électrique ou radiologique. […] refroidir immédiatement la surface brûlée avec de l'eau courante tempérée et à faible pression pendant au moins 10 minutes, idéalement 20 minutes. Débuter l'arrosage après 30 minutes n'a pas d'intérêt ; en parallèle, et s'ils n'adhèrent pas à la peau, retirer les vêtements et les bijoux sur ou près de la peau brûlée ; évaluer la gravité de la brûlure, puis : […] En présence d'une brûlure grave : faire alerter ou alerter les secours dès le début de l'arrosage ; poursuivre le refroidissement, selon les consignes données ; installer en position adaptée, après refroidissement : allongée confortablement (lit, canapé ou à défaut sur le sol) ; assise en cas de gêne respiratoire. laisser si possible la partie brûlée visible ; surveiller continuellement et respecter les consignes données par les secours. N. B. Aucun produit ne doit être appliqué sur une brûlure grave sans avis médical. En présence d'une brûlure simple : poursuivre le refroidissement jusqu'à disparition de la douleur ; ne jamais percer les cloques ; protéger la brûlure par un pansement stérile ou un film plastique non adhésif (type film alimentaire) qui maintient l'humidité et épouse facilement la zone brûlée."
+   }
+  ]
+ }
+}

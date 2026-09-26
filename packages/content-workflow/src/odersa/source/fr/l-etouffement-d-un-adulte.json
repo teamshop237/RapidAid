@@ -1,0 +1,377 @@
+{
+ "_licence": "CC BY 4.0 · https://creativecommons.org/licenses/by/4.0/",
+ "_source": "https://avantlessecours.odersa.org/cas/l-etouffement-d-un-adulte",
+ "_note": "Un cas d'Avant les secours (ODERSA), en licence ouverte. Les extraits de `source_officielle` sont des VERBATIMS de référentiels publics : ils gardent la licence de leurs éditeurs, et se citent avec leur adresse.",
+ "genere_le": "2026-09-14",
+ "id": "l-etouffement-d-un-adulte",
+ "numero": 3,
+ "niveau": 1,
+ "titre": "L'étouffement d'un adulte",
+ "titreCourt": "L'étouffement",
+ "punchline": "Tant qu'elle tousse, ne la touche pas. Le jour où elle ne tousse plus, tu as quelques secondes.",
+ "metaDescription": "Jouez un étouffement à table : reconnaître l'obstruction partielle ou complète, encourager la toux, cinq claques dans le dos, compressions abdominales. Entraînement gratuit.",
+ "duree": "3 minutes",
+ "chrono_objectif": 175,
+ "gestes": [
+  "Demander « est-ce que vous vous étouffez ? »",
+  "Laisser tousser quand la toux est efficace",
+  "Cinq claques entre les omoplates",
+  "Cinq compressions abdominales",
+  "Compressions thoraciques si l'abdomen ne peut pas être encerclé",
+  "Alterner claques et compressions",
+  "Interrompre dès la toux, les cris ou la reprise de la respiration"
+ ],
+ "checkpoints": [
+  "s3-plus-un-son",
+  "s4-les-claques"
+ ],
+ "requetes": [
+  "que faire en cas d'étouffement",
+  "quelqu'un s'étouffe que faire",
+  "manoeuvre de heimlich comment faire",
+  "claques dans le dos étouffement",
+  "combien de claques dans le dos"
+ ],
+ "scenes": [
+  {
+   "id": "s1-ouverture",
+   "titre": "Ouverture",
+   "decor": "tablee-nuit",
+   "animation": "tablee-repas",
+   "narration": [
+    "Dimanche soir, six personnes autour de la table. Ta belle-mère raconte une histoire, la bouche pleine.",
+    "Elle s'arrête au milieu d'une phrase, se lève d'un coup, et porte ses deux mains à sa gorge."
+   ],
+   "sous_titres": "Une chaise repoussée, les conversations qui tombent.",
+   "suite": {
+    "texte": "Te lever",
+    "suivant": "s2-la-question"
+   }
+  },
+  {
+   "id": "s2-la-question",
+   "titre": "La question",
+   "decor": "tablee-nuit",
+   "animation": "victime-tousse",
+   "narration": [
+    "Elle tousse. Une vraie toux, bruyante, qui vient de loin. Elle arrive encore à faire du bruit.",
+    "Tout le monde s'est levé et personne ne bouge."
+   ],
+   "question": "Qu'est-ce que tu fais ?",
+   "choix": [
+    {
+     "texte": "Je lui demande « est-ce que vous vous étouffez ? », je l'installe comme elle se sent le mieux, et je l'encourage à tousser.",
+     "type": "juste",
+     "consequence_animee": "encourage-toux",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Sa toux est le meilleur geste de la table",
+      "message": "Si elle peut parler, crier ou tousser, l'obstruction est PARTIELLE : on l'installe dans la position où elle se sent le mieux, on l'encourage à tousser, on demande un avis médical et on la surveille attentivement. On ne frappe pas.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s3-plus-un-son"
+    },
+    {
+     "texte": "Je lui donne tout de suite cinq grandes claques dans le dos.",
+     "type": "piege",
+     "consequence_animee": "tape-dos-a-tort",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Tu viens d'arrêter le seul mécanisme qui marchait",
+      "message": "Les claques sont réservées à l'obstruction COMPLÈTE, quand la victime ne peut plus ni parler, ni crier, ni tousser, ni émettre un son. Tant que la toux est efficace, on la laisse faire son travail.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s2-la-question"
+    },
+    {
+     "texte": "Je lui fais signe de lever les bras en l'air, j'ai vu ça quelque part.",
+     "type": "vanne",
+     "consequence_animee": "vanne-bras-en-l-air",
+     "verdict": {
+      "couleur": "jaune",
+      "titre": "Elle lève les bras. Elle tousse toujours.",
+      "message": "Tu as vu ça quelque part, oui. Le référentiel, lui, ne l'a vu nulle part. Repose ses bras et regarde-la tousser : c'est exactement ce qu'il faut qu'elle fasse.",
+      "canon_source": null
+     },
+     "cout_chrono": 11,
+     "suivant": "s2-la-question"
+    }
+   ]
+  },
+  {
+   "id": "s3-plus-un-son",
+   "titre": "Plus un son",
+   "decor": "tablee-nuit",
+   "animation": "obstruction-complete",
+   "narration": [
+    "La toux s'éteint. Elle ouvre la bouche, s'agite, et il ne sort plus rien du tout.",
+    "Elle ne peut plus ni parler, ni crier, ni tousser."
+   ],
+   "question": "Ça vient de changer. Tu fais quoi ?",
+   "choix": [
+    {
+     "texte": "Je me place sur le côté, je la penche en avant en soutenant sa poitrine, et je frappe entre les omoplates.",
+     "type": "juste",
+     "consequence_animee": "penche-en-avant",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "L'obstruction est complète : on désobstrue",
+      "message": "Bouche ouverte, agitation, plus aucun son : c'est le tableau de l'obstruction complète. Une main soutient la poitrine pour que le corps étranger ne descende pas, l'autre va frapper.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s4-les-claques"
+    },
+    {
+     "texte": "Je lui fais boire un grand verre d'eau pour faire descendre le morceau.",
+     "type": "piege",
+     "consequence_animee": "boire-pour-faire-passer",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Rien ne peut descendre : le passage est bouché",
+      "message": "L'eau n'a pas plus de chemin que l'air. Ce que le référentiel demande, ce sont des claques dans le dos, puis des compressions abdominales. Boire ne figure dans aucune conduite à tenir.",
+      "canon_source": "croix-rouge-etouffement"
+     },
+     "suivant": "s3-plus-un-son"
+    },
+    {
+     "texte": "J'appelle le 15 et j'attends qu'on me dise quoi faire.",
+     "type": "piege",
+     "consequence_animee": "attend-au-telephone",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Le régulateur va te demander de frapper, et tu auras perdu ce temps",
+      "message": "Sur une obstruction complète, le geste passe AVANT l'appel : quelqu'un d'autre autour de la table peut alerter les secours pendant que tu frappes. Ici, vous étiez six.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s3-plus-un-son"
+    }
+   ]
+  },
+  {
+   "id": "s4-les-claques",
+   "titre": "Entre les omoplates",
+   "decor": "dos-claques",
+   "animation": "claques-dos",
+   "narration": [
+    "Tu es sur son côté, légèrement en arrière. Ta main gauche tient sa poitrine, elle est penchée en avant.",
+    "Ta main droite est ouverte, talon en avant."
+   ],
+   "question": "Tu frappes comment ?",
+   "choix": [
+    {
+     "texte": "De une à cinq claques vigoureuses entre les deux omoplates, avec le talon de la main ouverte, et je vérifie après chaque claque.",
+     "type": "juste",
+     "consequence_animee": "claques-dos",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Le morceau est parti",
+      "message": "De une à cinq claques vigoureuses entre les deux omoplates, avec le talon de la main ouverte. Chaque claque cherche à provoquer un mouvement de toux. Après chacune, tu regardes : si le corps étranger est rejeté, tu arrêtes.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s5-si-ca-resiste"
+    },
+    {
+     "texte": "Je tape le plus vite et le plus fort possible, sans compter et sans regarder.",
+     "type": "piege",
+     "consequence_animee": "claques-inutiles",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Cinq au maximum, et on regarde entre chaque",
+      "message": "Le référentiel dit de une à cinq claques, et de vérifier après chaque claque si tout rentre dans l'ordre. Frapper à l'aveugle, c'est continuer alors que le passage est peut-être déjà libre.",
+      "canon_source": "croix-rouge-etouffement"
+     },
+     "suivant": "s4-les-claques"
+    },
+    {
+     "texte": "Je passe directement aux compressions abdominales, c'est plus efficace.",
+     "type": "piege",
+     "consequence_animee": "compressions-abdo",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Les compressions viennent APRÈS les claques",
+      "message": "Les compressions abdominales s'emploient après une série de cinq claques dans le dos inefficaces. L'ordre n'est pas une préférence : c'est la conduite à tenir.",
+      "canon_source": "psc1-2024-dgscgc"
+     },
+     "suivant": "s4-les-claques"
+    }
+   ]
+  },
+  {
+   "id": "s5-si-ca-resiste",
+   "titre": "Si ça résiste",
+   "decor": "dos-claques",
+   "animation": "victime-tousse",
+   "narration": [
+    "Imagine l'autre issue, celle où les cinq claques n'ont rien donné. C'est celle qu'il faut avoir répétée."
+   ],
+   "question": "Cinq claques, aucun effet. Tu fais quoi ?",
+   "choix": [
+    {
+     "texte": "Cinq compressions abdominales, puis j'alterne cinq claques et cinq compressions tant que ça ne cède pas.",
+     "type": "juste",
+     "consequence_animee": "compressions-abdo",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Alterner, sans jamais s'arrêter",
+      "message": "Si les claques n'ont pas d'effet, cinq compressions abdominales au maximum. Si le problème n'est toujours pas résolu, on alterne cinq claques dans le dos et cinq compressions abdominales.",
+      "canon_source": "croix-rouge-etouffement"
+     },
+     "suivant": "s6-si-elle-tombe"
+    },
+    {
+     "texte": "Je continue les claques dans le dos, en série, jusqu'à ce que ça sorte.",
+     "type": "piege",
+     "consequence_animee": "claques-inutiles",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Cinq claques inefficaces, on change de geste",
+      "message": "La conduite à tenir enchaîne : claques, puis compressions, puis alternance. S'obstiner sur un geste qui vient d'échouer cinq fois fait perdre les secondes qui restent.",
+      "canon_source": "croix-rouge-etouffement"
+     },
+     "suivant": "s5-si-ca-resiste"
+    },
+    {
+     "texte": "Je la couche sur le dos et je commence à appuyer sur sa poitrine tout de suite.",
+     "type": "piege",
+     "consequence_animee": "claques-inutiles",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Elle est encore consciente : ce n'est pas ce geste-là",
+      "message": "Les compressions thoraciques d'une réanimation viennent quand la victime PERD connaissance. Tant qu'elle est debout et consciente, on alterne claques dans le dos et compressions abdominales.",
+      "canon_source": "croix-rouge-etouffement"
+     },
+     "suivant": "s5-si-ca-resiste"
+    }
+   ]
+  },
+  {
+   "id": "s6-si-elle-tombe",
+   "titre": "Si elle perd connaissance",
+   "decor": "tablee-nuit",
+   "animation": "victime-s-affaisse",
+   "narration": [
+    "L'autre issue encore : ses jambes lâchent."
+   ],
+   "question": "Elle perd connaissance dans tes bras. Tu fais quoi ?",
+   "choix": [
+    {
+     "texte": "Je l'accompagne délicatement au sol, j'alerte immédiatement les secours, et je commence trente compressions thoraciques.",
+     "type": "juste",
+     "consequence_animee": "allonge-et-alerte",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "On l'allonge, on alerte, on réanime",
+      "message": "Pose la victime délicatement au sol et alerte immédiatement les secours, puis entreprends une réanimation en commençant par trente compressions thoraciques. Poursuis jusqu'à ce que les secours arrivent ou qu'elle reprenne une respiration normale.",
+      "canon_source": "croix-rouge-etouffement"
+     },
+     "suivant": "s7-les-secours"
+    },
+    {
+     "texte": "Je la retiens debout et je continue les compressions abdominales.",
+     "type": "piege",
+     "consequence_animee": "boire-pour-faire-passer",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Une personne inconsciente se pose au sol",
+      "message": "La perte de connaissance change la conduite à tenir : on l'allonge délicatement, on alerte, et on passe aux compressions thoraciques. La retenir debout empêche les deux.",
+      "canon_source": "croix-rouge-etouffement"
+     },
+     "suivant": "s6-si-elle-tombe"
+    },
+    {
+     "texte": "Je la mets sur le côté en position latérale de sécurité et j'attends.",
+     "type": "piege",
+     "consequence_animee": "allonge-et-alerte",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "La position latérale suppose qu'elle respire",
+      "message": "Ici, le passage est bouché : elle ne respire pas. Ce que le référentiel demande, c'est la réanimation, en commençant par trente compressions thoraciques, après avoir alerté.",
+      "canon_source": "croix-rouge-etouffement"
+     },
+     "suivant": "s6-si-elle-tombe"
+    }
+   ]
+  },
+  {
+   "id": "s7-les-secours",
+   "titre": "Les secours",
+   "decor": "tablee-nuit",
+   "animation": "secours-interieur",
+   "narration": [
+    "Reviens à la première issue, la bonne : le morceau est parti à la troisième claque, elle a toussé, elle a repris son souffle, elle s'est rassise.",
+    "Les secours arrivent quand même, parce que quelqu'un a appelé pendant que tu frappais. On l'examine, on lui parle, on note ce qui s'est passé.",
+    "Personne à cette table ne saura jamais si elle serait morte. C'est exactement pour cela qu'on s'entraîne."
+   ],
+   "sous_titres": "Une porte, des voix calmes, une chaise qu'on approche.",
+   "final": true
+  }
+ ],
+ "fiche_recap": {
+  "titre": "L'étouffement d'un adulte : la question d'abord, le geste ensuite",
+  "chapeau": "Sept règles, tirées du référentiel national PSC1 de la Direction générale de la sécurité civile et de la gestion des crises et du guide des gestes qui sauvent de la Croix-Rouge française.",
+  "regles": [
+   {
+    "cle": "1",
+    "titre": "Demande-lui : « est-ce que vous vous étouffez ? »",
+    "texte": "C'est la première question, et elle trie tout le reste. Si la personne peut parler, crier ou tousser, l'obstruction est partielle. Si elle ne peut plus ni parler, ni crier, ni tousser, ni émettre un son, garde la bouche ouverte et s'agite, l'obstruction est complète.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "2",
+    "titre": "Obstruction partielle : ne la touche pas",
+    "texte": "Installe-la dans la position où elle se sent le mieux, encourage-la à tousser, demande un avis médical et applique les consignes, surveille-la attentivement. Sa toux est plus efficace que n'importe lequel de tes gestes. Si la toux devient inefficace, passe à la conduite de l'obstruction complète.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "3",
+    "titre": "Obstruction complète : de une à cinq claques dans le dos",
+    "texte": "Place-toi sur le côté, penche-la en avant en soutenant sa poitrine d'une main. De une à cinq claques vigoureuses entre les deux omoplates, avec le talon de la main ouverte. Après chaque claque, vérifie si le corps étranger a été rejeté : dans ce cas, arrête.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "4",
+    "titre": "Puis cinq compressions abdominales, puis alterne",
+    "texte": "Si les claques dans le dos n'ont pas d'effet, effectue un maximum de cinq compressions abdominales. Si le problème n'est toujours pas résolu, alterne cinq claques dans le dos et cinq compressions abdominales.",
+    "source": "croix-rouge-etouffement"
+   },
+   {
+    "cle": "5",
+    "titre": "Quand la compression abdominale est impossible",
+    "texte": "La compression abdominale suppose une obstruction complète, un adulte ou un enfant, et un sauveteur qui peut se tenir debout ou à genou derrière la victime, après une série de cinq claques dans le dos inefficaces. Si l'abdomen ne peut pas être encerclé, adulte obèse ou femme enceinte dans les derniers mois de grossesse, les compressions se font au niveau thoracique : place-toi derrière elle, passe tes avant-bras sous ses bras et encercle sa poitrine, poing fermé au milieu du sternum, l'autre main par-dessus, et tire vers l'arrière, de une à cinq compressions en relâchant entre chacune. Pour une personne alitée ou allongée, difficilement mobilisable, on comprime le thorax comme pour une victime en arrêt cardiaque.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "6",
+    "titre": "Arrête dès qu'elle tousse, crie ou respire",
+    "texte": "Répète le cycle claques dans le dos puis compressions, et interromps les manœuvres dès l'apparition d'une toux, de cris ou de pleurs, dès la reprise de la respiration, ou dès le rejet du corps étranger. Ensuite : installe-la dans la position où elle se sent le mieux, réconforte-la en lui parlant régulièrement, desserre ses vêtements, fais alerter les secours et applique leurs consignes, et surveille-la.",
+    "source": "psc1-2024-dgscgc"
+   },
+   {
+    "cle": "7",
+    "titre": "Si elle perd connaissance",
+    "texte": "Pose-la délicatement au sol et alerte immédiatement les secours. Puis entreprends une réanimation en commençant par trente compressions thoraciques, et poursuis jusqu'à l'arrivée des secours ou jusqu'à ce qu'elle reprenne une respiration normale.",
+    "source": "croix-rouge-etouffement"
+   }
+  ],
+  "avertissement": "Cette fiche entraîne. Elle ne remplace ni une formation certifiante, ni un avis médical. En situation réelle : 15 ou 112."
+ },
+ "source_officielle": {
+  "verifie_le": "2026-08-23",
+  "sources": [
+   {
+    "cle": "psc1-2024-dgscgc",
+    "titre": "Référentiel national de compétences de sécurité civile, Prévention et secours civiques de niveau 1 (PSC1), édition 2024",
+    "editeur": "Direction générale de la sécurité civile et de la gestion des crises (DGSCGC), ministère de l'Intérieur",
+    "url": "https://mobile.interieur.gouv.fr/content/download/111131/888067/file/2024%20PSC1.pdf",
+    "extrait": "Demander à la victime « est-ce que vous vous étouffez ? ». […] Si la victime ne peut plus parler, crier, tousser ou émettre un son, garde la bouche ouverte, s'agite, devient […] obstruction complète. […] La victime présente une obstruction partielle : installer la victime dans la position où elle se sent le mieux ; encourager la victime à tousser ; demander un avis médical et appliquer les consignes ; surveiller attentivement la victime. Si la toux devient inefficace et que la victime montre des signes de fatigue, il convient alors d'appliquer la conduite à tenir devant une obstruction complète. […] La victime présente une obstruction complète : […] donner de 1 à 5 claques vigoureuses dans le dos, entre les deux omoplates, avec le talon de la main ouverte. […] Désobstruction par compressions abdominales […] Cette technique est indiquée en cas d'obstruction complète des voies aériennes par un corps étranger chez un adulte ou un enfant après une série de 5 claques dans le dos inefficaces, et si le sauveteur peut se tenir debout ou à genou derrière elle. […] faire alerter ou alerter les secours et appliquer leurs consignes ; […] réaliser de 1 à 5 « compressions » en cas d'inefficacité ou d'impossibilité de pratiquer des « claques dans le dos » : au niveau abdominal, s'il s'agit d'un adulte ou d'un enfant ; au niveau thoracique, s'il s'agit : d'un nourrisson ; d'un adulte obèse ou d'une femme enceinte lorsqu'il est impossible d'encercler l'abdomen ; d'une personne alitée ou allongée, difficilement mobilisable. […] répéter le cycle « claques dans le dos » et « compressions » ; interrompre les manœuvres dès : o l'apparition d'une toux, de cris ou de pleurs ; o la reprise de la respiration ; o le rejet du corps étranger. Si les manœuvres de désobstruction sont efficaces : installer la victime dans la position où elle se sent le mieux ; la réconforter en lui parlant régulièrement ; desserrer les vêtements ; faire alerter ou alerter les secours et appliquer leurs consignes ; surveiller la victime. […] Désobstruction par compressions thoraciques chez l'adulte […] Cette technique est indiquée en cas d'obstruction complète des voies aériennes par un corps étranger, lorsqu'il est impossible d'encercler l'abdomen de la victime (obèse, femme enceinte dans les derniers mois de grossesse, etc.) et après une série de 5 claques dans le dos inefficaces. […] Personne dont il est impossible d'encercler l'abdomen (obèse ou femme enceinte) : se positionner derrière la victime ; placer ses avant-bras sous les bras de la victime et encercler la poitrine de la victime ; placer le poing fermé (dos de la main vers le ciel) au milieu du sternum, sans appuyer sur la pointe inférieure du sternum ; placer l'autre main sur la première sans appuyer les avant-bras sur les côtes ; tirer franchement en exerçant une pression vers l'arrière ; effectuer de 1 à 5 compressions, en relâchant entre chacune. […] Personne alitée ou allongée, difficilement mobilisable : effectuer des compressions thoraciques, comme pour une victime en arrêt cardiaque. […] Les compressions thoraciques doivent être réalisées : au milieu du sternum ; sans appuyer sur les côtes ; vers l'arrière."
+   },
+   {
+    "cle": "croix-rouge-etouffement",
+    "titre": "L'étouffement",
+    "editeur": "Croix-Rouge française",
+    "url": "https://www.croix-rouge.fr/les-gestes-de-premiers-secours/etouffement",
+    "extrait": "La victime ne peut ni parler, ni respirer, ni tousser. Elle peut émettre des sifflements ou tenter de tousser sans émettre de bruit. […] Donnez un maximum de 5 claques dans le dos de la victime. Après chaque claque, vérifiez si tout rentre dans l'ordre. […] Si les claques dans le dos n'ont pas d'effet, effectuez un maximum de 5 compressions abdominales. […] Si le problème n'est toujours pas résolu, alternez 5 claques dans le dos et 5 compressions abdominales. […] Posez-la victime délicatement au sol et alertez immédiatement les secours, puis entreprenez une réanimation cardio-pulmonaire en commençant par effectuer 30 compressions thoraciques. […] Poursuivez la réanimation jusqu'à ce que les secours arrivent ou que la victime reprenne une respiration normale. […] Administrez un maximum de 5 claques entre les omoplates. Chaque claque a pour but de provoquer un mouvement de toux permettant de déloger l'objet. […] Après chaque claque, observez si le corps étranger a été rejeté ou non."
+   }
+  ]
+ }
+}

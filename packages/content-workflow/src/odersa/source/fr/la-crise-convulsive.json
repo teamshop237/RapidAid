@@ -1,0 +1,373 @@
+{
+ "_licence": "CC BY 4.0 · https://creativecommons.org/licenses/by/4.0/",
+ "_source": "https://avantlessecours.odersa.org/cas/la-crise-convulsive",
+ "_note": "Un cas d'Avant les secours (ODERSA), en licence ouverte. Les extraits de `source_officielle` sont des VERBATIMS de référentiels publics : ils gardent la licence de leurs éditeurs, et se citent avec leur adresse.",
+ "genere_le": "2026-09-14",
+ "id": "la-crise-convulsive",
+ "numero": 12,
+ "niveau": 2,
+ "titre": "La crise convulsive",
+ "titreCourt": "La crise convulsive",
+ "punchline": "Tout ce que ton instinct te dit de faire est faux. Le geste juste, ici, consiste surtout à ne pas en faire.",
+ "metaDescription": "Jouez une crise convulsive : ne rien mettre dans la bouche, ne pas contenir les mouvements, protéger la tête, compter la durée, position latérale ensuite. Gratuit, référentiels publics français.",
+ "duree": "3 minutes",
+ "chrono_objectif": 190,
+ "gestes": [
+  "Reconnaître une crise convulsive généralisée",
+  "Ne jamais contraindre les mouvements",
+  "Ne rien placer dans la bouche",
+  "Protéger la tête avec un vêtement plié",
+  "Écarter les objets qui pourraient blesser",
+  "Écarter les personnes autour",
+  "Noter la durée de la crise",
+  "Installer en position latérale de sécurité après les secousses, si elle respire"
+ ],
+ "checkpoints": [
+  "s3-pendant-la-crise",
+  "s5-apres-les-secousses"
+ ],
+ "requetes": [
+  "crise convulsive que faire",
+  "faut-il mettre quelque chose dans la bouche crise d'épilepsie",
+  "crise convulsive combien de temps",
+  "que faire après une crise convulsive",
+  "protéger la tête crise convulsive"
+ ],
+ "scenes": [
+  {
+   "id": "s1-ouverture",
+   "titre": "Ouverture",
+   "decor": "bureau-nuit",
+   "animation": "bureau-fin-de-soiree",
+   "narration": [
+    "22 h 10. Le plateau est vide, le néon est resté en veille, deux écrans éclairent des chaises qui ne servent plus.",
+    "Elle se lève d'un coup, sans un mot, et elle ne se retient pas en tombant."
+   ],
+   "sous_titres": "Une chaise qui part, un plateau vide, une ventilation qui tourne.",
+   "suite": {
+    "texte": "Se précipiter",
+    "suivant": "s2-le-constat"
+   }
+  },
+  {
+   "id": "s2-le-constat",
+   "titre": "Le constat",
+   "decor": "bureau-nuit",
+   "animation": "convulsion-en-cours",
+   "narration": [
+    "Elle est raide, puis tout son corps est secoué par des mouvements qu'elle ne commande pas.",
+    "Ça vient de commencer. Ta première pensée est de la tenir, et c'est exactement celle qu'il faut écarter."
+   ],
+   "question": "Tu fais quoi de ces premières secondes ?",
+   "choix": [
+    {
+     "texte": "Je ne la retiens pas. Je glisse un vêtement plié sous sa tête, j'écarte ce qui traîne autour, et je regarde l'heure.",
+     "type": "juste",
+     "consequence_animee": "convulsion-protege",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Ne jamais contraindre les mouvements",
+      "message": "Le référentiel de la sécurité civile est catégorique : ne jamais contraindre les mouvements de la victime durant toute la crise. Ce qu'on fait à la place : protéger sa tête en glissant un vêtement ou un tissu plié dessous sans recouvrir ses voies aériennes, écarter tout objet qui pourrait être traumatisant, et noter la durée de la crise.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s3-pendant-la-crise"
+    },
+    {
+     "texte": "Je lui bloque les bras et les jambes pour l'empêcher de se faire mal.",
+     "type": "piege",
+     "consequence_animee": "convulsion-contient",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "C'est toi qui la blesses, maintenant",
+      "message": "Ne jamais contraindre les mouvements, durant toute la crise. Un corps qui convulse développe une force que personne ne retient sans casser quelque chose, et ce que tu bloques ne raccourcit pas la crise d'une seconde. On protège l'environnement, pas le corps.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s2-le-constat"
+    },
+    {
+     "texte": "Je sors mon téléphone et je filme, ça servira au médecin.",
+     "type": "vanne",
+     "consequence_animee": "convulsion-vanne-video",
+     "verdict": {
+      "couleur": "jaune",
+      "titre": "Vingt secondes de vidéo verticale, très floue",
+      "message": "Ce que les secours veulent de toi tient en deux chiffres : l'heure et la durée. Ton téléphone sert à les appeler, pas à documenter.",
+      "canon_source": null
+     },
+     "cout_chrono": 14,
+     "suivant": "s2-le-constat"
+    }
+   ]
+  },
+  {
+   "id": "s3-pendant-la-crise",
+   "titre": "Pendant la crise",
+   "decor": "bureau-nuit",
+   "animation": "convulsion-protege",
+   "narration": [
+    "Le vêtement est sous sa tête, la chaise est loin, le chronomètre tourne.",
+    "Sa mâchoire est serrée et elle fait un bruit qui n'a rien d'humain. C'est là que la vieille histoire remonte."
+   ],
+   "question": "Elle risque de se mordre la langue. Tu fais quoi ?",
+   "choix": [
+    {
+     "texte": "Rien de plus. Je ne mets rien dans sa bouche, et je continue de compter.",
+     "type": "juste",
+     "consequence_animee": "convulsion-fin",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Rien entre ses dents, rien dans sa bouche",
+      "message": "Ne rien placer entre les dents de la victime ou dans sa bouche : c'est écrit tel quel. La phase de secousses dure en règle générale moins de cinq minutes, et c'est pendant cette phase que la victime peut se mordre la langue. Une morsure de langue guérit ; des dents cassées poussées dans les voies aériennes, non.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s4-le-temps"
+    },
+    {
+     "texte": "Je glisse un objet plat entre ses dents pour protéger sa langue.",
+     "type": "piege",
+     "consequence_animee": "convulsion-dans-la-bouche",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "C'est le geste le plus dangereux du cas",
+      "message": "Ne rien placer entre les dents de la victime ou dans sa bouche. Ses mâchoires se serrent avec une force qui casse ce qu'on y met, et ce qui casse descend. C'est la consigne la plus contre-intuitive du secourisme, et c'est celle qui blesse le plus de sauveteurs et de victimes.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s3-pendant-la-crise"
+    },
+    {
+     "texte": "Je l'assois contre le mur, elle respirera mieux.",
+     "type": "piege",
+     "consequence_animee": "convulsion-assoit",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Elle n'a rien à faire assise",
+      "message": "Pendant la crise, on la laisse allongée au sol, on protège sa tête et on écarte ce qui l'entoure. La redresser, c'est encore la contraindre, et sa tête retombe. La position latérale de sécurité vient APRÈS les secousses, quand elle respire et qu'elle ne répond pas.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s3-pendant-la-crise"
+    }
+   ]
+  },
+  {
+   "id": "s4-le-temps",
+   "titre": "Le temps",
+   "decor": "bureau-nuit",
+   "animation": "convulsion-fin",
+   "narration": [
+    "Les secousses s'arrêtent. Une minute quarante au chronomètre.",
+    "Elle ne répond à rien, ni à ta voix ni à ta main sur son épaule. Sa poitrine, elle, se soulève."
+   ],
+   "question": "Il y a deux personnes sur ce plateau. Tu fais quoi ?",
+   "choix": [
+    {
+     "texte": "Je reste près d'elle et j'appelle le 15 en haut-parleur, avec la durée exacte que j'ai notée.",
+     "type": "juste",
+     "consequence_animee": "convulsion-pls",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "La durée est ce qu'ils te demanderont en premier",
+      "message": "Le référentiel demande de noter la durée de la crise et de transmettre un bilan. Un appel en haut-parleur permet de ne jamais la quitter. Elle reste inconsciente plusieurs minutes après les secousses, sa respiration peut être bruyante, et il faut quelqu'un à côté d'elle pendant tout ce temps.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s5-apres-les-secousses"
+    },
+    {
+     "texte": "Je sors dans le couloir pour appeler tranquillement, on entend mal ici.",
+     "type": "piege",
+     "consequence_animee": "convulsion-part-appeler",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Personne ne la regarde plus",
+      "message": "Elle reste sans connaissance plusieurs minutes après les secousses, et le référentiel demande de surveiller la victime jusqu'à ce qu'elle retrouve un état normal de conscience. Dans certains cas, une deuxième crise s'enchaîne. Un couloir de dix mètres, c'est déjà trop loin.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s4-le-temps"
+    },
+    {
+     "texte": "Elle respire et c'est fini : je la laisse dormir là et je finis mon dossier.",
+     "type": "piege",
+     "consequence_animee": "convulsion-assoit",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Ce n'est pas fini, et un avis est obligatoire",
+      "message": "Le référentiel demande de transmettre un bilan et d'appliquer les consignes, dans tous les cas. Après les secousses, elle reste sans connaissance plusieurs minutes, elle peut enchaîner plusieurs crises, et elle ne se souviendra de rien. Laisser dormir quelqu'un qui ne répond pas n'est pas laisser dormir.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s4-le-temps"
+    }
+   ]
+  },
+  {
+   "id": "s5-apres-les-secousses",
+   "titre": "Après les secousses",
+   "decor": "bureau-nuit",
+   "animation": "convulsion-pls",
+   "narration": [
+    "Le régulateur a demandé si elle respirait normalement. Oui.",
+    "Il a dit une phrase de trois mots, et tu sais déjà laquelle."
+   ],
+   "question": "Elle ne répond pas et elle respire. Tu l'installes comment ?",
+   "choix": [
+    {
+     "texte": "Je la tourne sur le côté, en position latérale de sécurité, et je surveille sa respiration.",
+     "type": "juste",
+     "consequence_animee": "convulsion-pls",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Sur le côté, et on ne la quitte plus",
+      "message": "À la fin des convulsions, vérifier que les voies aériennes sont libres et contrôler la respiration, puis installer la victime en position latérale de sécurité si elle respire. Une personne inconsciente laissée sur le dos est exposée à ses propres vomissements, et une crise convulsive en provoque souvent.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s6-le-reveil"
+    },
+    {
+     "texte": "Je la laisse à plat sur le dos, elle a l'air mieux comme ça.",
+     "type": "piege",
+     "consequence_animee": "convulsion-assoit",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Sur le dos, elle est en danger sans que rien ne se voie",
+      "message": "Le risque nommé par le référentiel est l'obstruction des voies aériennes chez une victime sans connaissance laissée sur le dos, ou si elle vomit. Elle respire, donc la position latérale de sécurité est exactement ce qui la protège pendant que tu attends.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s5-apres-les-secousses"
+    },
+    {
+     "texte": "Je la secoue pour la réveiller : plus vite elle revient, mieux c'est.",
+     "type": "piege",
+     "consequence_animee": "hypo-secoue",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Elle revient à son rythme, pas au tien",
+      "message": "Après les secousses, la victime reste sans connaissance plusieurs minutes : c'est décrit comme la suite normale de la crise. Le référentiel demande de la surveiller jusqu'à ce qu'elle retrouve un état normal de conscience, et de la garder au calme quand elle redevient consciente. Rien ne s'accélère en la secouant.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s5-apres-les-secousses"
+    }
+   ]
+  },
+  {
+   "id": "s6-le-reveil",
+   "titre": "Le réveil",
+   "decor": "bureau-nuit",
+   "animation": "convulsion-fin",
+   "narration": [
+    "Elle ouvre les yeux, le regard fixe. Elle te demande ce que tu fais par terre.",
+    "Elle ne se souvient de rien, et c'est décrit comme cela dans le référentiel."
+   ],
+   "question": "Elle est confuse et elle veut se lever. Tu fais quoi ?",
+   "choix": [
+    {
+     "texte": "Je la garde au calme, allongée, je la rassure, et j'attends les secours avec elle.",
+     "type": "juste",
+     "consequence_animee": "convulsion-pls",
+     "verdict": {
+      "couleur": "vert",
+      "titre": "Au calme, et rassurée",
+      "message": "Lorsque la victime redevient consciente, la garder au calme et la rassurer. Le référentiel décrit ce moment : elle peut être hébétée, le regard fixe, se comporter de manière étrange, et ne se souvenir de rien. Ce n'est pas un signe d'aggravation, et ce n'est pas le moment de la faire marcher.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s7-les-secours"
+    },
+    {
+     "texte": "Je lui donne un verre d'eau, elle a la bouche sèche.",
+     "type": "piege",
+     "consequence_animee": "hypo-verre-eau",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Elle sort à peine d'une crise",
+      "message": "Elle est hébétée, elle ne se souvient de rien, et elle vient de passer plusieurs minutes sans connaissance : rien ne se boit dans cet état. On la garde au calme et on la rassure, jusqu'à l'arrivée des secours et selon leurs consignes.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s6-le-reveil"
+    },
+    {
+     "texte": "Je la laisse se lever et rentrer chez elle, elle dit que ça va.",
+     "type": "piege",
+     "consequence_animee": "convulsion-assoit",
+     "verdict": {
+      "couleur": "rouge",
+      "titre": "Elle dit ça parce qu'elle ne se souvient de rien",
+      "message": "Le référentiel demande de surveiller la victime jusqu'à ce qu'elle retrouve un état normal de conscience, et de transmettre un bilan dans tous les cas. Une personne amnésique des dernières minutes n'est pas en état de décider si elle peut conduire. Les secours sont en route, et ils viennent pour cela.",
+      "canon_source": "reco-premiers-secours-mi"
+     },
+     "suivant": "s6-le-reveil"
+    }
+   ]
+  },
+  {
+   "id": "s7-les-secours",
+   "titre": "Les secours",
+   "decor": "bureau-nuit",
+   "animation": "secours-bureau",
+   "narration": [
+    "Du bleu dans la cour vitrée, l'ascenseur, deux personnes avec un sac.",
+    "Ils te demandent la durée. Tu réponds une minute quarante, et l'heure exacte du début.",
+    "Tu n'as presque rien fait ce soir : tu as posé un vêtement, poussé une chaise, et regardé une montre. C'était tout le programme."
+   ],
+   "sous_titres": "Deux sirènes qui s'arrêtent, un ascenseur, des voix calmes.",
+   "final": true
+  }
+ ],
+ "fiche_recap": {
+  "titre": "Crise convulsive : protéger, compter, ne pas contenir",
+  "chapeau": "Sept règles, tirées des Recommandations premiers secours de la Direction générale de la sécurité civile et de la gestion des crises, ministère de l'Intérieur.",
+  "regles": [
+   {
+    "cle": "1",
+    "titre": "Ne jamais contraindre les mouvements",
+    "texte": "Durant toute la crise. On ne tient ni les bras, ni les jambes, ni la tête. Contenir un corps qui convulse ne raccourcit rien et casse quelque chose. Au début de la crise, on l'allonge au sol si elle n'y est pas déjà, pour éviter qu'elle ne se blesse en chutant, et on écarte les personnes qui sont autour.",
+    "source": "reco-premiers-secours-mi"
+   },
+   {
+    "cle": "2",
+    "titre": "Rien dans la bouche, jamais",
+    "texte": "Ne rien placer entre les dents de la victime ou dans sa bouche. C'est la consigne la plus contre-intuitive du secourisme, et la plus importante de ce cas.",
+    "source": "reco-premiers-secours-mi"
+   },
+   {
+    "cle": "3",
+    "titre": "Protéger la tête",
+    "texte": "Glisser si possible un vêtement ou un tissu plié sous sa tête, sans recouvrir ses voies aériennes. C'est le seul contact utile pendant les secousses.",
+    "source": "reco-premiers-secours-mi"
+   },
+   {
+    "cle": "4",
+    "titre": "Écarter les objets, écarter les gens",
+    "texte": "Écarter tout objet qui pourrait être traumatisant, et écarter les personnes qui sont autour. Le danger n'est pas dans le corps, il est autour de lui.",
+    "source": "reco-premiers-secours-mi"
+   },
+   {
+    "cle": "5",
+    "titre": "Compter",
+    "texte": "Noter la durée de la crise, et l'heure à laquelle elle a commencé. La phase de secousses dure en règle générale moins de cinq minutes. C'est le renseignement que les secours demandent en premier.",
+    "source": "reco-premiers-secours-mi"
+   },
+   {
+    "cle": "6",
+    "titre": "Après les secousses : la position latérale",
+    "texte": "Vérifier que les voies aériennes sont libres et contrôler la respiration. Si elle respire, l'installer en position latérale de sécurité. Si elle ne respire plus, commencer la réanimation.",
+    "source": "reco-premiers-secours-mi"
+   },
+   {
+    "cle": "7",
+    "titre": "Le réveil est confus, et c'est normal",
+    "texte": "Elle reste sans connaissance plusieurs minutes, sa respiration peut être bruyante. À son réveil elle peut être hébétée, le regard fixe, et ne se souvenir de rien. La garder au calme, la rassurer, et transmettre un bilan dans tous les cas.",
+    "source": "reco-premiers-secours-mi"
+   }
+  ],
+  "avertissement": "Cette fiche entraîne. Elle ne remplace ni une formation certifiante, ni un avis médical. En situation réelle : 15 ou 112."
+ },
+ "source_officielle": {
+  "verifie_le": "2026-08-23",
+  "sources": [
+   {
+    "cle": "reco-premiers-secours-mi",
+    "titre": "Recommandations premiers secours, fiches modifiées juin 2018 publiées, fiche « Crise convulsive généralisée »",
+    "editeur": "Direction générale de la sécurité civile et de la gestion des crises (DGSCGC), ministère de l'Intérieur",
+    "url": "https://www.interieur.gouv.fr/content/download/111138/888108/file/Recommandations%20premiers%20secours%20-%20Fiches%20modifi%C3%A9es%20juin%202018%20publi%C3%A9es.pdf",
+    "extrait": "Ne jamais contraindre les mouvements de la victime durant toute la crise. […] Au début de la crise : allonger la victime au sol, si elle n'est pas déjà dans cette position pour éviter qu'elle ne se blesse en chutant ; écarter les personnes qui sont autour. […] Pendant la crise : protéger la tête de la victime en glissant si possible un vêtement ou un tissu plié sous sa tête, sans recouvrir les voies aériennes ; écarter tout objet qui pourrait être traumatisant ; ne rien placer entre les dents de la victime ou dans sa bouche. Elle n'avalera pas sa langue. […] noter l'heure de survenue et la durée de la crise ; […] transmettre un bilan et appliquer les consignes ; surveiller la victime jusqu'à ce qu'elle retrouve un état normal de conscience ; […] A la fin des convulsions : s'assurer que les voies aériennes de la victime sont libres et vérifier sa respiration ; débuter la RCP si elle ne respire plus ; installer la victime en PLS, si elle respire ; lorsque la victime redevient consciente, la garder au calme et la rassurer ; […] Cette phase dure en règle générale moins de cinq minutes, période pendant laquelle la victime peut se mordre la langue ; […] enfin, après les secousses, la victime reste sans connaissance plusieurs minutes. Sa respiration peut être bruyante. […] Lors de la reprise progressive de sa conscience, la victime peut être hébétée, le regard fixe ou se comporter de manière étrange et ne se souvient de rien (amnésie des circonstances). Dans certains cas, elle peut enchaîner plusieurs crises convulsives avec ou sans reprise de conscience entre les crises. […] obstruction des voies aériennes chez une victime sans connaissance si elle est laissée sur le dos ou si elle vomit (détresse respiratoire)."
+   }
+  ]
+ }
+}

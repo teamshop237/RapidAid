@@ -5,6 +5,7 @@ import { AppProviders } from "@/providers/AppProviders";
 import { productionDirectory } from "@/directory/productionDirectory";
 import type { DirectorySnapshot } from "@/directory/types";
 import { EmergencyServicesScreen } from "@/screens/EmergencyServicesScreen";
+import { AppInfoScreen } from "@/screens/AppInfoScreen";
 import { GuideDetailScreen } from "@/screens/GuideDetailScreen";
 import { HomeScreen } from "@/screens/HomeScreen";
 import { OnboardingScreen } from "@/screens/OnboardingScreen";
@@ -48,6 +49,12 @@ const nonCallableSyntheticSamuSnapshot: DirectorySnapshot = {
 describe("RapidAid MVP screens", () => {
   afterEach(() => {
     jest.restoreAllMocks();
+  });
+
+  it("shows the ODERSA attribution and independence notice", async () => {
+    const screen = await renderWithProviders(<AppInfoScreen />);
+    expect(screen.getByText("Avant les secours, ODERSA, avantlessecours.odersa.org, CC BY 4.0")).toBeTruthy();
+    expect(screen.getByText("ODERSA does not endorse RapidAid or its adaptations.")).toBeTruthy();
   });
 
   it("keeps the emergency action prominent and delegates navigation", async () => {

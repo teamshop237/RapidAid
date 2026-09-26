@@ -17,14 +17,26 @@ export const localizedTextSchema = z.object({
 
 export const sourceReferenceSchema = z.object({
   sourceId: stableIdSchema,
+  sourceRecordId: z.string().trim().min(1).optional(),
   title: z.string().trim().min(1),
   organization: z.string().trim().min(1),
   locator: z.string().url(),
   language: localeSchema,
   jurisdiction: z.string().trim().min(1),
   publishedAt: isoDateTimeSchema.optional(),
+  verifiedAt: isoDateTimeSchema.optional(),
   accessedAt: isoDateTimeSchema,
   sourceVersion: z.string().trim().min(1).optional(),
+  license: z.object({
+    identifier: z.string().trim().min(1),
+    locator: z.string().url(),
+    attribution: z.string().trim().min(1),
+  }).strict().optional(),
+  adaptation: z.object({
+    status: z.enum(["unmodified", "adapted"]),
+    description: localizedTextSchema,
+    endorsementDisclaimer: localizedTextSchema,
+  }).strict().optional(),
 }).strict();
 
 export const contentPreparationSchema = z.object({
