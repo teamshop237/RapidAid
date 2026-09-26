@@ -2,6 +2,7 @@ import { fireEvent, render } from "@testing-library/react-native";
 
 import { AppProviders } from "@/providers/AppProviders";
 import { productionDirectory } from "@/directory/productionDirectory";
+import type { DirectorySnapshot } from "@/directory/types";
 import { EmergencyServicesScreen } from "@/screens/EmergencyServicesScreen";
 import { GuideDetailScreen } from "@/screens/GuideDetailScreen";
 import { HomeScreen } from "@/screens/HomeScreen";
@@ -59,6 +60,36 @@ describe("RapidAid MVP screens", () => {
       expect(control.props.accessibilityState).toEqual({ disabled: true });
     }
     expect(screen.getAllByText("Number awaiting verification")).toHaveLength(2);
+  });
+
+  it("enables the manual dialer action only for a human-verified production record", async () => {
+    const fixtureSnapshot: DirectorySnapshot = {
+      region: "Douala",
+      datasetVersion: "fixture-only",
+      isSynthetic: false,
+      emergencyServices: [{
+        id: "service.fixture-only.alpha",
+        dataOrigin: "production",
+        serviceName: { en: "Fixture-only emergency service", fr: "Service d’urgence de test" },
+        category: "medical",
+        phoneNumber: "+000 000 000",
+        address: null,
+        geographicCoverage: { en: "Fixture-only area", fr: "Zone de test" },
+        verification: {
+          status: "verified",
+          source: {
+            label: { en: "Fixture-only source", fr: "Source de test" },
+            locator: "https://authoritative-source.fixture/directory",
+          },
+          verifiedAt: "2026-09-26T12:00:00Z",
+          verifiedBy: { actorId: "human.fixture", displayName: "Fixture Human Reviewer", actorType: "human" },
+        },
+      }],
+      careFacilities: [],
+    };
+    const screen = await renderWithProviders(<EmergencyServicesScreen snapshot={fixtureSnapshot} />);
+
+    expect(screen.getByRole("button", { name: "Open phone dialer" }).props.accessibilityState).toEqual({ disabled: false });
   });
 
   it("fails gracefully when verified directory data has not been supplied", async () => {

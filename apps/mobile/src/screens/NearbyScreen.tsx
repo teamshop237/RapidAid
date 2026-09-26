@@ -66,12 +66,18 @@ export function NearbyScreen({ snapshot = getBundledDirectorySnapshot() }: Nearb
               </View>
               <View style={[styles.details, { borderTopColor: colors.border }]}>
                 <Text style={[styles.detail, { color: colors.textMuted }]}><Text style={styles.detailLabel}>{t("coverage")}: </Text>{facility.geographicCoverage[language]}</Text>
-                <Text style={[styles.detail, { color: colors.textMuted }]}>{facility.address?.[language] ?? t("addressUnavailable")}</Text>
+                <Text style={[styles.detail, { color: colors.textMuted }]}><Text style={styles.detailLabel}>{t("address")}: </Text>{facility.address?.[language] ?? t("addressUnavailable")}</Text>
+                <Text style={[styles.detail, { color: colors.textMuted }]}><Text style={styles.detailLabel}>{t("phone")}: </Text>{facility.phoneNumber ?? t("numberUnavailable")}</Text>
                 <Text style={[styles.detail, { color: colors.textMuted }]}><Text style={styles.detailLabel}>{t("verification")}: </Text>{t(verificationLabels[facility.verification.status])}</Text>
                 <Text style={[styles.detail, { color: colors.textMuted }]}><Text style={styles.detailLabel}>{t("verificationSource")}: </Text>{facility.verification.source.label[language]}</Text>
                 <Text style={[styles.detail, { color: colors.textMuted }]}><Text style={styles.detailLabel}>{t("verifiedOn")}: </Text>{facility.verification.verifiedAt?.slice(0, 10) ?? t("notVerified")}</Text>
+                {facility.verification.verifiedBy ? (
+                  <Text style={[styles.detail, { color: colors.textMuted }]}><Text style={styles.detailLabel}>{t("verifiedBy")}: </Text>{facility.verification.verifiedBy.displayName}</Text>
+                ) : null}
               </View>
-              <Text style={[styles.unavailable, { color: colors.textMuted }]}>{t("facilityDetailsUnavailable")}</Text>
+              {facility.address === null && facility.phoneNumber === null ? (
+                <Text style={[styles.unavailable, { color: colors.textMuted }]}>{t("facilityDetailsUnavailable")}</Text>
+              ) : null}
             </View>
           ))}
         </View>

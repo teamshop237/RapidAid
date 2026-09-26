@@ -8,12 +8,19 @@ export type DirectoryVerificationStatus =
   | "unverified"
   | "synthetic-only";
 
+export type HumanDirectoryVerifier = Readonly<{
+  actorId: string;
+  displayName: string;
+  actorType: "human";
+}>;
+
 export type VerificationMetadata = Readonly<{
   source: Readonly<{
     label: LocalizedDirectoryText;
     locator: string;
   }>;
   verifiedAt: string | null;
+  verifiedBy: HumanDirectoryVerifier | null;
   status: DirectoryVerificationStatus;
 }>;
 
@@ -25,6 +32,7 @@ export type EmergencyDirectoryEntry = Readonly<{
   serviceName: LocalizedDirectoryText;
   category: EmergencyServiceCategory;
   phoneNumber: string | null;
+  address: LocalizedDirectoryText | null;
   geographicCoverage: LocalizedDirectoryText;
   verification: VerificationMetadata;
 }>;

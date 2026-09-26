@@ -1,11 +1,20 @@
+import productionDirectoryDocument from "../../content/directory/production-directory.json";
 import type { DirectorySnapshot } from "./types";
+import { validateProductionDirectoryDocument } from "./validation";
 
-// Production records remain empty until each entry is supplied and verified by
-// an authorized human. Development fixtures live in a separate module.
-export const productionDirectory: DirectorySnapshot = {
-  region: "Douala",
-  datasetVersion: "awaiting-human-verification",
-  isSynthetic: false,
-  emergencyServices: [],
-  careFacilities: [],
-};
+const validation = validateProductionDirectoryDocument(productionDirectoryDocument);
+
+// CI and release builds reject invalid input through validate:directory. This
+// runtime fallback is an additional fail-closed boundary if invalid data is
+// somehow loaded without that required check.
+export const productionDirectoryValidationErrors = validation.ok ? [] : validation.errors;
+
+export const productionDirectory: DirectorySnapshot = validation.ok
+  ? validation.snapshot
+  : {
+      region: "Douala",
+      datasetVersion: "invalid-production-directory-rejected",
+      isSynthetic: false,
+      emergencyServices: [],
+      careFacilities: [],
+    };

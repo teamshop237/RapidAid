@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "1.0.0",
+  "datasetVersion": "SYNTHETIC-TEMPLATE-NOT-FOR-RELEASE",
+  "region": "Douala",
+  "emergencyServices": [
+    {
+      "id": "service.synthetic.example",
+      "serviceName": {
+        "en": "SYNTHETIC emergency service — NOT REAL",
+        "fr": "Service d’urgence SYNTHÉTIQUE — NON RÉEL"
+      },
+      "category": "medical",
+      "phoneNumber": null,
+      "address": null,
+      "geographicCoverage": {
+        "en": "SYNTHETIC service area — NOT REAL",
+        "fr": "Zone de service SYNTHÉTIQUE — NON RÉELLE"
+      },
+      "verification": {
+        "status": "unverified",
+        "source": {
+          "label": {
+            "en": "SYNTHETIC source — NOT AUTHORITATIVE",
+            "fr": "Source SYNTHÉTIQUE — NON OFFICIELLE"
+          },
+          "locator": "https://example.invalid/source"
+        },
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
+    }
+  ],
+  "careFacilities": [
+    {
+      "id": "facility.synthetic.example",
+      "facilityName": {
+        "en": "SYNTHETIC Hospital — NOT REAL",
+        "fr": "Hôpital SYNTHÉTIQUE — NON RÉEL"
+      },
+      "category": "hospital",
+      "phoneNumber": null,
+      "address": null,
+      "geographicCoverage": {
+        "en": "SYNTHETIC service area — NOT REAL",
+        "fr": "Zone de service SYNTHÉTIQUE — NON RÉELLE"
+      },
+      "verification": {
+        "status": "unverified",
+        "source": {
+          "label": {
+            "en": "SYNTHETIC source — NOT AUTHORITATIVE",
+            "fr": "Source SYNTHÉTIQUE — NON OFFICIELLE"
+          },
+          "locator": "https://example.invalid/source"
+        },
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
+    }
+  ]
+}

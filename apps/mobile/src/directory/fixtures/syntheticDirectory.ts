@@ -11,6 +11,7 @@ const syntheticSource = {
 const syntheticVerification = {
   source: syntheticSource,
   verifiedAt: null,
+  verifiedBy: null,
   status: "synthetic-only",
 } as const;
 
@@ -25,6 +26,7 @@ export const syntheticDirectoryFixture: DirectorySnapshot = {
       serviceName: { en: "Synthetic medical response service", fr: "Service synthétique d’intervention médicale" },
       category: "medical",
       phoneNumber: null,
+      address: null,
       geographicCoverage: { en: "Synthetic Douala test zone", fr: "Zone de test synthétique de Douala" },
       verification: syntheticVerification,
     },
@@ -34,6 +36,7 @@ export const syntheticDirectoryFixture: DirectorySnapshot = {
       serviceName: { en: "Synthetic fire and rescue service", fr: "Service synthétique d’incendie et de secours" },
       category: "fire-rescue",
       phoneNumber: null,
+      address: null,
       geographicCoverage: { en: "Synthetic Douala test zone", fr: "Zone de test synthétique de Douala" },
       verification: syntheticVerification,
     },

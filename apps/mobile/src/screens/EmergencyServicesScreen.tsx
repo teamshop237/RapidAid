@@ -84,10 +84,14 @@ export function EmergencyServicesScreen({ snapshot = getBundledDirectorySnapshot
                 </View>
 
                 <View style={[styles.metadata, { borderTopColor: colors.border }]}>
+                  <Text style={[styles.metaLine, { color: colors.textMuted }]}><Text style={styles.metaLabel}>{t("address")}: </Text>{service.address?.[language] ?? t("addressUnavailable")}</Text>
                   <Text style={[styles.metaLine, { color: colors.textMuted }]}><Text style={styles.metaLabel}>{t("coverage")}: </Text>{service.geographicCoverage[language]}</Text>
                   <Text style={[styles.metaLine, { color: colors.textMuted }]}><Text style={styles.metaLabel}>{t("verification")}: </Text>{t(verificationLabels[service.verification.status])}</Text>
                   <Text style={[styles.metaLine, { color: colors.textMuted }]}><Text style={styles.metaLabel}>{t("verificationSource")}: </Text>{service.verification.source.label[language]}</Text>
                   <Text style={[styles.metaLine, { color: colors.textMuted }]}><Text style={styles.metaLabel}>{t("verifiedOn")}: </Text>{service.verification.verifiedAt?.slice(0, 10) ?? t("notVerified")}</Text>
+                  {service.verification.verifiedBy ? (
+                    <Text style={[styles.metaLine, { color: colors.textMuted }]}><Text style={styles.metaLabel}>{t("verifiedBy")}: </Text>{service.verification.verifiedBy.displayName}</Text>
+                  ) : null}
                 </View>
 
                 <PrimaryButton

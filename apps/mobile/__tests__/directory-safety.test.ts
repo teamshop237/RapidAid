@@ -17,8 +17,10 @@ describe("emergency directory release boundary", () => {
       expect(service.id).toContain(".synthetic.");
       expect(service.dataOrigin).toBe("synthetic-fixture");
       expect(service.phoneNumber).toBeNull();
+      expect(service.address).toBeNull();
       expect(service.verification.status).toBe("synthetic-only");
       expect(service.verification.verifiedAt).toBeNull();
+      expect(service.verification.verifiedBy).toBeNull();
       expect(service.verification.source.locator).toContain("example.invalid");
       expect(canOpenSystemDialer(service)).toBe(false);
     }
@@ -32,6 +34,7 @@ describe("emergency directory release boundary", () => {
       expect(facility.phoneNumber).toBeNull();
       expect(facility.verification.status).toBe("synthetic-only");
       expect(facility.verification.verifiedAt).toBeNull();
+      expect(facility.verification.verifiedBy).toBeNull();
     }
   });
 });

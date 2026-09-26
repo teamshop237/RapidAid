@@ -34,10 +34,13 @@
   "scripts": {
     "start": "expo start --dev-client",
     "android": "expo run:android",
+    "prebuild": "pnpm run validate:directory",
     "build": "expo export --platform android --output-dir dist",
+    "precheck": "pnpm run validate:directory",
     "check": "tsc --noEmit",
     "lint": "eslint .",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "validate:directory": "node --no-warnings=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/validate-directory.mjs"
   },
   "private": true,
   "jest": {

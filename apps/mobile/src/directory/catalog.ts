@@ -10,6 +10,7 @@ export function canOpenSystemDialer(entry: EmergencyDirectoryEntry): entry is Em
   return entry.dataOrigin === "production"
     && entry.verification.status === "verified"
     && entry.verification.verifiedAt !== null
+    && entry.verification.verifiedBy?.actorType === "human"
     && typeof entry.phoneNumber === "string"
     && /^\+?[0-9][0-9 -]{2,}$/.test(entry.phoneNumber);
 }
