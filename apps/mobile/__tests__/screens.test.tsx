@@ -1,6 +1,5 @@
 import { fireEvent, render } from "@testing-library/react-native";
 
-import { demoGuides } from "@/content/demoContent";
 import { AppProviders } from "@/providers/AppProviders";
 import { EmergencyServicesScreen } from "@/screens/EmergencyServicesScreen";
 import { GuideDetailScreen } from "@/screens/GuideDetailScreen";
@@ -33,12 +32,14 @@ describe("prototype screens", () => {
     expect(screen.getByText(/aucun conseil médical/i)).toBeTruthy();
   });
 
-  it("renders only a clinician-content placeholder in guide detail", async () => {
-    const screen = await renderWithProviders(<GuideDetailScreen guide={demoGuides[0]} />);
+  it("renders only validated synthetic repository content in guide detail", async () => {
+    const screen = await renderWithProviders(
+      <GuideDetailScreen guideId="protocol.synthetic.mobile.alpha" />,
+    );
 
-    expect(screen.getByText("Clinician-approved instructions will appear here.")).toBeTruthy();
-    expect(screen.getAllByText("No action should be taken from this demonstration screen.")).toHaveLength(3);
-    expect(screen.getByText("Placeholder — not clinically reviewed")).toBeTruthy();
+    expect(await screen.findByText("Synthetic demonstration content — not medical guidance.")).toBeTruthy();
+    expect(screen.getByText("SYNTHETIC CONTENT SLOT ALPHA — DO NOT TAKE ACTION.")).toBeTruthy();
+    expect(screen.getByText("Repository-validated synthetic content")).toBeTruthy();
   });
 
   it("renders non-dialable emergency controls", async () => {

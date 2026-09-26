@@ -8,6 +8,8 @@ import { NavigationCard } from "@/components/NavigationCard";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { SectionHeading } from "@/components/SectionHeading";
 import { useAppSettings } from "@/providers/AppProviders";
+import { useProtocolContent } from "@/providers/ProtocolContentProvider";
+import { protocolStatusMessageKey } from "@/components/ProtocolStatusView";
 import { radius, spacing, typography } from "@/theme/tokens";
 
 type HomeScreenProps = {
@@ -18,6 +20,13 @@ type HomeScreenProps = {
 
 export function HomeScreen({ onEmergency, onGuides, onNearby }: HomeScreenProps) {
   const { colors, t } = useAppSettings();
+  const protocolContent = useProtocolContent();
+  const offlineTitle = protocolContent.status === "ready" ? t("offlineReady") : t("protocolUnavailableTitle");
+  const offlineBody = protocolContent.status === "ready"
+    ? `${t("offlineBody")} ${protocolContent.packageVersion}`
+    : protocolContent.status === "loading"
+      ? t("protocolLoadingBody")
+      : t(protocolStatusMessageKey(protocolContent.status));
 
   return (
     <AppScreen testID="home-screen">
@@ -69,7 +78,7 @@ export function HomeScreen({ onEmergency, onGuides, onNearby }: HomeScreenProps)
       </View>
 
       <View style={styles.offlineStatus}>
-        <InfoRow body={t("offlineBody")} icon="cloud-offline-outline" title={t("offlineReady")} />
+        <InfoRow body={offlineBody} icon="cloud-offline-outline" title={offlineTitle} />
       </View>
     </AppScreen>
   );

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-import { isSchemaVersionCompatible } from "./compatibility.js";
-import { Protocol, protocolSchema } from "./schema.js";
+import { isSchemaVersionCompatible } from "./compatibility";
+import { Protocol, protocolSchema } from "./schema";
 
 export type ProtocolReadinessIssueCode =
   | "invalid"

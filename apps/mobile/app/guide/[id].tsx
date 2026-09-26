@@ -1,19 +1,23 @@
 import { Stack, useLocalSearchParams } from "expo-router";
 
-import { findDemoGuide, localizeDemoText } from "@/content/demoContent";
 import { useAppSettings } from "@/providers/AppProviders";
+import { useProtocolContent } from "@/providers/ProtocolContentProvider";
+import { localizePresentationText } from "@/protocols/presentation";
 import { GuideDetailScreen } from "@/screens/GuideDetailScreen";
 
 export default function GuideRoute() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { language, t } = useAppSettings();
-  const guide = findDemoGuide(id);
-  const title = guide ? localizeDemoText(guide.title, language) : t("guidesTitle");
+  const protocolContent = useProtocolContent();
+  const guide = protocolContent.status === "ready"
+    ? protocolContent.guides.find((candidate) => candidate.id === id)
+    : undefined;
+  const title = guide ? localizePresentationText(guide.title, language) : t("guidesTitle");
 
   return (
     <>
       <Stack.Screen options={{ title }} />
-      <GuideDetailScreen guide={guide} />
+      <GuideDetailScreen guideId={id} />
     </>
   );
 }

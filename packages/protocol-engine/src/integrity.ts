@@ -1,4 +1,4 @@
-import { Protocol, ProtocolPackage } from "./schema.js";
+import { Protocol, ProtocolPackage } from "./schema";
 
 type JsonValue = null | boolean | number | string | JsonValue[] | { [key: string]: JsonValue };
 

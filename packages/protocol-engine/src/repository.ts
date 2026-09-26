@@ -1,12 +1,12 @@
-import { isSchemaVersionCompatible } from "./compatibility.js";
+import { isSchemaVersionCompatible } from "./compatibility";
 import {
   canonicalizePackagePayload,
   canonicalizeProtocolContent,
   IntegrityVerifier,
   SignatureVerifier,
-} from "./integrity.js";
-import { Protocol, ProtocolPackage, protocolPackageSchema } from "./schema.js";
-import { ProtocolReadinessIssue, validateProtocolForProduction } from "./validation.js";
+} from "./integrity";
+import { Protocol, ProtocolPackage, protocolPackageSchema } from "./schema";
+import { ProtocolReadinessIssue, validateProtocolForProduction } from "./validation";
 
 export type OfflinePackageFailureStatus =
   | "missing"

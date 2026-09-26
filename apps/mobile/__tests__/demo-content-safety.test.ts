@@ -1,12 +1,12 @@
 import {
   demoCareLocations,
   demoEmergencyServices,
-  demoGuides,
 } from "@/content/demoContent";
+import { cloneBundledSyntheticPackage } from "@/protocols/mobileProtocolRepository";
 
 describe("demo content safety boundary", () => {
   it("marks every prototype record as demo-only", () => {
-    const records = [...demoGuides, ...demoEmergencyServices, ...demoCareLocations];
+    const records = [...demoEmergencyServices, ...demoCareLocations];
 
     expect(records).not.toHaveLength(0);
     expect(records.every((record) => record.contentStatus === "demo-only")).toBe(true);
@@ -21,12 +21,13 @@ describe("demo content safety boundary", () => {
     }
   });
 
-  it("uses generic guide categories instead of medical scenarios", () => {
-    for (const guide of demoGuides) {
-      expect(guide.id).toMatch(/^(alpha|bravo|charlie)$/);
-      expect(guide.title.en).toMatch(/^Demo guide/);
-      expect(guide.summary.en).toMatch(/Placeholder/);
-    }
+  it("uses unmistakably synthetic packaged protocol content", () => {
+    const serialized = JSON.stringify(cloneBundledSyntheticPackage()).toUpperCase();
+
+    expect(serialized).toContain("SYNTHETIC");
+    expect(serialized).toContain("NOT MEDICAL GUIDANCE");
+    expect(serialized).toContain("DO NOT TAKE ACTION");
+    expect(serialized).toContain("EXAMPLE.INVALID");
   });
 
   it("contains no real address or numeric distance", () => {

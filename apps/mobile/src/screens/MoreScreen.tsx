@@ -5,6 +5,8 @@ import { InfoRow } from "@/components/InfoRow";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { SectionHeading } from "@/components/SectionHeading";
 import { useAppSettings } from "@/providers/AppProviders";
+import { useProtocolContent } from "@/providers/ProtocolContentProvider";
+import { protocolStatusMessageKey } from "@/components/ProtocolStatusView";
 import { spacing, typography } from "@/theme/tokens";
 
 type MoreScreenProps = {
@@ -14,6 +16,13 @@ type MoreScreenProps = {
 
 export function MoreScreen({ onPrivacy, onAppInfo }: MoreScreenProps) {
   const { colors, isDarkMode, setDarkMode, t } = useAppSettings();
+  const protocolContent = useProtocolContent();
+  const offlineTitle = protocolContent.status === "ready" ? t("offlineReady") : t("protocolUnavailableTitle");
+  const offlineBody = protocolContent.status === "ready"
+    ? `${t("offlineBody")} ${protocolContent.packageVersion}`
+    : protocolContent.status === "loading"
+      ? t("protocolLoadingBody")
+      : t(protocolStatusMessageKey(protocolContent.status));
 
   return (
     <AppScreen testID="more-screen">
@@ -46,10 +55,10 @@ export function MoreScreen({ onPrivacy, onAppInfo }: MoreScreenProps) {
       <View style={styles.section}>
         <Text accessibilityRole="header" style={[styles.sectionTitle, { color: colors.text }]}>{t("offlineContent")}</Text>
         <View style={[styles.statusCard, { borderBottomColor: colors.border }]}>
-          <View style={[styles.statusDot, { backgroundColor: colors.textMuted }]} />
+          <View style={[styles.statusDot, { backgroundColor: protocolContent.status === "ready" ? colors.success : colors.textMuted }]} />
           <View style={styles.statusCopy}>
-            <Text style={[styles.statusTitle, { color: colors.text }]}>{t("notInstalled")}</Text>
-            <Text style={[styles.statusBody, { color: colors.textMuted }]}>{t("offlineBody")}</Text>
+            <Text style={[styles.statusTitle, { color: colors.text }]}>{offlineTitle}</Text>
+            <Text style={[styles.statusBody, { color: colors.textMuted }]}>{offlineBody}</Text>
           </View>
         </View>
       </View>

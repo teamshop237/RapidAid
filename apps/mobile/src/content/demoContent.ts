@@ -2,14 +2,6 @@ import { Language } from "@/localization/translations";
 
 export type LocalizedDemoText = Record<Language, string>;
 
-export type DemoGuide = {
-  id: "alpha" | "bravo" | "charlie";
-  icon: "document-text-outline" | "layers-outline" | "list-outline";
-  title: LocalizedDemoText;
-  summary: LocalizedDemoText;
-  contentStatus: "demo-only";
-};
-
 export type DemoEmergencyService = {
   id: "general-demo" | "response-demo" | "rescue-demo";
   icon: "call-outline" | "medkit-outline" | "shield-outline";
@@ -26,30 +18,6 @@ export type DemoCareLocation = {
   distance: LocalizedDemoText;
   contentStatus: "demo-only";
 };
-
-export const demoGuides: readonly DemoGuide[] = [
-  {
-    id: "alpha",
-    icon: "document-text-outline",
-    title: { en: "Demo guide Alpha", fr: "Guide de démonstration Alpha" },
-    summary: { en: "Placeholder category for layout testing", fr: "Catégorie fictive pour tester la mise en page" },
-    contentStatus: "demo-only",
-  },
-  {
-    id: "bravo",
-    icon: "layers-outline",
-    title: { en: "Demo guide Bravo", fr: "Guide de démonstration Bravo" },
-    summary: { en: "Placeholder category for navigation testing", fr: "Catégorie fictive pour tester la navigation" },
-    contentStatus: "demo-only",
-  },
-  {
-    id: "charlie",
-    icon: "list-outline",
-    title: { en: "Demo guide Charlie", fr: "Guide de démonstration Charlie" },
-    summary: { en: "Placeholder category for readability testing", fr: "Catégorie fictive pour tester la lisibilité" },
-    contentStatus: "demo-only",
-  },
-];
 
 export const demoEmergencyServices: readonly DemoEmergencyService[] = [
   {
@@ -104,8 +72,4 @@ export const demoCareLocations: readonly DemoCareLocation[] = [
 
 export function localizeDemoText(text: LocalizedDemoText, language: Language): string {
   return text[language];
-}
-
-export function findDemoGuide(id: string): DemoGuide | undefined {
-  return demoGuides.find((guide) => guide.id === id);
 }

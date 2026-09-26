@@ -1,7 +1,9 @@
 import { PropsWithChildren, createContext, useContext, useMemo, useState } from "react";
 import { SafeAreaProvider, initialWindowMetrics } from "react-native-safe-area-context";
+import type { OfflineProtocolRepository } from "@rapidaid/protocol-engine";
 
 import { Language, TranslationKey, translate } from "@/localization/translations";
+import { ProtocolContentProvider } from "@/providers/ProtocolContentProvider";
 import { AppColors, darkColors, lightColors } from "@/theme/tokens";
 
 type AppSettings = {
@@ -15,7 +17,11 @@ type AppSettings = {
 
 const AppSettingsContext = createContext<AppSettings | null>(null);
 
-export function AppProviders({ children }: PropsWithChildren) {
+type AppProvidersProps = PropsWithChildren<{
+  protocolRepository?: OfflineProtocolRepository;
+}>;
+
+export function AppProviders({ children, protocolRepository }: AppProvidersProps) {
   const [language, setLanguage] = useState<Language>("en");
   const [isDarkMode, setDarkMode] = useState(false);
 
@@ -31,7 +37,9 @@ export function AppProviders({ children }: PropsWithChildren) {
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <AppSettingsContext.Provider value={value}>
-        {children}
+        <ProtocolContentProvider repository={protocolRepository}>
+          {children}
+        </ProtocolContentProvider>
       </AppSettingsContext.Provider>
     </SafeAreaProvider>
   );

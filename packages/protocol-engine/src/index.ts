@@ -1,4 +1,4 @@
-export { ValidatedOfflineProtocolRepository } from "./repository.js";
+export { ValidatedOfflineProtocolRepository } from "./repository";
 export type {
   OfflinePackageFailure,
   OfflinePackageFailureStatus,
@@ -7,6 +7,6 @@ export type {
   OfflineProtocolPackageStore,
   OfflineProtocolRepository,
   OfflineProtocolRepositoryOptions,
-} from "./repository.js";
-export type { IntegrityVerifier, SignatureVerifier } from "./integrity.js";
-export type { Protocol, ProtocolPackage } from "./schema.js";
+} from "./repository";
+export type { IntegrityVerifier, SignatureVerifier } from "./integrity";
+export type { Protocol, ProtocolPackage } from "./schema";

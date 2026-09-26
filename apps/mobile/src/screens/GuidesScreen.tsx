@@ -3,9 +3,11 @@ import { StyleSheet, View } from "react-native";
 import { AppScreen } from "@/components/AppScreen";
 import { DemoNotice } from "@/components/DemoNotice";
 import { NavigationCard } from "@/components/NavigationCard";
+import { ProtocolStatusView } from "@/components/ProtocolStatusView";
 import { SectionHeading } from "@/components/SectionHeading";
-import { demoGuides, localizeDemoText } from "@/content/demoContent";
 import { useAppSettings } from "@/providers/AppProviders";
+import { useProtocolContent } from "@/providers/ProtocolContentProvider";
+import { localizePresentationText } from "@/protocols/presentation";
 import { spacing } from "@/theme/tokens";
 
 type GuidesScreenProps = {
@@ -14,6 +16,7 @@ type GuidesScreenProps = {
 
 export function GuidesScreen({ onOpenGuide }: GuidesScreenProps) {
   const { colors, language, t } = useAppSettings();
+  const protocolContent = useProtocolContent();
 
   return (
     <AppScreen testID="guides-screen">
@@ -21,19 +24,21 @@ export function GuidesScreen({ onOpenGuide }: GuidesScreenProps) {
       <View style={styles.notice}>
         <DemoNotice message={t("guidesNotice")} />
       </View>
-      <View style={[styles.list, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-        {demoGuides.map((guide) => (
-          <NavigationCard
-            accessibilityHint={t("openGuide")}
-            badge={t("demoOnly")}
-            body={localizeDemoText(guide.summary, language)}
-            icon={guide.icon}
-            key={guide.id}
-            onPress={() => onOpenGuide(guide.id)}
-            title={localizeDemoText(guide.title, language)}
-          />
-        ))}
-      </View>
+      {protocolContent.status === "ready" ? (
+        <View style={[styles.list, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+          {protocolContent.guides.map((guide) => (
+            <NavigationCard
+              accessibilityHint={t("openGuide")}
+              badge={t("verifiedSynthetic")}
+              body={localizePresentationText(guide.summary, language)}
+              icon="document-text-outline"
+              key={guide.id}
+              onPress={() => onOpenGuide(guide.id)}
+              title={localizePresentationText(guide.title, language)}
+            />
+          ))}
+        </View>
+      ) : <ProtocolStatusView status={protocolContent.status} />}
     </AppScreen>
   );
 }
