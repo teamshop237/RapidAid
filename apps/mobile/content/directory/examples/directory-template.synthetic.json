@@ -9,6 +9,7 @@
         "en": "SYNTHETIC emergency service — NOT REAL",
         "fr": "Service d’urgence SYNTHÉTIQUE — NON RÉEL"
       },
+      "officialServiceName": "SYNTHETIC official service — NOT REAL",
       "category": "medical",
       "phoneNumber": null,
       "address": null,

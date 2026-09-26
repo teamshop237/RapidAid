@@ -30,6 +30,7 @@ export type EmergencyDirectoryEntry = Readonly<{
   id: string;
   dataOrigin: "production" | "synthetic-fixture";
   serviceName: LocalizedDirectoryText;
+  officialServiceName: string;
   category: EmergencyServiceCategory;
   phoneNumber: string | null;
   address: LocalizedDirectoryText | null;

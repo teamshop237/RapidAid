@@ -1,6 +1,38 @@
 {
   "schemaVersion": "1.0.0",
-  "datasetVersion": "awaiting-human-verification",
+  "datasetVersion": "2026-09-26.1",
   "region": "Douala",
-  "emergencyServices": []
+  "emergencyServices": [
+    {
+      "id": "service.cm.samu.119",
+      "serviceName": {
+        "en": "SAMU / Medical Assistance",
+        "fr": "SAMU / Aide médicale urgente"
+      },
+      "officialServiceName": "Service d'Aide Médicale Urgente (SAMU)",
+      "category": "medical",
+      "phoneNumber": "119",
+      "address": null,
+      "geographicCoverage": {
+        "en": "Cameroon",
+        "fr": "Cameroun"
+      },
+      "verification": {
+        "status": "verified",
+        "source": {
+          "label": {
+            "en": "Cameroon Ministry of Territorial Administration (MINAT)",
+            "fr": "Cameroon Ministry of Territorial Administration (MINAT)"
+          },
+          "locator": "https://minat.gov.cm/contacts-generaux/"
+        },
+        "verifiedAt": "2026-09-26T00:00:00Z",
+        "verifiedBy": {
+          "actorId": "project-owner.manual-verification",
+          "displayName": "RapidAid project owner",
+          "actorType": "human"
+        }
+      }
+    }
+  ]
 }

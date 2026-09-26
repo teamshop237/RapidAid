@@ -1,12 +1,40 @@
 import { canOpenSystemDialer } from "@/directory/catalog";
 import { syntheticDirectoryFixture } from "@/directory/fixtures/syntheticDirectory";
-import { productionDirectory } from "@/directory/productionDirectory";
+import { productionDirectory, productionDirectoryValidationErrors } from "@/directory/productionDirectory";
+import appConfig from "../app.json";
 
 describe("emergency directory release boundary", () => {
-  it("ships no production records before human verification", () => {
+  it("ships the human-approved MINAT SAMU record as the only production service", () => {
     expect(productionDirectory.isSynthetic).toBe(false);
-    expect(productionDirectory.emergencyServices).toEqual([]);
+    expect(productionDirectoryValidationErrors).toEqual([]);
+    expect(productionDirectory.emergencyServices).toHaveLength(1);
     expect(productionDirectory.careFacilities).toEqual([]);
+
+    const samu = productionDirectory.emergencyServices[0]!;
+    expect(samu).toMatchObject({
+      id: "service.cm.samu.119",
+      serviceName: {
+        en: "SAMU / Medical Assistance",
+        fr: "SAMU / Aide médicale urgente",
+      },
+      officialServiceName: "Service d'Aide Médicale Urgente (SAMU)",
+      category: "medical",
+      phoneNumber: "119",
+      geographicCoverage: { en: "Cameroon", fr: "Cameroun" },
+      verification: {
+        status: "verified",
+        verifiedAt: "2026-09-26T00:00:00Z",
+        verifiedBy: {
+          actorId: "project-owner.manual-verification",
+          displayName: "RapidAid project owner",
+          actorType: "human",
+        },
+        source: {
+          locator: "https://minat.gov.cm/contacts-generaux/",
+        },
+      },
+    });
+    expect(canOpenSystemDialer(samu)).toBe(true);
   });
 
   it("marks every development fixture as synthetic and non-callable", () => {
@@ -36,5 +64,9 @@ describe("emergency directory release boundary", () => {
       expect(facility.verification.verifiedAt).toBeNull();
       expect(facility.verification.verifiedBy).toBeNull();
     }
+  });
+
+  it("does not request Android direct-call permission for a dialer handoff", () => {
+    expect(appConfig.expo.android).not.toHaveProperty("permissions");
   });
 });

@@ -1,10 +1,11 @@
-import { syntheticDirectoryFixture } from "./fixtures/syntheticDirectory";
 import { productionDirectory } from "./productionDirectory";
 import type { DirectorySnapshot, EmergencyDirectoryEntry } from "./types";
 
 export function getBundledDirectorySnapshot(): DirectorySnapshot {
-  return __DEV__ ? syntheticDirectoryFixture : productionDirectory;
+  return productionDirectory;
 }
+
+export const MVP_SAMU_SERVICE_ID = "service.cm.samu.119";
 
 export function canOpenSystemDialer(entry: EmergencyDirectoryEntry): entry is EmergencyDirectoryEntry & { phoneNumber: string } {
   return entry.dataOrigin === "production"

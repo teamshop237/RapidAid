@@ -16,6 +16,7 @@ The synthetic example deliberately fails production validation. This prevents pl
 ## Required shape
 
 - Bilingual fields are objects with non-empty `en` and `fr` values.
+- `officialServiceName` preserves the formal service identity supplied by the authority or human reviewer.
 - Emergency categories: `medical`, `fire-rescue`, `police`.
 - Verification statuses: `unverified`, `verified`, `verification-due`.
 - `source.locator` must be a non-placeholder HTTPS link to the authoritative source used by the reviewer.

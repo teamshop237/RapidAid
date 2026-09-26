@@ -19,6 +19,32 @@ function renderWithProviders(element: React.ReactElement) {
   );
 }
 
+const nonCallableSyntheticSamuSnapshot: DirectorySnapshot = {
+  region: "Douala",
+  datasetVersion: "synthetic-test-only",
+  isSynthetic: true,
+  emergencyServices: [{
+    id: "service.cm.samu.119",
+    dataOrigin: "synthetic-fixture",
+    serviceName: { en: "SYNTHETIC SAMU — NOT REAL", fr: "SAMU SYNTHÉTIQUE — NON RÉEL" },
+    officialServiceName: "SYNTHETIC medical service — NOT REAL",
+    category: "medical",
+    phoneNumber: null,
+    address: null,
+    geographicCoverage: { en: "SYNTHETIC coverage — NOT REAL", fr: "Couverture SYNTHÉTIQUE — NON RÉELLE" },
+    verification: {
+      status: "synthetic-only",
+      source: {
+        label: { en: "SYNTHETIC source", fr: "Source SYNTHÉTIQUE" },
+        locator: "https://example.invalid/synthetic-samu",
+      },
+      verifiedAt: null,
+      verifiedBy: null,
+    },
+  }],
+  careFacilities: [],
+};
+
 describe("RapidAid MVP screens", () => {
   afterEach(() => {
     jest.restoreAllMocks();
@@ -26,6 +52,7 @@ describe("RapidAid MVP screens", () => {
 
   it("keeps the emergency action prominent and delegates navigation", async () => {
     const onEmergency = jest.fn();
+    const linkingSpy = jest.spyOn(Linking, "openURL").mockResolvedValue(undefined);
     const screen = await renderWithProviders(
       <HomeScreen onEmergency={onEmergency} onGuides={jest.fn()} />,
     );
@@ -33,6 +60,7 @@ describe("RapidAid MVP screens", () => {
     await fireEvent.press(screen.getByRole("button", { name: "Emergency" }));
 
     expect(onEmergency).toHaveBeenCalledTimes(1);
+    expect(linkingSpy).not.toHaveBeenCalled();
     expect(screen.getByText("You confirm every call in your phone dialer")).toBeTruthy();
   });
 
@@ -57,11 +85,12 @@ describe("RapidAid MVP screens", () => {
   });
 
   it("renders non-dialable emergency controls", async () => {
-    const screen = await renderWithProviders(<EmergencyServicesScreen onGuides={jest.fn()} />);
-    await fireEvent.press(screen.getByRole("radio", { name: "Medical assistance / SAMU" }));
+    const screen = await renderWithProviders(
+      <EmergencyServicesScreen onGuides={jest.fn()} snapshot={nonCallableSyntheticSamuSnapshot} />,
+    );
     const callControls = screen.getAllByRole("button", { name: "Calling unavailable" });
 
-    expect(screen.getAllByRole("radio")).toHaveLength(3);
+    expect(screen.queryAllByRole("radio")).toHaveLength(0);
     expect(callControls).toHaveLength(1);
     for (const control of callControls) {
       expect(control.props.accessibilityState).toEqual({ disabled: true });
@@ -72,40 +101,16 @@ describe("RapidAid MVP screens", () => {
   it("requires explicit confirmation before handing a verified contact to the system dialer", async () => {
     const alertSpy = jest.spyOn(Alert, "alert").mockImplementation(() => undefined);
     const linkingSpy = jest.spyOn(Linking, "openURL").mockResolvedValue(undefined);
-    const fixtureSnapshot: DirectorySnapshot = {
-      region: "Douala",
-      datasetVersion: "fixture-only",
-      isSynthetic: false,
-      emergencyServices: [{
-        id: "service.fixture-only.alpha",
-        dataOrigin: "production",
-        serviceName: { en: "Fixture-only emergency service", fr: "Service d’urgence de test" },
-        category: "medical",
-        phoneNumber: "+000 000 000",
-        address: null,
-        geographicCoverage: { en: "Fixture-only area", fr: "Zone de test" },
-        verification: {
-          status: "verified",
-          source: {
-            label: { en: "Fixture-only source", fr: "Source de test" },
-            locator: "https://authoritative-source.fixture/directory",
-          },
-          verifiedAt: "2026-09-26T12:00:00Z",
-          verifiedBy: { actorId: "human.fixture", displayName: "Fixture Human Reviewer", actorType: "human" },
-        },
-      }],
-      careFacilities: [],
-    };
     const screen = await renderWithProviders(
-      <EmergencyServicesScreen onGuides={jest.fn()} snapshot={fixtureSnapshot} />,
+      <EmergencyServicesScreen onGuides={jest.fn()} snapshot={productionDirectory} />,
     );
 
-    expect(screen.queryByRole("button", { name: "Confirm contact" })).toBeNull();
-    await fireEvent.press(screen.getByRole("radio", { name: "Medical assistance / SAMU" }));
+    expect(screen.getByText("SAMU / Medical Assistance")).toBeTruthy();
+    expect(screen.getByText("119")).toBeTruthy();
     await fireEvent.press(screen.getByRole("button", { name: "Confirm contact" }));
 
     expect(alertSpy).toHaveBeenCalledWith(
-      "Confirm emergency contact",
+      "Confirm SAMU 119",
       expect.stringContaining("This does not mean the call connected or responders were dispatched."),
       expect.any(Array),
     );
@@ -114,18 +119,32 @@ describe("RapidAid MVP screens", () => {
     const confirmationButtons = alertSpy.mock.calls[0]?.[2] ?? [];
     confirmationButtons.find((button) => button.text === "Open phone dialer")?.onPress?.();
 
-    expect(linkingSpy).toHaveBeenCalledWith("tel:+000000000");
+    expect(linkingSpy).toHaveBeenCalledWith("tel:119");
   });
 
-  it("fails gracefully when verified directory data has not been supplied", async () => {
+  it("shows the approved SAMU contact and confirmation in French", async () => {
     const screen = await renderWithProviders(
       <>
+        <OnboardingScreen onContinue={jest.fn()} />
         <EmergencyServicesScreen onGuides={jest.fn()} snapshot={productionDirectory} />
-        <NearbyScreen snapshot={productionDirectory} />
       </>,
     );
 
-    await fireEvent.press(screen.getByRole("radio", { name: "Medical assistance / SAMU" }));
+    await fireEvent.press(screen.getByRole("radio", { name: "Français" }));
+
+    expect(screen.getByText("SAMU / Aide médicale urgente")).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Confirmer le contact" })).toBeTruthy();
+  });
+
+  it("fails gracefully when verified directory data has not been supplied", async () => {
+    const emptySnapshot: DirectorySnapshot = { ...productionDirectory, emergencyServices: [] };
+    const screen = await renderWithProviders(
+      <>
+        <EmergencyServicesScreen onGuides={jest.fn()} snapshot={emptySnapshot} />
+        <NearbyScreen snapshot={emptySnapshot} />
+      </>,
+    );
+
     expect(screen.getByTestId("emergency-directory-empty")).toBeTruthy();
     expect(screen.getByTestId("nearby-directory-empty")).toBeTruthy();
     expect(screen.queryByRole("button", { name: "Confirm contact" })).toBeNull();

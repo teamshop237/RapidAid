@@ -11,6 +11,7 @@ function createVerifiedFixtureDocument(): Record<string, unknown> {
       {
         id: "service.fixture-only.alpha",
         serviceName: { en: "Fixture-only emergency service Alpha", fr: "Service d’urgence de test Alpha" },
+        officialServiceName: "Fixture-only official emergency service Alpha",
         category: "medical",
         phoneNumber: "+000 000 000",
         address: { en: "Fixture-only service point", fr: "Point de service de test" },

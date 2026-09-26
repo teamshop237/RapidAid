@@ -7,7 +7,7 @@ import type {
 } from "./types";
 
 const DOCUMENT_KEYS = ["schemaVersion", "datasetVersion", "region", "emergencyServices"] as const;
-const EMERGENCY_KEYS = ["id", "serviceName", "category", "phoneNumber", "address", "geographicCoverage", "verification"] as const;
+const EMERGENCY_KEYS = ["id", "serviceName", "officialServiceName", "category", "phoneNumber", "address", "geographicCoverage", "verification"] as const;
 const VERIFICATION_KEYS = ["status", "source", "verifiedAt", "verifiedBy"] as const;
 const SOURCE_KEYS = ["label", "locator"] as const;
 const VERIFIER_KEYS = ["actorId", "displayName", "actorType"] as const;
@@ -160,6 +160,7 @@ function readEmergencyService(value: unknown, index: number, errors: string[]): 
   if (!record) return null;
   const id = readString(record.id, `${path}.id`, errors);
   const serviceName = readLocalizedText(record.serviceName, `${path}.serviceName`, errors);
+  const officialServiceName = readString(record.officialServiceName, `${path}.officialServiceName`, errors);
   const geographicCoverage = readLocalizedText(record.geographicCoverage, `${path}.geographicCoverage`, errors);
   const phoneNumber = readNullablePhone(record.phoneNumber, `${path}.phoneNumber`, errors);
   const address = readNullableLocalizedText(record.address, `${path}.address`, errors);
@@ -175,16 +176,18 @@ function readEmergencyService(value: unknown, index: number, errors: string[]): 
   }
   if (id) validateProductionText(id, `${path}.id`, errors);
   if (serviceName) validateLocalizedProductionText(serviceName, `${path}.serviceName`, errors);
+  if (officialServiceName) validateProductionText(officialServiceName, `${path}.officialServiceName`, errors);
   if (geographicCoverage) validateLocalizedProductionText(geographicCoverage, `${path}.geographicCoverage`, errors);
   if (address) validateLocalizedProductionText(address, `${path}.address`, errors);
 
-  if (!id || !STABLE_ID.test(id) || !serviceName || !geographicCoverage || !verification
+  if (!id || !STABLE_ID.test(id) || !serviceName || !officialServiceName || !geographicCoverage || !verification
     || typeof category !== "string" || !EMERGENCY_CATEGORIES.has(category as EmergencyServiceCategory)) return null;
 
   return {
     id,
     dataOrigin: "production",
     serviceName,
+    officialServiceName,
     category: category as EmergencyServiceCategory,
     phoneNumber,
     address,
