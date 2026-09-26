@@ -10,6 +10,8 @@ describe("mobile-safe public API", () => {
     expect(exportedNames).not.toContain("InMemoryOfflineProtocolPackageStore");
     expect(exportedNames).not.toContain("protocolSchema");
     expect(exportedNames).not.toContain("validateProtocolForProduction");
-    expect(exportedNames.some((name) => /approve|publish|sign/i.test(name))).toBe(false);
+    expect(exportedNames).toContain("TrustedEd25519SignatureVerifier");
+    expect(exportedNames.some((name) => /approve|publish/i.test(name))).toBe(false);
+    expect(exportedNames).not.toEqual(expect.arrayContaining(["sign", "signAsync", "keygen", "keygenAsync"]));
   });
 });

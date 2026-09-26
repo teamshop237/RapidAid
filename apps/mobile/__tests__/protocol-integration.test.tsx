@@ -10,8 +10,8 @@ import { GuideDetailScreen } from "@/screens/GuideDetailScreen";
 import { GuidesScreen } from "@/screens/GuidesScreen";
 import {
   cloneBundledSyntheticPackage,
-  createSyntheticDemoProtocolRepository,
-} from "@/protocols/mobileProtocolRepository";
+  createSyntheticTestProtocolRepository,
+} from "../test-support/testProtocolRepository";
 
 const syntheticTitle = "Synthetic guide Alpha — not medical guidance";
 const syntheticStep = "SYNTHETIC CONTENT SLOT ALPHA — DO NOT TAKE ACTION.";
@@ -26,7 +26,7 @@ function rejectedRepository(status: OfflinePackageFailureStatus): OfflineProtoco
 
 describe("mobile offline protocol integration", () => {
   it("loads a bundled package through every validation gate before presentation", async () => {
-    const repository = createSyntheticDemoProtocolRepository();
+    const repository = createSyntheticTestProtocolRepository();
     await expect(repository.loadPackage()).resolves.toMatchObject({ status: "ready" });
 
     const screen = await render(
@@ -43,7 +43,7 @@ describe("mobile offline protocol integration", () => {
 
   it("preserves French localization for repository-supplied content", async () => {
     const screen = await render(
-      <AppProviders>
+      <AppProviders protocolRepository={createSyntheticTestProtocolRepository()}>
         <LanguageSelector />
         <GuidesScreen onOpenGuide={jest.fn()} />
       </AppProviders>,
@@ -58,7 +58,7 @@ describe("mobile offline protocol integration", () => {
   it("rejects a tampered bundled package without exposing its protocol", async () => {
     const tampered = cloneBundledSyntheticPackage();
     tampered.protocols[0]!.summary.en = "TAMPERED CONTENT MUST NEVER BE DISPLAYED";
-    const repository = createSyntheticDemoProtocolRepository(tampered);
+    const repository = createSyntheticTestProtocolRepository(tampered);
 
     await expect(repository.loadPackage()).resolves.toMatchObject({ status: "integrity-failed" });
 
@@ -75,7 +75,7 @@ describe("mobile offline protocol integration", () => {
   it("rejects an unsigned bundled package without exposing its protocol", async () => {
     const unsigned = cloneBundledSyntheticPackage();
     delete unsigned.manifest.signature;
-    const repository = createSyntheticDemoProtocolRepository(unsigned);
+    const repository = createSyntheticTestProtocolRepository(unsigned);
 
     await expect(repository.loadPackage()).resolves.toMatchObject({ status: "signature-invalid" });
 
@@ -89,7 +89,7 @@ describe("mobile offline protocol integration", () => {
   });
 
   it("hides previously ready content immediately when the repository changes", async () => {
-    const readyRepository = createSyntheticDemoProtocolRepository();
+    const readyRepository = createSyntheticTestProtocolRepository();
     const screen = await render(
       <AppProviders protocolRepository={readyRepository}>
         <GuidesScreen onOpenGuide={jest.fn()} />

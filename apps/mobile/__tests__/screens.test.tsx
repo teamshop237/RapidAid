@@ -5,9 +5,14 @@ import { EmergencyServicesScreen } from "@/screens/EmergencyServicesScreen";
 import { GuideDetailScreen } from "@/screens/GuideDetailScreen";
 import { HomeScreen } from "@/screens/HomeScreen";
 import { OnboardingScreen } from "@/screens/OnboardingScreen";
+import { createSyntheticTestProtocolRepository } from "../test-support/testProtocolRepository";
 
 function renderWithProviders(element: React.ReactElement) {
-  return render(<AppProviders>{element}</AppProviders>);
+  return render(
+    <AppProviders protocolRepository={createSyntheticTestProtocolRepository()}>
+      {element}
+    </AppProviders>,
+  );
 }
 
 describe("prototype screens", () => {

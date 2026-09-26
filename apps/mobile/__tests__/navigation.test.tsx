@@ -4,6 +4,7 @@ import { router } from "expo-router";
 import HomeRoute from "../app/(tabs)/index";
 import OnboardingRoute from "../app/index";
 import { AppProviders } from "@/providers/AppProviders";
+import { createSyntheticTestProtocolRepository } from "../test-support/testProtocolRepository";
 
 jest.mock("expo-router", () => ({
   router: {
@@ -16,7 +17,11 @@ const mockPush = router.push as jest.Mock;
 const mockReplace = router.replace as jest.Mock;
 
 function renderRoute(element: React.ReactElement) {
-  return render(<AppProviders>{element}</AppProviders>);
+  return render(
+    <AppProviders protocolRepository={createSyntheticTestProtocolRepository()}>
+      {element}
+    </AppProviders>,
+  );
 }
 
 describe("route adapters", () => {

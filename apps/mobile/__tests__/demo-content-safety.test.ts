@@ -2,7 +2,7 @@ import {
   demoCareLocations,
   demoEmergencyServices,
 } from "@/content/demoContent";
-import { cloneBundledSyntheticPackage } from "@/protocols/mobileProtocolRepository";
+import { bundledSyntheticPackage } from "@/protocols/bundledSyntheticPackage";
 
 describe("demo content safety boundary", () => {
   it("marks every prototype record as demo-only", () => {
@@ -22,7 +22,7 @@ describe("demo content safety boundary", () => {
   });
 
   it("uses unmistakably synthetic packaged protocol content", () => {
-    const serialized = JSON.stringify(cloneBundledSyntheticPackage()).toUpperCase();
+    const serialized = JSON.stringify(bundledSyntheticPackage).toUpperCase();
 
     expect(serialized).toContain("SYNTHETIC");
     expect(serialized).toContain("NOT MEDICAL GUIDANCE");

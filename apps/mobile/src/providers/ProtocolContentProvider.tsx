@@ -1,7 +1,7 @@
 import type { OfflinePackageFailureStatus, OfflineProtocolRepository } from "@rapidaid/protocol-engine";
 import { PropsWithChildren, createContext, useContext, useEffect, useState } from "react";
 
-import { createSyntheticDemoProtocolRepository } from "@/protocols/mobileProtocolRepository";
+import { createTrustedMobileProtocolRepository } from "@/protocols/mobileProtocolRepository";
 import { PresentationGuide, toPresentationGuide } from "@/protocols/presentation";
 
 export type ProtocolContentFailureStatus = OfflinePackageFailureStatus | "not-found";
@@ -16,7 +16,7 @@ type ProtocolContentProviderProps = PropsWithChildren<{
 }>;
 
 const ProtocolContentContext = createContext<ProtocolContentState | null>(null);
-const defaultRepository = createSyntheticDemoProtocolRepository();
+const defaultRepository = createTrustedMobileProtocolRepository();
 const loadingState: ProtocolContentState = { status: "loading", guides: [] };
 
 export function ProtocolContentProvider({ children, repository = defaultRepository }: ProtocolContentProviderProps) {
