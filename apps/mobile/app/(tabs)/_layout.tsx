@@ -9,7 +9,6 @@ type IconName = ComponentProps<typeof Ionicons>["name"];
 const tabIcons: Record<string, { active: IconName; inactive: IconName }> = {
   index: { active: "home", inactive: "home-outline" },
   guides: { active: "book", inactive: "book-outline" },
-  nearby: { active: "navigate", inactive: "navigate-outline" },
   more: { active: "ellipsis-horizontal-circle", inactive: "ellipsis-horizontal-circle-outline" },
 };
 
@@ -46,10 +45,6 @@ export default function TabLayout() {
       <Tabs.Screen
         name="guides"
         options={{ tabBarAccessibilityLabel: t("navGuides"), tabBarLabel: t("navGuides"), title: t("navGuides") }}
-      />
-      <Tabs.Screen
-        name="nearby"
-        options={{ tabBarAccessibilityLabel: t("navNearby"), tabBarLabel: t("navNearby"), title: t("navNearby") }}
       />
       <Tabs.Screen
         name="more"

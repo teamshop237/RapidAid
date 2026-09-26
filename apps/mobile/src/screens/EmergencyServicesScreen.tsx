@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
-import { ComponentProps } from "react";
-import { Linking, StyleSheet, Text, View } from "react-native";
+import { ComponentProps, useState } from "react";
+import { Alert, Linking, Pressable, StyleSheet, Text, View } from "react-native";
 
 import { AppScreen } from "@/components/AppScreen";
 import { EmptyState } from "@/components/EmptyState";
@@ -17,15 +17,15 @@ const categoryLabels: Record<EmergencyServiceCategory, TranslationKey> = {
   medical: "emergencyCategoryMedical",
   "fire-rescue": "emergencyCategoryFireRescue",
   police: "emergencyCategoryPolice",
-  general: "emergencyCategoryGeneral",
 };
 
 const categoryIcons: Record<EmergencyServiceCategory, ComponentProps<typeof Ionicons>["name"]> = {
   medical: "medkit-outline",
   "fire-rescue": "flame-outline",
   police: "shield-outline",
-  general: "call-outline",
 };
+
+const emergencyCategories: readonly EmergencyServiceCategory[] = ["medical", "fire-rescue", "police"];
 
 const verificationLabels: Record<DirectoryVerificationStatus, TranslationKey> = {
   verified: "verificationVerified",
@@ -35,16 +35,28 @@ const verificationLabels: Record<DirectoryVerificationStatus, TranslationKey> = 
 };
 
 type EmergencyServicesScreenProps = {
+  onGuides: () => void;
   snapshot?: DirectorySnapshot;
 };
 
-export function EmergencyServicesScreen({ snapshot = getBundledDirectorySnapshot() }: EmergencyServicesScreenProps) {
+export function EmergencyServicesScreen({ onGuides, snapshot = getBundledDirectorySnapshot() }: EmergencyServicesScreenProps) {
   const { colors, language, t } = useAppSettings();
+  const [selectedCategory, setSelectedCategory] = useState<EmergencyServiceCategory | null>(null);
+  const selectedServices = selectedCategory
+    ? snapshot.emergencyServices.filter((service) => service.category === selectedCategory)
+    : [];
 
-  function openDialer(entry: DirectorySnapshot["emergencyServices"][number]): void {
+  function confirmDialerHandoff(entry: DirectorySnapshot["emergencyServices"][number]): void {
     if (!canOpenSystemDialer(entry)) return;
     const dialableNumber = entry.phoneNumber.replace(/[ -]/g, "");
-    void Linking.openURL(`tel:${dialableNumber}`);
+    Alert.alert(
+      t("confirmEmergencyContact"),
+      `${entry.serviceName[language]}\n${entry.phoneNumber}\n\n${t("dialerHandoffBody")}`,
+      [
+        { text: t("cancel"), style: "cancel" },
+        { text: t("callService"), style: "destructive", onPress: () => { void Linking.openURL(`tel:${dialableNumber}`); } },
+      ],
+    );
   }
 
   return (
@@ -57,16 +69,48 @@ export function EmergencyServicesScreen({ snapshot = getBundledDirectorySnapshot
 
       {snapshot.isSynthetic ? <View style={styles.fixture}><FixtureNotice /></View> : null}
 
-      {snapshot.emergencyServices.length === 0 ? (
+      <View style={styles.categorySection}>
+        <Text accessibilityRole="header" style={[styles.categoryHeading, { color: colors.text }]}>{t("chooseEmergencyService")}</Text>
+        <Text style={[styles.categoryHint, { color: colors.textMuted }]}>{t("chooseEmergencyServiceHint")}</Text>
+        <View accessibilityRole="radiogroup" style={styles.categoryList}>
+          {emergencyCategories.map((category) => {
+            const selected = category === selectedCategory;
+            return (
+              <Pressable
+                accessibilityLabel={t(categoryLabels[category])}
+                accessibilityRole="radio"
+                accessibilityState={{ checked: selected }}
+                key={category}
+                onPress={() => setSelectedCategory(category)}
+                style={({ pressed }) => [
+                  styles.categoryOption,
+                  {
+                    backgroundColor: selected ? colors.emergencySoft : colors.surface,
+                    borderColor: selected ? colors.emergency : colors.border,
+                    opacity: pressed ? 0.82 : 1,
+                  },
+                ]}
+              >
+                <Ionicons accessible={false} color={selected ? colors.emergencyForeground : colors.textMuted} name={categoryIcons[category]} size={23} />
+                <Text style={[styles.categoryOptionLabel, { color: selected ? colors.emergencyForeground : colors.text }]}>
+                  {t(categoryLabels[category])}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </View>
+      </View>
+
+      {selectedCategory === null ? null : selectedServices.length === 0 ? (
         <EmptyState
-          body={t("directoryEmptyBody")}
+          body={snapshot.emergencyServices.length === 0 ? t("directoryEmptyBody") : t("categoryUnavailableBody")}
           icon="call-outline"
           testID="emergency-directory-empty"
-          title={t("directoryEmptyTitle")}
+          title={snapshot.emergencyServices.length === 0 ? t("directoryEmptyTitle") : t("categoryUnavailableTitle")}
         />
       ) : (
         <View style={styles.list}>
-          {snapshot.emergencyServices.map((service) => {
+          {selectedServices.map((service) => {
             const callable = canOpenSystemDialer(service);
             return (
               <View key={service.id} style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}>
@@ -98,8 +142,8 @@ export function EmergencyServicesScreen({ snapshot = getBundledDirectorySnapshot
                   accessibilityHint={callable ? t("emergencySafety") : t("callDisabledHint")}
                   disabled={!callable}
                   icon="call"
-                  label={callable ? t("callService") : t("callUnavailable")}
-                  onPress={() => openDialer(service)}
+                  label={callable ? t("confirmContactAction") : t("callUnavailable")}
+                  onPress={() => confirmDialerHandoff(service)}
                   variant="emergency"
                 />
               </View>
@@ -107,6 +151,11 @@ export function EmergencyServicesScreen({ snapshot = getBundledDirectorySnapshot
           })}
         </View>
       )}
+
+      <View style={[styles.guidance, { borderTopColor: colors.border }]}>
+        <Text style={[styles.guidanceText, { color: colors.textMuted }]}>{t("guidanceWhileSeekingHelp")}</Text>
+        <PrimaryButton icon="book-outline" label={t("openFirstAidGuides")} onPress={onGuides} />
+      </View>
     </AppScreen>
   );
 }
@@ -115,6 +164,20 @@ const styles = StyleSheet.create({
   offlineNote: { flexDirection: "row", alignItems: "flex-start", gap: spacing.sm, marginTop: spacing.md },
   offlineText: { flex: 1, fontSize: typography.caption, lineHeight: 18 },
   fixture: { marginTop: spacing.md },
+  categorySection: { gap: spacing.sm, marginTop: spacing.md },
+  categoryHeading: { fontSize: typography.label, lineHeight: 20, fontWeight: "800" },
+  categoryHint: { fontSize: typography.caption, lineHeight: 18 },
+  categoryList: { gap: spacing.sm },
+  categoryOption: {
+    minHeight: 52,
+    borderWidth: 1,
+    borderRadius: radius.sm,
+    paddingHorizontal: spacing.md,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.sm,
+  },
+  categoryOptionLabel: { flex: 1, fontSize: typography.label, lineHeight: 20, fontWeight: "700" },
   list: { gap: 12, marginTop: spacing.md },
   card: { borderWidth: StyleSheet.hairlineWidth, borderRadius: radius.md, padding: 14, gap: 12 },
   cardHeader: { flexDirection: "row", alignItems: "center", gap: spacing.md },
@@ -126,4 +189,6 @@ const styles = StyleSheet.create({
   metadata: { borderTopWidth: StyleSheet.hairlineWidth, paddingTop: spacing.sm, gap: 4 },
   metaLine: { fontSize: typography.caption, lineHeight: 18 },
   metaLabel: { fontWeight: "800" },
+  guidance: { borderTopWidth: StyleSheet.hairlineWidth, marginTop: spacing.lg, paddingTop: spacing.md, gap: spacing.sm },
+  guidanceText: { fontSize: typography.caption, lineHeight: 18 },
 });

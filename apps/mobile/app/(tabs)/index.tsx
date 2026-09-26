@@ -7,7 +7,6 @@ export default function HomeRoute() {
     <HomeScreen
       onEmergency={() => router.push("/emergency-services")}
       onGuides={() => router.push("/guides")}
-      onNearby={() => router.push("/nearby")}
     />
   );
 }

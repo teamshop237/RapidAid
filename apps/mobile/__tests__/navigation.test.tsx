@@ -2,6 +2,7 @@ import { fireEvent, render } from "@testing-library/react-native";
 import { router } from "expo-router";
 
 import HomeRoute from "../app/(tabs)/index";
+import EmergencyServicesRoute from "../app/emergency-services";
 import OnboardingRoute from "../app/index";
 import { AppProviders } from "@/providers/AppProviders";
 import { createSyntheticTestProtocolRepository } from "../test-support/testProtocolRepository";
@@ -46,13 +47,20 @@ describe("route adapters", () => {
     expect(mockPush).toHaveBeenCalledWith("/emergency-services");
   });
 
-  it("opens guides and nearby from home", async () => {
+  it("opens guides from home without exposing nearby care", async () => {
     const screen = await renderRoute(<HomeRoute />);
 
     await fireEvent.press(screen.getByRole("button", { name: "First-aid guides" }));
-    await fireEvent.press(screen.getByRole("button", { name: "Nearby emergency care" }));
 
-    expect(mockPush).toHaveBeenNthCalledWith(1, "/guides");
-    expect(mockPush).toHaveBeenNthCalledWith(2, "/nearby");
+    expect(mockPush).toHaveBeenCalledWith("/guides");
+    expect(screen.queryByRole("button", { name: "Nearby emergency care" })).toBeNull();
+  });
+
+  it("keeps offline first-aid guides reachable from the emergency flow", async () => {
+    const screen = await renderRoute(<EmergencyServicesRoute />);
+
+    await fireEvent.press(screen.getByRole("button", { name: "Open first-aid guides" }));
+
+    expect(mockPush).toHaveBeenCalledWith("/guides");
   });
 });

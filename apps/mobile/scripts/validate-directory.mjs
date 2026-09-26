@@ -24,8 +24,8 @@ if (document !== undefined) {
     process.exitCode = 1;
   } else {
     console.log(
-      `Directory valid: ${result.snapshot.emergencyServices.length} emergency service(s), `
-      + `${result.snapshot.careFacilities.length} care facility/facilities; dataset ${result.snapshot.datasetVersion}.`,
+      `Directory valid: ${result.snapshot.emergencyServices.length} official emergency service(s); `
+      + `dataset ${result.snapshot.datasetVersion}.`,
     );
   }
 }

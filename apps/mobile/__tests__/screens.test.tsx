@@ -1,4 +1,5 @@
 import { fireEvent, render } from "@testing-library/react-native";
+import { Alert, Linking } from "react-native";
 
 import { AppProviders } from "@/providers/AppProviders";
 import { productionDirectory } from "@/directory/productionDirectory";
@@ -19,10 +20,14 @@ function renderWithProviders(element: React.ReactElement) {
 }
 
 describe("RapidAid MVP screens", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it("keeps the emergency action prominent and delegates navigation", async () => {
     const onEmergency = jest.fn();
     const screen = await renderWithProviders(
-      <HomeScreen onEmergency={onEmergency} onGuides={jest.fn()} onNearby={jest.fn()} />,
+      <HomeScreen onEmergency={onEmergency} onGuides={jest.fn()} />,
     );
 
     await fireEvent.press(screen.getByRole("button", { name: "Emergency" }));
@@ -52,17 +57,21 @@ describe("RapidAid MVP screens", () => {
   });
 
   it("renders non-dialable emergency controls", async () => {
-    const screen = await renderWithProviders(<EmergencyServicesScreen />);
+    const screen = await renderWithProviders(<EmergencyServicesScreen onGuides={jest.fn()} />);
+    await fireEvent.press(screen.getByRole("radio", { name: "Medical assistance / SAMU" }));
     const callControls = screen.getAllByRole("button", { name: "Calling unavailable" });
 
-    expect(callControls).toHaveLength(2);
+    expect(screen.getAllByRole("radio")).toHaveLength(3);
+    expect(callControls).toHaveLength(1);
     for (const control of callControls) {
       expect(control.props.accessibilityState).toEqual({ disabled: true });
     }
-    expect(screen.getAllByText("Number awaiting verification")).toHaveLength(2);
+    expect(screen.getByText("Number awaiting verification")).toBeTruthy();
   });
 
-  it("enables the manual dialer action only for a human-verified production record", async () => {
+  it("requires explicit confirmation before handing a verified contact to the system dialer", async () => {
+    const alertSpy = jest.spyOn(Alert, "alert").mockImplementation(() => undefined);
+    const linkingSpy = jest.spyOn(Linking, "openURL").mockResolvedValue(undefined);
     const fixtureSnapshot: DirectorySnapshot = {
       region: "Douala",
       datasetVersion: "fixture-only",
@@ -87,21 +96,38 @@ describe("RapidAid MVP screens", () => {
       }],
       careFacilities: [],
     };
-    const screen = await renderWithProviders(<EmergencyServicesScreen snapshot={fixtureSnapshot} />);
+    const screen = await renderWithProviders(
+      <EmergencyServicesScreen onGuides={jest.fn()} snapshot={fixtureSnapshot} />,
+    );
 
-    expect(screen.getByRole("button", { name: "Open phone dialer" }).props.accessibilityState).toEqual({ disabled: false });
+    expect(screen.queryByRole("button", { name: "Confirm contact" })).toBeNull();
+    await fireEvent.press(screen.getByRole("radio", { name: "Medical assistance / SAMU" }));
+    await fireEvent.press(screen.getByRole("button", { name: "Confirm contact" }));
+
+    expect(alertSpy).toHaveBeenCalledWith(
+      "Confirm emergency contact",
+      expect.stringContaining("This does not mean the call connected or responders were dispatched."),
+      expect.any(Array),
+    );
+    expect(linkingSpy).not.toHaveBeenCalled();
+
+    const confirmationButtons = alertSpy.mock.calls[0]?.[2] ?? [];
+    confirmationButtons.find((button) => button.text === "Open phone dialer")?.onPress?.();
+
+    expect(linkingSpy).toHaveBeenCalledWith("tel:+000000000");
   });
 
   it("fails gracefully when verified directory data has not been supplied", async () => {
     const screen = await renderWithProviders(
       <>
-        <EmergencyServicesScreen snapshot={productionDirectory} />
+        <EmergencyServicesScreen onGuides={jest.fn()} snapshot={productionDirectory} />
         <NearbyScreen snapshot={productionDirectory} />
       </>,
     );
 
+    await fireEvent.press(screen.getByRole("radio", { name: "Medical assistance / SAMU" }));
     expect(screen.getByTestId("emergency-directory-empty")).toBeTruthy();
     expect(screen.getByTestId("nearby-directory-empty")).toBeTruthy();
-    expect(screen.queryByRole("button", { name: "Open phone dialer" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Confirm contact" })).toBeNull();
   });
 });

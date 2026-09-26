@@ -2,6 +2,5 @@
   "schemaVersion": "1.0.0",
   "datasetVersion": "awaiting-human-verification",
   "region": "Douala",
-  "emergencyServices": [],
-  "careFacilities": []
+  "emergencyServices": []
 }

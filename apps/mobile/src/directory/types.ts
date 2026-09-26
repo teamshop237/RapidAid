@@ -24,7 +24,7 @@ export type VerificationMetadata = Readonly<{
   status: DirectoryVerificationStatus;
 }>;
 
-export type EmergencyServiceCategory = "medical" | "fire-rescue" | "police" | "general";
+export type EmergencyServiceCategory = "medical" | "fire-rescue" | "police";
 
 export type EmergencyDirectoryEntry = Readonly<{
   id: string;

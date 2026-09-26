@@ -26,25 +26,6 @@ function createVerifiedFixtureDocument(): Record<string, unknown> {
         },
       },
     ],
-    careFacilities: [
-      {
-        id: "facility.fixture-only.alpha",
-        facilityName: { en: "Fixture-only Hospital Alpha", fr: "Hôpital de test Alpha" },
-        category: "hospital",
-        phoneNumber: null,
-        address: { en: "Fixture-only facility address", fr: "Adresse d’établissement de test" },
-        geographicCoverage: { en: "Fixture-only coverage", fr: "Zone de couverture de test" },
-        verification: {
-          status: "verified",
-          source: {
-            label: { en: "Fixture-only authoritative source", fr: "Source officielle de test" },
-            locator: "https://authoritative-source.fixture/facility",
-          },
-          verifiedAt: "2026-09-26T12:00:00Z",
-          verifiedBy: { actorId: "human.fixture.reviewer", displayName: "Fixture Human Reviewer", actorType: "human" },
-        },
-      },
-    ],
   };
 }
 
@@ -102,12 +83,22 @@ describe("Douala production directory validation", () => {
 
   it("rejects duplicate stable IDs", () => {
     const document = createVerifiedFixtureDocument();
-    const service = (document.emergencyServices as Record<string, unknown>[])[0]!;
-    const facility = (document.careFacilities as Record<string, unknown>[])[0]!;
-    facility.id = service.id;
+    const services = document.emergencyServices as Record<string, unknown>[];
+    services.push({ ...services[0] });
 
     const errors = errorsFor(document);
     expect(errors.some((error) => error.includes("duplicate ID"))).toBe(true);
+  });
+
+  it("rejects categories and facility collections outside the v0.1 scope", () => {
+    const document = createVerifiedFixtureDocument();
+    const service = (document.emergencyServices as Record<string, unknown>[])[0]!;
+    service.category = "general";
+    document.careFacilities = [];
+
+    const errors = errorsFor(document);
+    expect(errors.some((error) => error.includes("careFacilities is not an allowed field"))).toBe(true);
+    expect(errors.some((error) => error.includes("not a supported emergency-service category"))).toBe(true);
   });
 
   it("accepts sourced candidates as unverified but never makes them callable", () => {

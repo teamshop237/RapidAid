@@ -15,10 +15,9 @@ import { radius, spacing, typography } from "@/theme/tokens";
 type HomeScreenProps = {
   onEmergency: () => void;
   onGuides: () => void;
-  onNearby: () => void;
 };
 
-export function HomeScreen({ onEmergency, onGuides, onNearby }: HomeScreenProps) {
+export function HomeScreen({ onEmergency, onGuides }: HomeScreenProps) {
   const { colors, t } = useAppSettings();
   const protocolContent = useProtocolContent();
   const offlineTitle = protocolContent.status === "ready" ? t("offlineReady") : t("protocolUnavailableTitle");
@@ -67,12 +66,6 @@ export function HomeScreen({ onEmergency, onGuides, onNearby }: HomeScreenProps)
             icon="book-outline"
             onPress={onGuides}
             title={t("guidesCardTitle")}
-          />
-          <NavigationCard
-            body={t("nearbyCardBody")}
-            icon="navigate-outline"
-            onPress={onNearby}
-            title={t("nearbyCardTitle")}
           />
         </View>
       </View>

@@ -40,6 +40,16 @@ export const syntheticDirectoryFixture: DirectorySnapshot = {
       geographicCoverage: { en: "Synthetic Douala test zone", fr: "Zone de test synthétique de Douala" },
       verification: syntheticVerification,
     },
+    {
+      id: "service.synthetic.police.charlie",
+      dataOrigin: "synthetic-fixture",
+      serviceName: { en: "Synthetic police emergency service", fr: "Service synthétique d’urgence de la police" },
+      category: "police",
+      phoneNumber: null,
+      address: null,
+      geographicCoverage: { en: "Synthetic Douala test zone", fr: "Zone de test synthétique de Douala" },
+      verification: syntheticVerification,
+    },
   ],
   careFacilities: [
     {

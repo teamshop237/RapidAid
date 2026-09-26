@@ -1,5 +1,4 @@
 import type {
-  CareFacilityCategory,
   DirectorySnapshot,
   EmergencyServiceCategory,
   HumanDirectoryVerifier,
@@ -7,15 +6,13 @@ import type {
   VerificationMetadata,
 } from "./types";
 
-const DOCUMENT_KEYS = ["schemaVersion", "datasetVersion", "region", "emergencyServices", "careFacilities"] as const;
+const DOCUMENT_KEYS = ["schemaVersion", "datasetVersion", "region", "emergencyServices"] as const;
 const EMERGENCY_KEYS = ["id", "serviceName", "category", "phoneNumber", "address", "geographicCoverage", "verification"] as const;
-const FACILITY_KEYS = ["id", "facilityName", "category", "phoneNumber", "address", "geographicCoverage", "verification"] as const;
 const VERIFICATION_KEYS = ["status", "source", "verifiedAt", "verifiedBy"] as const;
 const SOURCE_KEYS = ["label", "locator"] as const;
 const VERIFIER_KEYS = ["actorId", "displayName", "actorType"] as const;
 const LOCALIZED_KEYS = ["en", "fr"] as const;
-const EMERGENCY_CATEGORIES = new Set<EmergencyServiceCategory>(["medical", "fire-rescue", "police", "general"]);
-const FACILITY_CATEGORIES = new Set<CareFacilityCategory>(["hospital", "clinic"]);
+const EMERGENCY_CATEGORIES = new Set<EmergencyServiceCategory>(["medical", "fire-rescue", "police"]);
 const PRODUCTION_STATUSES = new Set(["verified", "verification-due", "unverified"] as const);
 const STABLE_ID = /^[a-z0-9]+(?:[.-][a-z0-9]+)*$/;
 const PHONE_NUMBER = /^\+?[0-9][0-9 -]{2,}$/;
@@ -196,45 +193,6 @@ function readEmergencyService(value: unknown, index: number, errors: string[]): 
   };
 }
 
-function readCareFacility(value: unknown, index: number, errors: string[]): DirectorySnapshot["careFacilities"][number] | null {
-  const path = `careFacilities[${index}]`;
-  const record = readRecord(value, path, FACILITY_KEYS, errors);
-  if (!record) return null;
-  const id = readString(record.id, `${path}.id`, errors);
-  const facilityName = readLocalizedText(record.facilityName, `${path}.facilityName`, errors);
-  const geographicCoverage = readLocalizedText(record.geographicCoverage, `${path}.geographicCoverage`, errors);
-  const phoneNumber = readNullablePhone(record.phoneNumber, `${path}.phoneNumber`, errors);
-  const address = readNullableLocalizedText(record.address, `${path}.address`, errors);
-  const verification = readVerification(record.verification, `${path}.verification`, errors);
-  const category = record.category;
-
-  if (id && !STABLE_ID.test(id)) errors.push(`${path}.id must be a stable lowercase dot-or-hyphen separated ID.`);
-  if (typeof category !== "string" || !FACILITY_CATEGORIES.has(category as CareFacilityCategory)) {
-    errors.push(`${path}.category is not a supported care-facility category.`);
-  }
-  if (verification?.status === "verified" && address === null) {
-    errors.push(`${path}.address is required before a care facility can be verified.`);
-  }
-  if (id) validateProductionText(id, `${path}.id`, errors);
-  if (facilityName) validateLocalizedProductionText(facilityName, `${path}.facilityName`, errors);
-  if (geographicCoverage) validateLocalizedProductionText(geographicCoverage, `${path}.geographicCoverage`, errors);
-  if (address) validateLocalizedProductionText(address, `${path}.address`, errors);
-
-  if (!id || !STABLE_ID.test(id) || !facilityName || !geographicCoverage || !verification
-    || typeof category !== "string" || !FACILITY_CATEGORIES.has(category as CareFacilityCategory)) return null;
-
-  return {
-    id,
-    dataOrigin: "production",
-    facilityName,
-    category: category as CareFacilityCategory,
-    phoneNumber,
-    address,
-    geographicCoverage,
-    verification,
-  };
-}
-
 export function validateProductionDirectoryDocument(value: unknown): DirectoryValidationResult {
   const errors: string[] = [];
   const document = readRecord(value, "directory", DOCUMENT_KEYS, errors);
@@ -246,7 +204,6 @@ export function validateProductionDirectoryDocument(value: unknown): DirectoryVa
   if (datasetVersion) validateProductionText(datasetVersion, "directory.datasetVersion", errors);
 
   const emergencyServices: DirectorySnapshot["emergencyServices"][number][] = [];
-  const careFacilities: DirectorySnapshot["careFacilities"][number][] = [];
   if (!Array.isArray(document.emergencyServices)) {
     errors.push("directory.emergencyServices must be an array.");
   } else {
@@ -255,17 +212,9 @@ export function validateProductionDirectoryDocument(value: unknown): DirectoryVa
       if (parsed) emergencyServices.push(parsed);
     });
   }
-  if (!Array.isArray(document.careFacilities)) {
-    errors.push("directory.careFacilities must be an array.");
-  } else {
-    document.careFacilities.forEach((entry, index) => {
-      const parsed = readCareFacility(entry, index, errors);
-      if (parsed) careFacilities.push(parsed);
-    });
-  }
 
   const seenIds = new Set<string>();
-  for (const entry of [...emergencyServices, ...careFacilities]) {
+  for (const entry of emergencyServices) {
     if (seenIds.has(entry.id)) errors.push(`directory contains duplicate ID "${entry.id}".`);
     seenIds.add(entry.id);
   }
@@ -278,7 +227,7 @@ export function validateProductionDirectoryDocument(value: unknown): DirectoryVa
       datasetVersion,
       isSynthetic: false,
       emergencyServices,
-      careFacilities,
+      careFacilities: [],
     },
   };
 }
