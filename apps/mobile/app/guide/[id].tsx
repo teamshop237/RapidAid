@@ -17,7 +17,7 @@ export default function GuideRoute() {
   return (
     <>
       <Stack.Screen options={{ title }} />
-      <GuideDetailScreen guideId={id} onEmergency={() => router.push("/emergency-services")} />
+      <GuideDetailScreen guideId={id} onComplete={() => router.back()} />
     </>
   );
 }

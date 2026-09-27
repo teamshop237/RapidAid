@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Alert, Linking, StyleSheet, Text, View } from "react-native";
+import { Linking, StyleSheet, Text, View } from "react-native";
 
 import { AppScreen } from "@/components/AppScreen";
 import { EmptyState } from "@/components/EmptyState";
@@ -29,17 +29,10 @@ export function EmergencyServicesScreen({ onGuides, snapshot = getBundledDirecto
   const service = snapshot.emergencyServices.find((entry) => entry.id === MVP_SAMU_SERVICE_ID);
   const callable = service ? canOpenSystemDialer(service) : false;
 
-  function confirmDialerHandoff(entry: DirectorySnapshot["emergencyServices"][number]): void {
+  function openDialer(entry: DirectorySnapshot["emergencyServices"][number]): void {
     if (!canOpenSystemDialer(entry)) return;
     const dialableNumber = entry.phoneNumber.replace(/[ -]/g, "");
-    Alert.alert(
-      t("confirmEmergencyContact"),
-      `${entry.serviceName[language]}\n${entry.phoneNumber}\n\n${t("dialerHandoffBody")}`,
-      [
-        { text: t("cancel"), style: "cancel" },
-        { text: t("callService"), style: "destructive", onPress: () => { void Linking.openURL(`tel:${dialableNumber}`); } },
-      ],
-    );
+    void Linking.openURL(`tel:${dialableNumber}`);
   }
 
   return (
@@ -88,8 +81,8 @@ export function EmergencyServicesScreen({ onGuides, snapshot = getBundledDirecto
             accessibilityHint={callable ? t("emergencySafety") : t("callDisabledHint")}
             disabled={!callable}
             icon="call"
-            label={callable ? t("confirmContactAction") : t("callUnavailable")}
-            onPress={() => confirmDialerHandoff(service)}
+            label={callable ? t("callService") : t("callUnavailable")}
+            onPress={() => openDialer(service)}
             variant="emergency"
           />
         </View>

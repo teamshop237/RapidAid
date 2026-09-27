@@ -69,6 +69,7 @@ describe("RapidAid MVP screens", () => {
     expect(onEmergency).toHaveBeenCalledTimes(1);
     expect(linkingSpy).not.toHaveBeenCalled();
     expect(screen.getByText("You confirm every call in your phone dialer")).toBeTruthy();
+    expect(screen.queryByText(/Content package/)).toBeNull();
   });
 
   it("changes the onboarding language without network or account setup", async () => {
@@ -85,9 +86,9 @@ describe("RapidAid MVP screens", () => {
       <GuideDetailScreen guideId="protocol.synthetic.mobile.alpha" />,
     );
 
-    expect(await screen.findByText("Verified offline pipeline demonstration only")).toBeTruthy();
+    expect(await screen.findByText("Synthetic guide Alpha — not medical guidance")).toBeTruthy();
     expect(screen.getByText("SYNTHETIC CONTENT SLOT ALPHA — DO NOT TAKE ACTION.")).toBeTruthy();
-    expect(screen.getByText("Validated for offline use")).toBeTruthy();
+    expect(screen.getByText("Step 1 of 1")).toBeTruthy();
     expect(screen.getByText(/synthetic development data/i)).toBeTruthy();
   });
 
@@ -105,7 +106,7 @@ describe("RapidAid MVP screens", () => {
     expect(screen.getByText("Number awaiting verification")).toBeTruthy();
   });
 
-  it("requires explicit confirmation before handing a verified contact to the system dialer", async () => {
+  it("uses the emergency screen itself as confirmation before opening the system dialer", async () => {
     const alertSpy = jest.spyOn(Alert, "alert").mockImplementation(() => undefined);
     const linkingSpy = jest.spyOn(Linking, "openURL").mockResolvedValue(undefined);
     const screen = await renderWithProviders(
@@ -114,18 +115,9 @@ describe("RapidAid MVP screens", () => {
 
     expect(screen.getByText("SAMU / Medical Assistance")).toBeTruthy();
     expect(screen.getByText("119")).toBeTruthy();
-    await fireEvent.press(screen.getByRole("button", { name: "Confirm contact" }));
+    await fireEvent.press(screen.getByRole("button", { name: "Open phone dialer" }));
 
-    expect(alertSpy).toHaveBeenCalledWith(
-      "Confirm SAMU 119",
-      expect.stringContaining("This does not mean the call connected or responders were dispatched."),
-      expect.any(Array),
-    );
-    expect(linkingSpy).not.toHaveBeenCalled();
-
-    const confirmationButtons = alertSpy.mock.calls[0]?.[2] ?? [];
-    confirmationButtons.find((button) => button.text === "Open phone dialer")?.onPress?.();
-
+    expect(alertSpy).not.toHaveBeenCalled();
     expect(linkingSpy).toHaveBeenCalledWith("tel:119");
   });
 
@@ -140,7 +132,7 @@ describe("RapidAid MVP screens", () => {
     await fireEvent.press(screen.getByRole("radio", { name: "Français" }));
 
     expect(screen.getByText("SAMU / Aide médicale urgente")).toBeTruthy();
-    expect(screen.getByRole("button", { name: "Confirmer le contact" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Ouvrir le composeur" })).toBeTruthy();
   });
 
   it("fails gracefully when verified directory data has not been supplied", async () => {
@@ -154,6 +146,6 @@ describe("RapidAid MVP screens", () => {
 
     expect(screen.getByTestId("emergency-directory-empty")).toBeTruthy();
     expect(screen.getByTestId("nearby-directory-empty")).toBeTruthy();
-    expect(screen.queryByRole("button", { name: "Confirm contact" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Open phone dialer" })).toBeNull();
   });
 });

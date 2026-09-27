@@ -1,26 +1,47 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { useState } from "react";
+import { Alert, Linking, Pressable, StyleSheet, Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { AppScreen } from "@/components/AppScreen";
 import { DevelopmentPreviewNotice } from "@/components/DevelopmentPreviewNotice";
 import { FixtureNotice } from "@/components/FixtureNotice";
+import { GuideSourcesModal } from "@/components/GuideSourcesModal";
 import { PrimaryButton } from "@/components/PrimaryButton";
+import { ProcedureStepCard } from "@/components/ProcedureStepCard";
 import { ProtocolStatusView } from "@/components/ProtocolStatusView";
+import { canOpenSystemDialer, getBundledDirectorySnapshot, MVP_SAMU_SERVICE_ID } from "@/directory/catalog";
+import type { DirectorySnapshot } from "@/directory/types";
 import { useAppSettings } from "@/providers/AppProviders";
 import { useProtocolContent } from "@/providers/ProtocolContentProvider";
 import { localizePresentationText } from "@/protocols/presentation";
-import { radius, spacing, typography } from "@/theme/tokens";
+import { minimumTouchTarget, radius, spacing, typography } from "@/theme/tokens";
 
 type GuideDetailScreenProps = {
   guideId: string;
-  onEmergency?: () => void;
+  onComplete?: () => void;
+  snapshot?: DirectorySnapshot;
 };
 
-export function GuideDetailScreen({ guideId, onEmergency }: GuideDetailScreenProps) {
+export function GuideDetailScreen({
+  guideId,
+  onComplete,
+  snapshot = getBundledDirectorySnapshot(),
+}: GuideDetailScreenProps) {
   const { colors, language, t } = useAppSettings();
+  const insets = useSafeAreaInsets();
   const protocolContent = useProtocolContent();
+  const [stepIndex, setStepIndex] = useState(0);
+  const [sourcesVisible, setSourcesVisible] = useState(false);
   const guide = protocolContent.status === "ready"
     ? protocolContent.guides.find((candidate) => candidate.id === guideId)
     : undefined;
+  const steps = guide?.sections.flatMap((section) => section.steps.map((step) => ({
+    ...step,
+    sectionHeading: section.heading,
+  }))) ?? [];
+  const currentIndex = Math.min(stepIndex, Math.max(steps.length - 1, 0));
+  const currentStep = steps[currentIndex];
   const title = guide ? localizePresentationText(guide.title, language) : t("guidesTitle");
   const unavailableStatus = protocolContent.status === "ready" ? "not-found" : protocolContent.status;
   const isDevelopmentPreview = protocolContent.status === "ready"
@@ -28,94 +49,123 @@ export function GuideDetailScreen({ guideId, onEmergency }: GuideDetailScreenPro
   const visibleSources = guide?.sources.filter((source) => (
     source.organization !== "ODERSA" || source.language === language
   )) ?? [];
+  const samu = snapshot.emergencyServices.find((entry) => entry.id === MVP_SAMU_SERVICE_ID);
+  const canContactSamu = guide?.emergencyServiceId === MVP_SAMU_SERVICE_ID
+    && samu !== undefined
+    && canOpenSystemDialer(samu);
 
-  return (
-    <AppScreen includeTopInset={false} testID="guide-detail-screen">
-      <Text accessibilityRole="header" style={[styles.title, { color: colors.text }]}>{title}</Text>
-      {!guide ? <ProtocolStatusView status={unavailableStatus} /> : (
-        <>
-      <Text style={[styles.summary, { color: colors.textMuted }]}>{localizePresentationText(guide.summary, language)}</Text>
-      {isDevelopmentPreview ? <View style={styles.notice}><DevelopmentPreviewNotice /></View> : null}
-      {guide.id.includes(".synthetic.") ? <View style={styles.notice}><FixtureNotice /></View> : null}
+  function confirmSamuDialerHandoff(): void {
+    if (!samu || !canContactSamu || !canOpenSystemDialer(samu)) return;
+    const dialableNumber = samu.phoneNumber.replace(/[ -]/g, "");
+    Alert.alert(
+      t("confirmEmergencyContact"),
+      `${samu.serviceName[language]}\n${samu.phoneNumber}\n\n${t("dialerHandoffBody")}`,
+      [
+        { text: t("cancel"), style: "cancel" },
+        { text: t("callService"), style: "destructive", onPress: () => { void Linking.openURL(`tel:${dialableNumber}`); } },
+      ],
+    );
+  }
 
-      <View style={[styles.statusCard, { borderBottomColor: colors.border }]}>
-        <Text style={[styles.statusLabel, { color: colors.textMuted }]}>{t("guideStatus")}</Text>
-        <Text style={[styles.statusValue, { color: isDevelopmentPreview ? colors.primary : colors.success }]}>
-          {t(isDevelopmentPreview ? "guidePreviewStatusValue" : "guideStatusValue")}
-        </Text>
-      </View>
+  const footer = guide && currentStep ? (
+    <View style={[
+      styles.footer,
+      { backgroundColor: colors.background, borderTopColor: colors.border, paddingBottom: Math.max(insets.bottom, spacing.md) },
+    ]}>
+      {guide.emergencyServiceId === MVP_SAMU_SERVICE_ID ? (
+        <Pressable
+          accessibilityLabel={t("contactSamu")}
+          accessibilityHint={canContactSamu ? t("openSamuConfirmationHint") : t("callDisabledHint")}
+          accessibilityRole="button"
+          accessibilityState={{ disabled: !canContactSamu }}
+          disabled={!canContactSamu}
+          onPress={confirmSamuDialerHandoff}
+          style={({ pressed }) => [
+            styles.samuAction,
+            { borderColor: colors.emergency, backgroundColor: pressed ? colors.emergencySoft : colors.background },
+            !canContactSamu && styles.disabled,
+          ]}
+        >
+          <Ionicons accessible={false} color={canContactSamu ? colors.emergencyForeground : colors.textMuted} name="call" size={20} />
+          <Text style={[styles.samuLabel, { color: canContactSamu ? colors.emergencyForeground : colors.textMuted }]}>
+            {canContactSamu ? t("contactSamu") : t("callUnavailable")}
+          </Text>
+        </Pressable>
+      ) : null}
 
-      {guide.emergencyServiceId === "service.cm.samu.119" && onEmergency ? (
-        <View style={styles.emergencyAction}>
+      <View style={styles.navigation}>
+        <Pressable
+          accessibilityLabel={t("back")}
+          accessibilityRole="button"
+          accessibilityState={{ disabled: currentIndex === 0 }}
+          disabled={currentIndex === 0}
+          onPress={() => setStepIndex((value) => Math.max(0, value - 1))}
+          style={({ pressed }) => [
+            styles.backButton,
+            { borderColor: colors.border, backgroundColor: pressed ? colors.surfaceRaised : colors.surface },
+            currentIndex === 0 && styles.disabled,
+          ]}
+        >
+          <Ionicons accessible={false} color={colors.text} name="arrow-back" size={20} />
+          <Text style={[styles.backLabel, { color: colors.text }]}>{t("back")}</Text>
+        </Pressable>
+        <View style={styles.nextButton}>
           <PrimaryButton
-            accessibilityHint={t("openSamuConfirmationHint")}
-            icon="call-outline"
-            label={t("openSamuConfirmation")}
-            onPress={onEmergency}
-            variant="emergency"
+            icon={currentIndex === steps.length - 1 ? "checkmark" : "arrow-forward"}
+            label={t(currentIndex === steps.length - 1 ? "finish" : "next")}
+            onPress={() => {
+              if (currentIndex === steps.length - 1) onComplete?.();
+              else setStepIndex((value) => Math.min(steps.length - 1, value + 1));
+            }}
           />
         </View>
-      ) : null}
+      </View>
+    </View>
+  ) : undefined;
 
-      <View style={[styles.steps, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-        {guide.sections.map((section) => (
-          <View key={section.id}>
-            <Text accessibilityRole="header" style={[styles.sectionTitle, { color: colors.text }]}>
-              {localizePresentationText(section.heading, language)}
-            </Text>
-            {section.steps.map((step, index) => (
-              <View key={step.id} style={[styles.step, { borderBottomColor: colors.border }]}>
-                <View accessible={false} style={[styles.stepNumber, { backgroundColor: colors.primarySoft }]}>
-                  <Text style={[styles.stepNumberText, { color: colors.primary }]}>{index + 1}</Text>
-                </View>
-                <View style={styles.stepCopy}>
-                  <Text
-                    accessibilityLabel={step.accessibilityLabel
-                      ? localizePresentationText(step.accessibilityLabel, language)
-                      : undefined}
-                    style={[styles.stepBody, { color: colors.text }]}
-                  >
-                    {localizePresentationText(step.text, language)}
-                  </Text>
-                </View>
-              </View>
-            ))}
-          </View>
-        ))}
+  return (
+    <AppScreen
+      contentContainerStyle={styles.content}
+      footer={footer}
+      includeTopInset={false}
+      testID="guide-detail-screen"
+    >
+      <View style={styles.headingRow}>
+        <Text accessibilityRole="header" style={[styles.title, { color: colors.text }]}>{title}</Text>
+        {guide ? (
+          <Pressable
+            accessibilityLabel={t("sourcesShort")}
+            accessibilityRole="button"
+            onPress={() => setSourcesVisible(true)}
+            style={({ pressed }) => [styles.sourcesButton, { backgroundColor: pressed ? colors.surfaceRaised : colors.surface }]}
+          >
+            <Ionicons accessible={false} color={colors.primary} name="information-circle-outline" size={19} />
+            <Text style={[styles.sourcesButtonLabel, { color: colors.primary }]}>{t("sourcesShort")}</Text>
+          </Pressable>
+        ) : null}
       </View>
 
-      {visibleSources.length > 0 ? (
-        <View style={[styles.sources, { borderTopColor: colors.border }]}>
-          <Text accessibilityRole="header" style={[styles.sourcesTitle, { color: colors.text }]}>{t("sourcesTitle")}</Text>
-          {visibleSources.map((source) => (
-            <View key={source.id} style={styles.source}>
-              <Text style={[styles.sourceTitle, { color: colors.text }]}>{source.title}</Text>
-              <Text style={[styles.sourceMeta, { color: colors.textMuted }]}>{source.organization}</Text>
-              <Text style={[styles.sourceUrl, { color: colors.primary }]}>{source.locator}</Text>
-              {source.verifiedAt ? (
-                <Text style={[styles.sourceMeta, { color: colors.textMuted }]}>
-                  {t("sourceVerified")}: {source.verifiedAt.slice(0, 10)}
-                </Text>
-              ) : null}
-              {source.attribution ? <Text style={[styles.sourceMeta, { color: colors.textMuted }]}>{source.attribution}</Text> : null}
-              {source.adaptation ? (
-                <Text style={[styles.sourceMeta, { color: colors.textMuted }]}>
-                  {localizePresentationText(source.adaptation, language)}
-                </Text>
-              ) : null}
-              {source.endorsementDisclaimer ? (
-                <Text style={[styles.sourceMeta, { color: colors.textMuted }]}>
-                  {localizePresentationText(source.endorsementDisclaimer, language)}
-                </Text>
-              ) : null}
-            </View>
-          ))}
-        </View>
-      ) : null}
-
-      <Text style={[styles.versionNote, { color: colors.textMuted, borderColor: colors.border }]}>
-        {t("contentVersion")}: {guide.contentVersion}
-      </Text>
+      {!guide || !currentStep ? <ProtocolStatusView status={unavailableStatus} /> : (
+        <>
+          {isDevelopmentPreview ? <DevelopmentPreviewNotice /> : null}
+          {guide.id.includes(".synthetic.") ? <FixtureNotice /> : null}
+          <ProcedureStepCard
+            accessibilityLabel={currentStep.accessibilityLabel
+              ? localizePresentationText(currentStep.accessibilityLabel, language)
+              : undefined}
+            key={currentStep.id}
+            sectionTitle={localizePresentationText(currentStep.sectionHeading, language)}
+            stepNumber={currentIndex + 1}
+            text={localizePresentationText(currentStep.text, language)}
+            totalSteps={steps.length}
+          />
+          <GuideSourcesModal
+            contentVersion={guide.contentVersion}
+            language={language}
+            onClose={() => setSourcesVisible(false)}
+            sources={visibleSources}
+            visible={sourcesVisible}
+          />
         </>
       )}
     </AppScreen>
@@ -123,92 +173,61 @@ export function GuideDetailScreen({ guideId, onEmergency }: GuideDetailScreenPro
 }
 
 const styles = StyleSheet.create({
+  content: { paddingBottom: spacing.lg },
+  headingRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+    gap: spacing.sm,
+    marginBottom: spacing.sm,
+  },
   title: {
+    flex: 1,
     fontSize: typography.title,
     lineHeight: 31,
     fontWeight: "800",
     letterSpacing: -0.5,
   },
-  notice: {
-    marginTop: 12,
-  },
-  summary: {
-    marginTop: spacing.sm,
-    fontSize: typography.label,
-    lineHeight: 22,
-  },
-  statusCard: {
-    marginTop: 12,
-    paddingVertical: 12,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    gap: 2,
-  },
-  emergencyAction: { marginTop: 12 },
-  statusLabel: {
-    fontSize: typography.caption,
-    fontWeight: "800",
-    letterSpacing: 0.8,
-    textTransform: "uppercase",
-  },
-  statusValue: {
-    fontSize: typography.label,
-    lineHeight: 20,
-    fontWeight: "700",
-  },
-  steps: {
-    marginTop: 12,
-    borderWidth: 1,
-    borderRadius: radius.md,
-    paddingHorizontal: 12,
-    overflow: "hidden",
-  },
-  step: {
+  sourcesButton: {
+    minHeight: minimumTouchTarget,
     flexDirection: "row",
-    alignItems: "flex-start",
-    gap: 12,
-    paddingVertical: 12,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  sectionTitle: {
-    paddingTop: 12,
-    fontSize: typography.label,
-    fontWeight: "700",
-  },
-  stepNumber: {
-    width: 30,
-    height: 30,
+    alignItems: "center",
+    gap: spacing.xs,
     borderRadius: radius.sm,
+    paddingHorizontal: spacing.sm,
+  },
+  sourcesButtonLabel: { fontSize: typography.caption, lineHeight: 18, fontWeight: "800" },
+  footer: {
+    borderTopWidth: StyleSheet.hairlineWidth,
+    paddingHorizontal: 20,
+    paddingTop: spacing.sm,
+    paddingBottom: spacing.md,
+    gap: spacing.sm,
+  },
+  samuAction: {
+    minHeight: minimumTouchTarget,
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    gap: spacing.sm,
+    borderWidth: 1,
+    borderRadius: radius.md,
+    paddingHorizontal: spacing.md,
   },
-  stepNumberText: {
-    fontSize: typography.label,
-    fontWeight: "800",
+  samuLabel: { fontSize: typography.body, lineHeight: 22, fontWeight: "800" },
+  navigation: { flexDirection: "row", gap: spacing.sm },
+  backButton: {
+    minWidth: 108,
+    minHeight: minimumTouchTarget,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: spacing.sm,
+    borderWidth: 1,
+    borderRadius: radius.md,
+    paddingHorizontal: spacing.md,
   },
-  stepCopy: {
-    flex: 1,
-    gap: 2,
-  },
-  stepBody: {
-    fontSize: typography.label,
-    lineHeight: 20,
-  },
-  versionNote: {
-    marginTop: 16,
-    borderTopWidth: 1,
-    paddingTop: spacing.md,
-    fontSize: typography.caption,
-    lineHeight: 18,
-  },
-  sources: {
-    marginTop: spacing.lg,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    paddingTop: spacing.md,
-    gap: spacing.md,
-  },
-  sourcesTitle: { fontSize: typography.heading, fontWeight: "800" },
-  source: { gap: 3 },
-  sourceTitle: { fontSize: typography.label, lineHeight: 20, fontWeight: "700" },
-  sourceMeta: { fontSize: typography.caption, lineHeight: 18 },
-  sourceUrl: { fontSize: typography.caption, lineHeight: 18 },
+  backLabel: { fontSize: typography.body, lineHeight: 22, fontWeight: "700" },
+  nextButton: { flex: 1 },
+  disabled: { opacity: 0.45 },
 });

@@ -3,13 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { AppScreen } from "@/components/AppScreen";
 import { BrandMark } from "@/components/BrandMark";
-import { InfoRow } from "@/components/InfoRow";
-import { NavigationCard } from "@/components/NavigationCard";
 import { PrimaryButton } from "@/components/PrimaryButton";
-import { SectionHeading } from "@/components/SectionHeading";
 import { useAppSettings } from "@/providers/AppProviders";
-import { useProtocolContent } from "@/providers/ProtocolContentProvider";
-import { protocolStatusMessageKey } from "@/components/ProtocolStatusView";
 import { radius, spacing, typography } from "@/theme/tokens";
 
 type HomeScreenProps = {
@@ -19,13 +14,6 @@ type HomeScreenProps = {
 
 export function HomeScreen({ onEmergency, onGuides }: HomeScreenProps) {
   const { colors, t } = useAppSettings();
-  const protocolContent = useProtocolContent();
-  const offlineTitle = protocolContent.status === "ready" ? t("offlineReady") : t("protocolUnavailableTitle");
-  const offlineBody = protocolContent.status === "ready"
-    ? `${t("offlineBody")} ${protocolContent.packageVersion}`
-    : protocolContent.status === "loading"
-      ? t("protocolLoadingBody")
-      : t(protocolStatusMessageKey(protocolContent.status));
 
   return (
     <AppScreen testID="home-screen">
@@ -36,6 +24,19 @@ export function HomeScreen({ onEmergency, onGuides }: HomeScreenProps) {
       <View style={styles.intro}>
         <Text accessibilityRole="header" style={[styles.title, { color: colors.text }]}>{t("homeGreeting")}</Text>
         <Text style={[styles.introBody, { color: colors.textMuted }]}>{t("homeIntro")}</Text>
+      </View>
+
+      <View style={[styles.guidesCard, { backgroundColor: colors.surface, borderColor: colors.border, borderLeftColor: colors.primary }]}>
+        <View style={styles.guidesTop}>
+          <View accessible={false} style={[styles.guidesIcon, { backgroundColor: colors.primarySoft }]}>
+            <Ionicons color={colors.primary} name="book-outline" size={25} />
+          </View>
+          <View style={styles.guidesCopy}>
+            <Text style={[styles.guidesTitle, { color: colors.text }]}>{t("guidesCardTitle")}</Text>
+            <Text style={[styles.guidesBody, { color: colors.textMuted }]}>{t("guidesCardBody")}</Text>
+          </View>
+        </View>
+        <PrimaryButton icon="arrow-forward" label={t("guidesCardTitle")} onPress={onGuides} />
       </View>
 
       <View
@@ -56,22 +57,6 @@ export function HomeScreen({ onEmergency, onGuides }: HomeScreenProps) {
           <Text style={[styles.safetyText, { color: colors.emergencyForeground }]}>{t("emergencySafety")}</Text>
         </View>
         <PrimaryButton label={t("emergencyAction")} onPress={onEmergency} variant="emergency" />
-      </View>
-
-      <View style={styles.section}>
-        <SectionHeading title={t("quickAccess")} />
-        <View style={[styles.actionList, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-          <NavigationCard
-            body={t("guidesCardBody")}
-            icon="book-outline"
-            onPress={onGuides}
-            title={t("guidesCardTitle")}
-          />
-        </View>
-      </View>
-
-      <View style={styles.offlineStatus}>
-        <InfoRow body={offlineBody} icon="cloud-offline-outline" title={offlineTitle} />
       </View>
     </AppScreen>
   );
@@ -99,6 +84,25 @@ const styles = StyleSheet.create({
     fontSize: typography.label,
     lineHeight: 21,
   },
+  guidesCard: {
+    borderWidth: 1,
+    borderLeftWidth: 4,
+    borderRadius: radius.md,
+    padding: 14,
+    gap: 12,
+    marginBottom: spacing.md,
+  },
+  guidesTop: { flexDirection: "row", alignItems: "center", gap: spacing.md },
+  guidesIcon: {
+    width: 44,
+    height: 44,
+    borderRadius: radius.sm,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  guidesCopy: { flex: 1, gap: 2 },
+  guidesTitle: { fontSize: 21, lineHeight: 27, fontWeight: "800" },
+  guidesBody: { fontSize: typography.caption, lineHeight: 18 },
   emergencyCard: {
     borderWidth: 1,
     borderLeftWidth: 4,
@@ -142,18 +146,5 @@ const styles = StyleSheet.create({
     fontSize: typography.caption,
     lineHeight: 18,
     fontWeight: "700",
-  },
-  section: {
-    gap: spacing.sm,
-    marginBottom: 12,
-  },
-  actionList: {
-    borderWidth: 1,
-    borderRadius: radius.md,
-    paddingHorizontal: spacing.sm,
-    overflow: "hidden",
-  },
-  offlineStatus: {
-    marginTop: spacing.xs,
   },
 });

@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, View } from "react-native";
 
 import { useAppSettings } from "@/providers/AppProviders";
-import { radius, spacing, typography } from "@/theme/tokens";
+import { spacing, typography } from "@/theme/tokens";
 
 export function DevelopmentPreviewNotice() {
   const { colors, t } = useAppSettings();
@@ -10,29 +10,25 @@ export function DevelopmentPreviewNotice() {
   return (
     <View
       accessibilityRole="summary"
-      style={[styles.notice, { backgroundColor: colors.primarySoft, borderColor: colors.primary }]}
+      style={styles.notice}
       testID="development-protocol-preview"
     >
-      <Ionicons accessible={false} color={colors.primary} name="flask-outline" size={18} />
-      <View style={styles.copy}>
-        <Text style={[styles.title, { color: colors.text }]}>{t("developmentPreview")}</Text>
-        <Text style={[styles.body, { color: colors.textMuted }]}>{t("developmentPreviewBody")}</Text>
-      </View>
+      <Ionicons accessible={false} color={colors.primary} name="flask-outline" size={15} />
+      <Text style={[styles.body, { color: colors.textMuted }]}>
+        <Text style={[styles.title, { color: colors.primary }]}>{t("developmentPreview")}</Text>
+        {` · ${t("developmentPreviewBody")}`}
+      </Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   notice: {
-    minHeight: 56,
     flexDirection: "row",
-    alignItems: "flex-start",
+    alignItems: "center",
     gap: spacing.sm,
-    borderLeftWidth: 3,
-    borderRadius: radius.sm,
-    padding: 12,
+    paddingVertical: spacing.xs,
   },
-  copy: { flex: 1, gap: 2 },
-  title: { fontSize: typography.label, fontWeight: "800" },
-  body: { fontSize: typography.caption, lineHeight: 18 },
+  title: { fontSize: typography.caption, fontWeight: "800" },
+  body: { flex: 1, fontSize: typography.caption, lineHeight: 17 },
 });
