@@ -4,6 +4,14 @@ import type { Language } from "@/localization/translations";
 
 export type LocalizedPresentationText = Record<Language, string>;
 
+export type PresentationStepVisual = Readonly<{
+  type: "storyboard-placeholder";
+  asset: string;
+  loop: boolean;
+  accessibilityLabel: LocalizedPresentationText;
+  reviewStatus: "requires-clinical-visual-review";
+}>;
+
 export type PresentationSource = {
   id: string;
   title: string;
@@ -30,6 +38,7 @@ export type PresentationGuide = {
       id: string;
       text: LocalizedPresentationText;
       accessibilityLabel?: LocalizedPresentationText;
+      visual?: PresentationStepVisual;
     }[];
   }[];
 };

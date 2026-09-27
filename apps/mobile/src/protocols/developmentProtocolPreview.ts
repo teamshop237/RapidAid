@@ -4,6 +4,7 @@ import {
 } from "@rapidaid/content-workflow/odersa";
 
 import type { DevelopmentProtocolPreview } from "@/providers/ProtocolContentProvider";
+import { getDevelopmentStepVisual } from "@/protocols/developmentStepVisualRegistry";
 import type { PresentationGuide } from "@/protocols/presentation";
 
 function toPreviewGuide(draft: OdersaImportedDraft): PresentationGuide {
@@ -31,6 +32,7 @@ function toPreviewGuide(draft: OdersaImportedDraft): PresentationGuide {
         id: step.stepId,
         text: step.text,
         accessibilityLabel: step.accessibilityLabel,
+        visual: getDevelopmentStepVisual(step.stepId),
       })),
     })),
   };

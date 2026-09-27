@@ -8,6 +8,9 @@ const forbiddenDraftMarkers = [
   "odersa-mvp-1.0.0",
   "Two questions, ten seconds",
   "Ne jamais contraindre les mouvements",
+  "odersa-choking-storyboard-03-v1",
+  "odersa-choking-storyboard-04-v1",
+  "odersa-choking-storyboard-07-v1",
 ];
 
 function filesWithin(directory) {

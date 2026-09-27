@@ -9,6 +9,7 @@ import { FixtureNotice } from "@/components/FixtureNotice";
 import { GuideSourcesModal } from "@/components/GuideSourcesModal";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { ProcedureStepCard } from "@/components/ProcedureStepCard";
+import { ProcedureStepVisual } from "@/components/ProcedureStepVisual";
 import { ProtocolStatusView } from "@/components/ProtocolStatusView";
 import { canOpenSystemDialer, getBundledDirectorySnapshot, MVP_SAMU_SERVICE_ID } from "@/directory/catalog";
 import type { DirectorySnapshot } from "@/directory/types";
@@ -158,6 +159,7 @@ export function GuideDetailScreen({
             stepNumber={currentIndex + 1}
             text={localizePresentationText(currentStep.text, language)}
             totalSteps={steps.length}
+            visual={currentStep.visual ? <ProcedureStepVisual visual={currentStep.visual} /> : undefined}
           />
           <GuideSourcesModal
             contentVersion={guide.contentVersion}
