@@ -5,11 +5,13 @@ import type { Language } from "@/localization/translations";
 export type LocalizedPresentationText = Record<Language, string>;
 
 export type PresentationStepVisual = Readonly<{
-  type: "storyboard-placeholder";
+  type: "procedural-animation";
+  animationId: string;
   asset: string;
   loop: boolean;
   accessibilityLabel: LocalizedPresentationText;
-  reviewStatus: "requires-clinical-visual-review";
+  developmentStatus: "development-preview";
+  clinicalReviewStatus: "not-reviewed";
 }>;
 
 export type PresentationSource = {
